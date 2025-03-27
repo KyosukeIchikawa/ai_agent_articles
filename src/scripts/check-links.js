@@ -10,6 +10,7 @@ const { promisify } = require('util');
 const readdir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
 const stat = promisify(fs.stat);
+const writeFile = promisify(fs.writeFile);
 
 // Next.jsの設定ファイルを読み込む
 let trailingSlashConfig = true; // デフォルト値
@@ -217,11 +218,20 @@ function isValidInternalLink(link) {
     }
   }
   
-  // 相対パスをルートパスに変換
+  // リンクの正規化処理
   let normalizedLink = link;
   
   // クエリパラメータとハッシュを削除
   normalizedLink = normalizedLink.split('?')[0].split('#')[0];
+  
+  // GitHub Pagesのベースパス
+  const basePath = '/ai_visual_arxiv';
+  
+  // ベースパス処理: GitHub Pages環境ではベースパスを考慮する
+  if (checkGitHubPages && normalizedLink.startsWith(basePath)) {
+    // ベースパスを取り除く（検証のため）
+    normalizedLink = normalizedLink.replace(basePath, '') || '/';
+  }
   
   // データファイルへのリンクなど、特定のファイルをチェック
   if (normalizedLink.includes('.') && !normalizedLink.endsWith('/')) {
@@ -240,60 +250,37 @@ function isValidInternalLink(link) {
     return false;
   }
   
-  // GitHub Pagesモードでの検証（リポジトリ名変更の問題を検出）
-  if (checkGitHubPages && basePathConfig && normalizedLink.startsWith('/')) {
-    // basePath の検証: GitHub Pages上でのリンクにリポジトリ名を含める必要がある
-    // 例: /method/ → /ai_visual_arxiv/method/
-    
-    // リンクがすでにbasePathで始まっているか確認
-    const hasBasePath = normalizedLink.startsWith(basePathConfig);
-    
-    // GitHub Pagesでデプロイする場合、内部リンクはbasePathで始まる必要がある
-    if (!hasBasePath && normalizedLink !== '/') {
-      // basePathが設定されているのに、リンクにbasePathがない
-      return false;
-    }
-    
-    // basePathを持つリンクの場合、basePathを取り除いて検証する
-    if (hasBasePath) {
-      normalizedLink = normalizedLink.substr(basePathConfig.length);
-      if (normalizedLink === '') normalizedLink = '/';
-    }
-  }
+  // 内部ページへのリンク検証
   
   // trailing slash の検証
-  // trailingSlashConfig が true の場合、ページリンクは末尾にスラッシュが必要
-  // trailingSlashConfig が false の場合、ページリンクは末尾にスラッシュが不要
   if (normalizedLink !== '/') {
     const hasTrailingSlash = normalizedLink.endsWith('/');
     if (trailingSlashConfig && !hasTrailingSlash) {
-      // trailingSlash が必要なのに、リンクに末尾のスラッシュがない
-      return false;
+      normalizedLink += '/'; // 正規化のために追加
     } else if (!trailingSlashConfig && hasTrailingSlash) {
-      // trailingSlash が不要なのに、リンクに末尾のスラッシュがある
-      return false;
+      normalizedLink = normalizedLink.slice(0, -1); // 正規化のために削除
     }
   }
   
   // 末尾のスラッシュを調整して正規化（検証のため）
   let pathForValidation = normalizedLink;
-  if (normalizedLink !== '/') {
-    if (normalizedLink.endsWith('/')) {
-      pathForValidation = normalizedLink.slice(0, -1);
-    }
+  if (pathForValidation !== '/' && pathForValidation.endsWith('/')) {
+    pathForValidation = pathForValidation.slice(0, -1);
   }
   
   // ページのルーティングパスのチェック
   if (validPagePaths.has(pathForValidation)) {
     return true;
+  } else if (validPagePaths.has(pathForValidation + '/')) {
+    return true;
   }
   
   // 動的ルーティングの場合のワイルドカードチェック
-  const linkParts = pathForValidation.split('/');
+  const linkParts = pathForValidation.split('/').filter(Boolean);
   const foundWildcardMatch = [...validPagePaths].some(validPath => {
     if (!validPath.includes('*')) return false;
     
-    const validPathParts = validPath.split('/');
+    const validPathParts = validPath.split('/').filter(Boolean);
     if (linkParts.length !== validPathParts.length) return false;
     
     return validPathParts.every((part, index) => 
@@ -351,12 +338,107 @@ async function checkLinksInFile(filePath) {
 }
 
 /**
+ * GitHub Pages用のリンク自動修正スクリプト
+ * 内部リンクに自動的にbasePathを追加します
+ */
+async function fixLinksForGitHubPages() {
+  console.log('GitHub Pages用にリンクを修正します...');
+  
+  // 対象ファイルを処理
+  for (const targetDir of targetDirs) {
+    if (fs.existsSync(targetDir)) {
+      await scanDirectoryForFix(targetDir);
+    }
+  }
+  
+  console.log('GitHub Pages用のリンク修正が完了しました');
+}
+
+/**
+ * ディレクトリを再帰的に走査してファイルのリンクを修正する
+ */
+async function scanDirectoryForFix(dir) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    
+    // スキップパスに含まれるかチェック
+    if (skipPaths.some(skipPath => fullPath.startsWith(skipPath))) {
+      continue;
+    }
+    
+    if (entry.isDirectory()) {
+      await scanDirectoryForFix(fullPath);
+    } else {
+      const ext = path.extname(entry.name);
+      if (extensions.includes(ext)) {
+        await fixLinksInFile(fullPath);
+      }
+    }
+  }
+}
+
+/**
+ * ファイル内のリンクをGitHub Pages用に修正する
+ */
+async function fixLinksInFile(filePath) {
+  try {
+    const content = await readFile(filePath, 'utf-8');
+    const relativeFilePath = path.relative(rootDir, filePath);
+    
+    // リンクを検出するパターン
+    const linkPatterns = [
+      /<Link\s+[^>]*href=["']([^"']+)["'][^>]*>/g,  // Next.jsのLinkコンポーネント
+      /<a\s+[^>]*href=["']([^"']+)["'][^>]*>/g,     // HTMLのaタグ
+      /href=["']([^"']+)["']/g,                     // href属性（単独）
+    ];
+    
+    let modifiedContent = content;
+    let hasChanges = false;
+    
+    // GitHub Pagesのベースパス
+    const basePath = '/ai_visual_arxiv';
+    
+    // 全てのリンクパターンに対して修正
+    for (const pattern of linkPatterns) {
+      pattern.lastIndex = 0; // 正規表現のインデックスをリセット
+      
+      modifiedContent = modifiedContent.replace(pattern, (match, link) => {
+        // 内部リンクのみ処理（外部リンクは無視）
+        if (link.startsWith('/') && !link.startsWith(basePath) && !link.match(/^\/api\//) && !link.match(/^\/\//)) {
+          // basePathを追加
+          const newLink = `${basePath}${link}`;
+          hasChanges = true;
+          return match.replace(`"${link}"`, `"${newLink}"`);
+        }
+        return match;
+      });
+    }
+    
+    // 変更があれば保存
+    if (hasChanges) {
+      await writeFile(filePath, modifiedContent, 'utf-8');
+      console.log(`  ${relativeFilePath}: リンクを修正しました`);
+    }
+  } catch (error) {
+    console.error(`ファイル ${filePath} の処理中にエラーが発生しました: ${error.message}`);
+  }
+}
+
+/**
  * メイン実行関数
  */
 async function main() {
   console.log('リンク検証を開始します...');
   
   try {
+    // GitHub Pages用にリンクを修正（環境変数がtrueの場合）
+    if (process.env.FIX_GITHUB_PAGES === 'true') {
+      await fixLinksForGitHubPages();
+      console.log('GitHub Pages用のリンク修正が完了しました。確認のため検証を実行します...');
+    }
+    
     // 有効なページパスを収集
     await collectValidPagePaths(pagesDir);
     console.log(`${validPagePaths.size}個の有効なページパスを検出しました`);

@@ -1,14 +1,14 @@
-# AI Agent 論文解説サイト
+# AI Visual ArXiv
 
 ## 概要
 
-このリポジトリは、AI Agent に関する重要な論文を解説するウェブサイトのソースコードです。AI分野の最新研究を理解しやすく解説し、その背景、手法、実験結果を詳細に紹介しています。現在は「Curiosity-Driven Imagination」の解説が含まれており、今後さらに多くの論文解説を追加していく予定です。
+このリポジトリは、ArXiv論文の視覚的解説を提供するウェブサイトのソースコードです。AI分野の最新研究を理解しやすく解説し、その背景、手法、実験結果を詳細に紹介しています。現在は「Curiosity-Driven Imagination」の解説が含まれており、今後さらに多くの論文解説を追加していく予定です。
 
 ## デプロイ済みサイト
 
 こちらのURLから公開サイトにアクセスできます：
 
-🔗 **[AI Agent 論文解説サイト](https://kyosukeichikawa.github.io/ai_agent_articles/)**
+🔗 **[AI Visual ArXiv](https://kyosukeichikawa.github.io/ai_visual_arxiv/)**
 
 ## 収録論文
 
@@ -22,8 +22,8 @@
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/KyosukeIchikawa/ai_agent_articles.git
-cd ai_agent_articles
+git clone https://github.com/KyosukeIchikawa/ai_visual_arxiv.git
+cd ai_visual_arxiv
 
 # 依存関係をインストール
 npm install

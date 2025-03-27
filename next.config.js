@@ -6,8 +6,8 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/curiosity-driven-imagination' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/curiosity-driven-imagination/' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/ai_agent_articles' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/ai_agent_articles/' : '',
   trailingSlash: true,
 };
 

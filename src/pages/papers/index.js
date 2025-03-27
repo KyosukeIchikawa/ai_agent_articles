@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import Layout from '../components/Layout';
-import { getAllPapers } from '../data/papers';
+import Layout from '../../components/Layout';
+import { getAllPapers } from '../../data/papers';
 
 export default function PapersIndex() {
   const papers = getAllPapers();

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Layout from '../../components/Layout';
-import { getPaperById } from '../../data/papers';
+import Layout from '../../../components/Layout';
+import { getPaperById } from '../../../data/papers';
 
 export default function PaperDetail() {
   const router = useRouter();

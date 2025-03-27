@@ -1,4 +1,4 @@
-import Layout from '../../components/Layout';
+import Layout from '../components/Layout';
 
 export default function Method() {
   return (
@@ -506,7 +506,7 @@ export default function Method() {
           </div>
         </section>
 
-        <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700"></div>
+        <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
             <a href="/background" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 背景

@@ -374,33 +374,4 @@ export default function Experiments() {
                   <li>
                     <strong>統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
                     高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
-                    それを想像空間で効率的に探索するという組み合わせが効果的でした。
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-            <p className="highlight">
-              実験結果は、提案手法「Curiosity-Driven Imagination」が、内発的好奇心に基づく探索と想像空間でのシミュレーションを
-              組み合わせることで、従来の手法と比較して大幅に適応能力とサンプル効率を向上させることを示しています。
-              特に、複雑で予測不可能な変化を含むオープンワールド環境での適応において、その優位性が顕著でした。
-            </p>
-          </div>
-        </section>
-
-        <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <div>
-            <a href="/method/" className="text-blue-600 dark:text-blue-400 hover:underline">
-              ← 提案手法
-            </a>
-          </div>
-          <div>
-            <a href="/conclusion/" className="text-blue-600 dark:text-blue-400 hover:underline">
-              結論 →
-            </a>
-          </div>
-        </div>
-      </div>
-    </Layout>
-  );
-}
+                    

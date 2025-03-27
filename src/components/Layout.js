@@ -36,7 +36,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
 
       <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className=/"text-xl font-bold text-blue-600 dark:text-blue-400">
+          <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
             Curiosity-Driven Imagination
           </Link>
 
@@ -96,7 +96,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
           >
             <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 p-4 md:p-0">
               <li>
-                <Link href="/" className=/"text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
                   トップ
                 </Link>
               </li>
@@ -132,7 +132,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
               <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">目次</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/" className=/"text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                  <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
                     トップページ
                   </Link>
                 </li>

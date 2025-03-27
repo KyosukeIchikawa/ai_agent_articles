@@ -2,25 +2,55 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
+import { useRouter } from 'next/router';
 import ScrollToTop from './ScrollToTop';
 
 export default function Layout({ children, title = 'Curiosity-Driven Imagination' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileTableOfContents, setIsMobileTableOfContents] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
 
   // マウント後にのみレンダリングするための処理
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // ページ遷移時にメニューを閉じる
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsMobileTableOfContents(false);
+  }, [router.pathname]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    // メニューを開いたら目次は閉じる
+    if (!isMenuOpen) {
+      setIsMobileTableOfContents(false);
+    }
+  };
+
+  const toggleMobileTableOfContents = () => {
+    setIsMobileTableOfContents(!isMobileTableOfContents);
   };
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
+  // ナビゲーションリンク
+  const navLinks = [
+    { href: '/', label: 'トップ' },
+    { href: '/background/', label: '背景' },
+    { href: '/related-work/', label: '関連研究' },
+    { href: '/method/', label: '提案手法' },
+    { href: '/experiments/', label: '実験' },
+    { href: '/results/', label: '結果と分析' },
+    { href: '/discussion/', label: '議論と今後の展望' },
+    { href: '/conclusion/', label: '結論' },
+    { href: '/references/', label: '参考文献' },
+  ];
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -33,13 +63,11 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
           rel="stylesheet"
         />
       </Head>
-
-      <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 shadow-md">
+      <header className="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
             Curiosity-Driven Imagination
           </Link>
-
           <div className="flex items-center space-x-4">
             {mounted && (
               <button
@@ -58,6 +86,19 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
                 )}
               </button>
             )}
+            
+            {/* モバイル用目次ボタン */}
+            <button
+              className="block md:hidden text-gray-700 dark:text-gray-300"
+              onClick={toggleMobileTableOfContents}
+              aria-expanded={isMobileTableOfContents}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </button>
+            
+            {/* ハンバーガーメニュー */}
             <button
               className="block md:hidden text-gray-700 dark:text-gray-300"
               onClick={toggleMenu}
@@ -88,102 +129,102 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
               </svg>
             </button>
           </div>
-
-          <nav
-            className={`${
-              isMenuOpen ? 'block' : 'hidden'
-            } md:block absolute md:relative top-full left-0 right-0 md:top-auto bg-white dark:bg-gray-800 md:bg-transparent shadow-md md:shadow-none`}
-          >
-            <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 p-4 md:p-0">
-              <li>
-                <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  トップ
-                </Link>
-              </li>
-              <li>
-                <Link href="/background/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  背景
-                </Link>
-              </li>
-              <li>
-                <Link href="/method/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  提案手法
-                </Link>
-              </li>
-              <li>
-                <Link href="/experiments/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  実験結果
-                </Link>
-              </li>
-              <li>
-                <Link href="/conclusion/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  結論
-                </Link>
-              </li>
+          
+          {/* デスクトップ用ナビゲーション */}
+          <nav className="hidden md:block">
+            <ul className="flex flex-row space-x-8">
+              {navLinks.slice(0, 5).map((link) => (
+                <li key={link.href}>
+                  <Link 
+                    href={link.href} 
+                    className={`text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 ${
+                      router.pathname === link.href ? 'font-semibold text-blue-600 dark:text-blue-400' : ''
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
+        
+        {/* モバイル用メインナビゲーション */}
+        <div
+          className={`${
+            isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+          } md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 shadow-lg`}
+        >
+          <nav className="container mx-auto px-4 py-2">
+            <ul className="flex flex-col space-y-3 pb-4">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link 
+                    href={link.href} 
+                    className={`block py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 ${
+                      router.pathname === link.href ? 'font-semibold text-blue-600 dark:text-blue-400' : ''
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+        
+        {/* モバイル用目次ドロップダウン */}
+        <div
+          className={`${
+            isMobileTableOfContents ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+          } md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 shadow-lg`}
+        >
+          <div className="container mx-auto px-4 py-2">
+            <h3 className="text-lg font-semibold my-2 text-gray-800 dark:text-gray-200">目次</h3>
+            <ul className="flex flex-col space-y-2 pb-4">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link 
+                    href={link.href} 
+                    className={`block py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 ${
+                      router.pathname === link.href ? 'font-semibold text-blue-600 dark:text-blue-400' : ''
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </header>
-
+      
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row">
           <aside className="hidden lg:block w-64 shrink-0 mr-8">
             <div className="sticky top-24 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
               <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">目次</h3>
               <ul className="space-y-2">
-                <li>
-                  <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    トップページ
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/background/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    背景
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/related-work/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    関連研究
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/method/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    提案手法
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/experiments/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    実験
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/results/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    結果と分析
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/discussion/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    議論と今後の展望
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/conclusion/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    結論
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/references/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    参考文献
-                  </Link>
-                </li>
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link 
+                      href={link.href} 
+                      className={`text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 ${
+                        router.pathname === link.href ? 'font-semibold text-blue-600 dark:text-blue-400' : ''
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </aside>
-
+          
           <div className="flex-grow bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             {children}
           </div>
-
+          
           <aside className="hidden xl:block w-64 shrink-0 ml-8">
             <div className="sticky top-24 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
               <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">論文情報</h3>
@@ -212,8 +253,9 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
           </aside>
         </div>
       </main>
-
+      
       <ScrollToTop />
+      
       <footer className="bg-gray-800 text-white py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">

@@ -1,7 +1,181 @@
 import React from 'react';
 import Layout from '../../components/Layout';
+import { Bar, Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
+
+// Chart.jsコンポーネントの登録
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function Results() {
+  // タスク達成率のデータ
+  const taskCompletionData = {
+    labels: ['標準タスク', '変化するタスク', '新規オブジェクトタスク'],
+    datasets: [
+      {
+        label: 'Curiosity-Driven Imagination',
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        data: [92, 85, 78],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+      {
+        label: 'TAMP+RL',
+        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+        data: [90, 67, 54],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 1,
+      },
+      {
+        label: 'RL',
+        backgroundColor: 'rgba(255, 159, 64, 0.6)',
+        data: [82, 45, 32],
+        borderColor: 'rgba(255, 159, 64, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const taskCompletionOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '異なる難易度のタスクにおける各手法の達成率 (%)',
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        title: {
+          display: true,
+          text: '達成率 (%)'
+        }
+      }
+    }
+  };
+
+  // 学習曲線のデータ
+  const learningCurveData = {
+    labels: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    datasets: [
+      {
+        label: 'Curiosity-Driven Imagination',
+        data: [0, 18, 35, 55, 75, 82, 85, 87, 88, 89, 90],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        tension: 0.3,
+        fill: true,
+      },
+      {
+        label: 'TAMP+RL',
+        data: [0, 10, 22, 32, 42, 52, 62, 70, 76, 80, 82],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        tension: 0.3,
+        fill: true,
+      },
+      {
+        label: 'RL',
+        data: [0, 5, 13, 21, 30, 38, 48, 58, 66, 72, 78],
+        borderColor: 'rgba(255, 159, 64, 1)',
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        tension: 0.3,
+        fill: true,
+      },
+    ],
+  };
+
+  const learningCurveOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '累積報酬に対するエピソード数の学習曲線',
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: '累積報酬'
+        }
+      },
+      x: {
+        title: {
+          display: true,
+          text: 'エピソード数'
+        }
+      }
+    }
+  };
+
+  // 環境変化後の回復時間データ
+  const recoveryTimeData = {
+    labels: ['軽微な変化', '中程度の変化', '大きな変化'],
+    datasets: [
+      {
+        label: 'Curiosity-Driven Imagination',
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        data: [3, 7, 12],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+      {
+        label: 'TAMP+RL',
+        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+        data: [8, 15, 22],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 1,
+      },
+      {
+        label: 'RL',
+        backgroundColor: 'rgba(255, 159, 64, 0.6)',
+        data: [12, 20, 28],
+        borderColor: 'rgba(255, 159, 64, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const recoveryTimeOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '環境変化後のパフォーマンス回復時間（エピソード数）',
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: '回復エピソード数'
+        }
+      }
+    }
+  };
+
   return (
     <Layout title="結果と分析">
       <div className="space-y-8">
@@ -11,7 +185,6 @@ export default function Results() {
             提案手法「Curiosity-Driven Imagination」の実験結果とその分析
           </p>
         </header>
-
         <section>
           <div className="prose dark:prose-invert max-w-none">
             <p>
@@ -24,11 +197,9 @@ export default function Results() {
               
               <div className="mb-6">
                 <div className="flex justify-center">
-                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '600px' }}>
-                    <div className="w-full h-64 bg-white dark:bg-gray-700 flex items-center justify-center">
-                      <p className="text-gray-500 dark:text-gray-400 text-center p-4">
-                        [タスク達成率のグラフ - 提案手法とベースライン手法の比較]
-                      </p>
+                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
+                    <div className="w-full h-64 bg-white dark:bg-gray-700">
+                      <Bar data={taskCompletionData} options={taskCompletionOptions} />
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
                       図1: 異なる難易度のタスクにおける各手法の達成率
@@ -63,11 +234,9 @@ export default function Results() {
               
               <div className="mb-6">
                 <div className="flex justify-center">
-                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '600px' }}>
-                    <div className="w-full h-64 bg-white dark:bg-gray-700 flex items-center justify-center">
-                      <p className="text-gray-500 dark:text-gray-400 text-center p-4">
-                        [学習曲線のグラフ - 各手法の収束速度比較]
-                      </p>
+                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
+                    <div className="w-full h-64 bg-white dark:bg-gray-700">
+                      <Line data={learningCurveData} options={learningCurveOptions} />
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
                       図2: 累積報酬に対するエピソード数の学習曲線
@@ -100,11 +269,9 @@ export default function Results() {
               
               <div className="mb-6">
                 <div className="flex justify-center">
-                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '600px' }}>
-                    <div className="w-full h-64 bg-white dark:bg-gray-700 flex items-center justify-center">
-                      <p className="text-gray-500 dark:text-gray-400 text-center p-4">
-                        [環境変化後の回復時間のグラフ]
-                      </p>
+                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
+                    <div className="w-full h-64 bg-white dark:bg-gray-700">
+                      <Bar data={recoveryTimeData} options={recoveryTimeOptions} />
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
                       図3: 環境変化後のパフォーマンス回復時間
@@ -206,7 +373,6 @@ export default function Results() {
             </p>
           </div>
         </section>
-
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
             <a href="/experiments" className="text-blue-600 dark:text-blue-400 hover:underline">

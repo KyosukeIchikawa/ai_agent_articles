@@ -390,12 +390,12 @@ export default function Experiments() {
 
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <a href="/method" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <a href="/method/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 提案手法
             </a>
           </div>
           <div>
-            <a href="/conclusion" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <a href="/conclusion/" className="text-blue-600 dark:text-blue-400 hover:underline">
               結論 →
             </a>
           </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../../components/Layout';
+import Link from 'next/link';
 import { Bar, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -375,14 +376,14 @@ export default function Results() {
         </section>
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <a href="/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 実験
-            </a>
+            </Link>
           </div>
           <div>
-            <a href="/discussion/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/discussion/" className="text-blue-600 dark:text-blue-400 hover:underline">
               議論と今後の展望 →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

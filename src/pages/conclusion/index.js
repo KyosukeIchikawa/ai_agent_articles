@@ -1,4 +1,5 @@
 import Layout from '../../components/Layout';
+import Link from 'next/link';
 
 export default function Conclusion() {
   return (
@@ -250,14 +251,14 @@ export default function Conclusion() {
 
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <a href="/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 実験と結果
-            </a>
+            </Link>
           </div>
           <div>
-            <a href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
               トップページ →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

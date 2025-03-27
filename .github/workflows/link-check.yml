@@ -5,9 +5,9 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
-  # 毎週月曜日の午前3時に実行（定期的なチェック）
+  # 毎月1日の午前3時に実行（月1回のチェック）
   schedule:
-    - cron: '0 3 * * 1'
+    - cron: '0 3 1 * *'
 
 jobs:
   check-links:

@@ -11,6 +11,9 @@
     "check-links": "node src/scripts/check-links.js",
     "check-links:ghpages": "CHECK_GITHUB_PAGES=true node src/scripts/check-links.js",
     "fix-links": "node src/scripts/fix_next_links.js",
+    "fix-links:ghpages": "FIX_GITHUB_PAGES=true CHECK_GITHUB_PAGES=true node src/scripts/check-links.js",
+    "ghpages:check": "./fix_github_pages_links.sh check",
+    "ghpages:fix": "./fix_github_pages_links.sh fix",
     "precommit": "npm run check-links",
     "prebuild": "npm run check-links:ghpages"
   },

@@ -2,7 +2,10 @@
  * このスクリプトはプロジェクト内の全てのページとコンポーネントをスキャンし、
  * 内部リンク（href属性）の有効性を検証します。
  * 
- * 使い方: node src/scripts/check-links.js
+ * 使い方: 
+ * 通常チェック: node src/scripts/check-links.js
+ * GitHub Pages用チェック: CHECK_GITHUB_PAGES=true node src/scripts/check-links.js
+ * GitHub Pages用リンク修正: FIX_GITHUB_PAGES=true node src/scripts/check-links.js
  */
 const fs = require('fs');
 const path = require('path');
@@ -105,8 +108,21 @@ const existingFiles = new Set();
 // 見つかったリンク切れの情報を格納する配列
 const brokenLinks = [];
 
+// GitHub Pages用のパスに問題があるリンク情報を格納する配列
+const githubPagesPathIssues = [];
+
 // GitHubPagesの検証モード
 const checkGitHubPages = process.env.CHECK_GITHUB_PAGES === 'true';
+
+// GitHub Pagesのベースパス
+const GITHUB_PAGES_BASE_PATH = '/ai_visual_arxiv';
+
+// リンク問題のタイプを定義
+const ISSUE_TYPES = {
+  BROKEN_LINK: 'broken_link',
+  MISSING_BASE_PATH: 'missing_base_path',
+  EXTRA_BASE_PATH: 'extra_base_path'
+};
 
 /**
  * ディレクトリを再帰的に走査して全てのファイルを探索する
@@ -224,13 +240,10 @@ function isValidInternalLink(link) {
   // クエリパラメータとハッシュを削除
   normalizedLink = normalizedLink.split('?')[0].split('#')[0];
   
-  // GitHub Pagesのベースパス
-  const basePath = '/ai_visual_arxiv';
-  
   // ベースパス処理: GitHub Pages環境ではベースパスを考慮する
-  if (checkGitHubPages && normalizedLink.startsWith(basePath)) {
+  if (checkGitHubPages && normalizedLink.startsWith(GITHUB_PAGES_BASE_PATH)) {
     // ベースパスを取り除く（検証のため）
-    normalizedLink = normalizedLink.replace(basePath, '') || '/';
+    normalizedLink = normalizedLink.replace(GITHUB_PAGES_BASE_PATH, '') || '/';
   }
   
   // データファイルへのリンクなど、特定のファイルをチェック
@@ -292,6 +305,84 @@ function isValidInternalLink(link) {
 }
 
 /**
+ * GitHub Pages用のリンク検証
+ * 内部リンクにベースパスが含まれているか検証する
+ */
+function validateGitHubPagesBasePath(link, filePath) {
+  // 除外パターンに一致するリンクはチェック対象外
+  for (const excludePattern of excludePatterns) {
+    if (excludePattern.test(link)) {
+      return true;
+    }
+  }
+
+  // 内部リンクのみチェック（外部URLは検証しない）
+  if (link.startsWith('https://') || link.startsWith('http://')) {
+    return true;
+  }
+
+  // 相対パスはチェック対象外
+  if (!link.startsWith('/')) {
+    return true;
+  }
+
+  // ページ内リンク (#section) はチェック対象外
+  if (link.startsWith('#')) {
+    return true;
+  }
+
+  // APIエンドポイントはチェック対象外
+  if (link.startsWith('/api/')) {
+    return true;
+  }
+
+  // クエリパラメータとハッシュを削除
+  const normalizedLink = link.split('?')[0].split('#')[0];
+  
+  // 2回以上ベースパスが含まれるケースをチェック
+  const basePathCount = (normalizedLink.match(new RegExp(GITHUB_PAGES_BASE_PATH, 'g')) || []).length;
+  if (basePathCount > 1) {
+    githubPagesPathIssues.push({
+      file: path.relative(rootDir, filePath),
+      link,
+      normalizedLink,
+      type: ISSUE_TYPES.EXTRA_BASE_PATH,
+      message: `リンクに重複するベースパス(${GITHUB_PAGES_BASE_PATH})が含まれています`
+    });
+    return false;
+  }
+
+  // ベースパスが含まれていないケースをチェック
+  if (!normalizedLink.startsWith(GITHUB_PAGES_BASE_PATH)) {
+    githubPagesPathIssues.push({
+      file: path.relative(rootDir, filePath),
+      link,
+      normalizedLink,
+      type: ISSUE_TYPES.MISSING_BASE_PATH,
+      message: `リンクにベースパス(${GITHUB_PAGES_BASE_PATH})が含まれていません`,
+      fixedLink: `${GITHUB_PAGES_BASE_PATH}${normalizedLink}`
+    });
+    return false;
+  }
+
+  // ベースパスが正しく含まれているか検証
+  const pathAfterBase = normalizedLink.substring(GITHUB_PAGES_BASE_PATH.length);
+  if (pathAfterBase !== '' && !pathAfterBase.startsWith('/')) {
+    githubPagesPathIssues.push({
+      file: path.relative(rootDir, filePath),
+      link,
+      normalizedLink,
+      type: ISSUE_TYPES.EXTRA_BASE_PATH,
+      message: `ベースパス(${GITHUB_PAGES_BASE_PATH})の後に/が必要です`,
+      fixedLink: `${GITHUB_PAGES_BASE_PATH}/${pathAfterBase}`
+    });
+    return false;
+  }
+
+  return true;
+}
+
+/**
  * ファイル内のリンクを抽出して検証する
  */
 async function checkLinksInFile(filePath) {
@@ -322,12 +413,19 @@ async function checkLinksInFile(filePath) {
         
         // 内部リンクのみチェック（外部URLは検証しない）
         if (!link.startsWith('https://') && !link.startsWith('http://')) {
+          // 通常のリンク切れチェック
           if (!isValidInternalLink(link)) {
             brokenLinks.push({
               file: relativeFilePath,
               link: link,
-              position: match.index
+              position: match.index,
+              type: ISSUE_TYPES.BROKEN_LINK
             });
+          }
+          
+          // GitHub Pages用のベースパスチェック
+          if (checkGitHubPages) {
+            validateGitHubPagesBasePath(link, filePath);
           }
         }
       }
@@ -397,18 +495,15 @@ async function fixLinksInFile(filePath) {
     let modifiedContent = content;
     let hasChanges = false;
     
-    // GitHub Pagesのベースパス
-    const basePath = '/ai_visual_arxiv';
-    
     // 全てのリンクパターンに対して修正
     for (const pattern of linkPatterns) {
       pattern.lastIndex = 0; // 正規表現のインデックスをリセット
       
       modifiedContent = modifiedContent.replace(pattern, (match, link) => {
         // 内部リンクのみ処理（外部リンクは無視）
-        if (link.startsWith('/') && !link.startsWith(basePath) && !link.match(/^\/api\//) && !link.match(/^\/\//)) {
+        if (link.startsWith('/') && !link.startsWith(GITHUB_PAGES_BASE_PATH) && !link.match(/^\/api\//) && !link.match(/^\/\//)) {
           // basePathを追加
-          const newLink = `${basePath}${link}`;
+          const newLink = `${GITHUB_PAGES_BASE_PATH}${link}`;
           hasChanges = true;
           return match.replace(`"${link}"`, `"${newLink}"`);
         }
@@ -424,6 +519,140 @@ async function fixLinksInFile(filePath) {
   } catch (error) {
     console.error(`ファイル ${filePath} の処理中にエラーが発生しました: ${error.message}`);
   }
+}
+
+/**
+ * 修正が必要なGitHub Pagesのリンクを自動的に修正する
+ */
+async function autoFixGitHubPagesLinks() {
+  // 修正が必要なファイルとリンクの一覧を作成
+  const filesWithIssues = new Map();
+  
+  // 問題のあるリンクをグループ化
+  for (const issue of githubPagesPathIssues) {
+    if (!filesWithIssues.has(issue.file)) {
+      filesWithIssues.set(issue.file, []);
+    }
+    filesWithIssues.get(issue.file).push(issue);
+  }
+  
+  // 各ファイルについて修正を実行
+  for (const [file, issues] of filesWithIssues.entries()) {
+    const filePath = path.join(rootDir, file);
+    let content;
+    
+    try {
+      content = await readFile(filePath, 'utf-8');
+    } catch (error) {
+      console.error(`ファイル ${file} の読み込み中にエラーが発生しました: ${error.message}`);
+      continue;
+    }
+    
+    let modifiedContent = content;
+    let hasChanges = false;
+    
+    // MISSING_BASE_PATH のケースを修正
+    const missingBasePathIssues = issues.filter(issue => issue.type === ISSUE_TYPES.MISSING_BASE_PATH);
+    for (const issue of missingBasePathIssues) {
+      // サポートしているリンクパターンで置換
+      for (const pattern of linkPatterns) {
+        const regex = new RegExp(pattern.source.replace('([^"\']+)', `(${escapeRegExp(issue.link)})`), 'g');
+        modifiedContent = modifiedContent.replace(regex, (match, link) => {
+          if (link === issue.link) {
+            hasChanges = true;
+            return match.replace(`"${link}"`, `"${issue.fixedLink}"`);
+          }
+          return match;
+        });
+      }
+    }
+    
+    // EXTRA_BASE_PATH のケースを修正
+    const extraBasePathIssues = issues.filter(issue => issue.type === ISSUE_TYPES.EXTRA_BASE_PATH);
+    for (const issue of extraBasePathIssues) {
+      if (issue.fixedLink) {
+        // サポートしているリンクパターンで置換
+        for (const pattern of linkPatterns) {
+          const regex = new RegExp(pattern.source.replace('([^"\']+)', `(${escapeRegExp(issue.link)})`), 'g');
+          modifiedContent = modifiedContent.replace(regex, (match, link) => {
+            if (link === issue.link) {
+              hasChanges = true;
+              return match.replace(`"${link}"`, `"${issue.fixedLink}"`);
+            }
+            return match;
+          });
+        }
+      }
+    }
+    
+    // 変更があれば保存
+    if (hasChanges) {
+      try {
+        await writeFile(filePath, modifiedContent, 'utf-8');
+        console.log(`  ${file}: GitHub Pages用のリンクを修正しました`);
+      } catch (error) {
+        console.error(`ファイル ${file} の保存中にエラーが発生しました: ${error.message}`);
+      }
+    }
+  }
+}
+
+/**
+ * 正規表現でのエスケープ用ヘルパー関数
+ */
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * 結果報告用のヘルパー関数
+ */
+function reportResults() {
+  let hasIssues = false;
+  
+  // 一般的なリンク切れの報告
+  if (brokenLinks.length > 0) {
+    console.error('\n❌ リンク切れが見つかりました:');
+    brokenLinks.forEach(({ file, link }) => {
+      console.error(`  ${file}: ${link}`);
+    });
+    console.error(`\n合計: ${brokenLinks.length}個のリンク切れが見つかりました`);
+    hasIssues = true;
+  }
+  
+  // GitHub Pages特有の問題の報告
+  if (checkGitHubPages && githubPagesPathIssues.length > 0) {
+    console.error('\n❌ GitHub Pages用のリンクに問題が見つかりました:');
+    
+    // タイプ別にグループ化して表示
+    const missingBasePathIssues = githubPagesPathIssues.filter(issue => issue.type === ISSUE_TYPES.MISSING_BASE_PATH);
+    const extraBasePathIssues = githubPagesPathIssues.filter(issue => issue.type === ISSUE_TYPES.EXTRA_BASE_PATH);
+    
+    if (missingBasePathIssues.length > 0) {
+      console.error(`\n⚠️ ベースパス(${GITHUB_PAGES_BASE_PATH})が不足しているリンク:`);
+      missingBasePathIssues.forEach(({ file, link, fixedLink }) => {
+        console.error(`  ${file}: ${link} → ${fixedLink}`);
+      });
+    }
+    
+    if (extraBasePathIssues.length > 0) {
+      console.error('\n⚠️ ベースパスに問題があるリンク:');
+      extraBasePathIssues.forEach(({ file, link, message, fixedLink }) => {
+        console.error(`  ${file}: ${link} - ${message}${fixedLink ? ` → ${fixedLink}` : ''}`);
+      });
+    }
+    
+    console.error(`\n合計: ${githubPagesPathIssues.length}個のGitHub Pages関連の問題が見つかりました`);
+    console.error('\n修正方法:');
+    console.error('  自動修正: FIX_GITHUB_PAGES=true CHECK_GITHUB_PAGES=true node src/scripts/check-links.js');
+    hasIssues = true;
+  }
+  
+  if (!hasIssues) {
+    console.log('\n✅ リンク切れは見つかりませんでした');
+  }
+  
+  return hasIssues;
 }
 
 /**
@@ -454,16 +683,30 @@ async function main() {
       }
     }
     
-    // 結果を表示
-    if (brokenLinks.length > 0) {
-      console.error('\n❌ リンク切れが見つかりました:');
-      brokenLinks.forEach(({ file, link }) => {
-        console.error(`  ${file}: ${link}`);
-      });
-      console.error(`\n合計: ${brokenLinks.length}個のリンク切れが見つかりました`);
+    // GitHub Pagesのリンク修正が必要で自動修正が有効な場合
+    if (checkGitHubPages && githubPagesPathIssues.length > 0 && process.env.FIX_GITHUB_PAGES === 'true') {
+      console.log('\nGitHub Pages用のリンク問題を自動修正します...');
+      await autoFixGitHubPagesLinks();
+      
+      // 修正後に再検証
+      console.log('\n修正後の再検証を実行します...');
+      brokenLinks.length = 0;
+      githubPagesPathIssues.length = 0;
+      
+      for (const targetDir of targetDirs) {
+        if (fs.existsSync(targetDir)) {
+          await scanDirectory(targetDir, checkLinksInFile);
+        }
+      }
+    }
+    
+    // 結果を報告
+    const hasIssues = reportResults();
+    
+    // 問題があれば非ゼロのステータスコードで終了
+    if (hasIssues) {
       process.exit(1);
     } else {
-      console.log('\n✅ リンク切れは見つかりませんでした');
       process.exit(0);
     }
   } catch (error) {

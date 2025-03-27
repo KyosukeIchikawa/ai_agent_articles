@@ -40,6 +40,22 @@ try {
 // プロジェクトルートディレクトリ
 const rootDir = path.resolve(__dirname, '../../');
 
+// チェック対象のディレクトリ（明示的に指定）
+const targetDirs = [
+  path.join(rootDir, 'src/pages'),       // ページコンテンツ
+  path.join(rootDir, 'src/components'),  // コンポーネント
+  path.join(rootDir, 'content'),         // コンテンツディレクトリ
+  path.join(rootDir, 'docs')             // ドキュメントディレクトリ
+];
+
+// スキップするディレクトリやファイル（明示的に除外）
+const skipPaths = [
+  path.join(rootDir, 'src/scripts'),     // スクリプトディレクトリ
+  path.join(rootDir, 'node_modules'),    // node_modules
+  path.join(rootDir, '.git'),            // Gitディレクトリ
+  path.join(rootDir, '.next'),           // Next.jsビルドディレクトリ
+];
+
 // ソースディレクトリ
 const srcDir = path.join(rootDir, 'src');
 
@@ -100,8 +116,8 @@ async function scanDirectory(dir, callback) {
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     
-    // スキップすべきファイルやディレクトリをチェック
-    if (skipFiles.some(skipFile => fullPath.includes(skipFile))) {
+    // スキップパスに含まれるかチェック
+    if (skipPaths.some(skipPath => fullPath.startsWith(skipPath))) {
       continue;
     }
     
@@ -349,8 +365,12 @@ async function main() {
     await collectExistingFiles(rootDir);
     console.log(`${existingFiles.size}個のファイルを検出しました`);
     
-    // プロジェクト内の全ファイルをスキャン
-    await scanDirectory(srcDir, checkLinksInFile);
+    // チェック対象のディレクトリを走査
+    for (const targetDir of targetDirs) {
+      if (fs.existsSync(targetDir)) {
+        await scanDirectory(targetDir, checkLinksInFile);
+      }
+    }
     
     // 結果を表示
     if (brokenLinks.length > 0) {

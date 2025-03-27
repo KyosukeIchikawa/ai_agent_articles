@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-links": "node src/scripts/check-links.js",
+    "precommit": "npm run check-links",
+    "prebuild": "npm run check-links"
   },
   "dependencies": {
     "chart.js": "^4.0.0",
@@ -25,6 +28,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
+    "husky": "^9.1.7",
     "postcss": "^8.5.3"
   }
 }

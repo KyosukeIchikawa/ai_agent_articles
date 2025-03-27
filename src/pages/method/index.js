@@ -122,4 +122,173 @@ export default function Method() {
               <p className="text-gray-700 dark:text-gray-300 mb-4">
                 ICMは、現在の状態 s<sub>t</sub> と行動 a<sub>t</sub> から次の状態 s<sub>t+1</sub> を予測するフォワードモデルと、
                 状態の変化に基づいて行動を予測する逆モデルを学習します。予測誤差が大きい領域（システムが予測できない新規な体験）に
-                対して高い内発的報酬を与えることで、エ
+                対して高い内発的報酬を与えることで、エージェントは未知の領域を探索するように動機づけられます。
+              </p>
+
+              <div className="mt-4">
+                <h4 className="font-semibold mb-2">数学的定式化</h4>
+                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto">
+                  <p className="text-sm font-mono">
+                    予測誤差に基づく内発的報酬: r<sub>i</sub>(s<sub>t</sub>, a<sub>t</sub>, s<sub>t+1</sub>) = 
+                    η/2 || φ̂(s<sub>t+1</sub>) - φ(s<sub>t</sub>, a<sub>t</sub>) ||<sup>2</sup>
+                  </p>
+                  <p className="text-xs mt-2">
+                    ここで：
+                    <br />φ̂(s<sub>t+1</sub>)は実際の次状態の特徴表現
+                    <br />φ(s<sub>t</sub>, a<sub>t</sub>)はフォワードモデルによる予測
+                    <br />ηはスケーリング係数
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <p className="mt-4">
+              この好奇心駆動型アプローチにより、エージェントは以下の能力を獲得します：
+            </p>
+            
+            <ul className="list-disc pl-6 space-y-2 mt-2 text-gray-700 dark:text-gray-300">
+              <li>報酬が希少または存在しない環境での効率的な探索</li>
+              <li>既知の状態から未知の状態への積極的な移行</li>
+              <li>環境の「新規性マップ」の構築と更新</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">想像空間シミュレーション</h2>
+          <div className="prose dark:prose-invert max-w-none">
+            <p>
+              提案システムの中核となる「想像空間シミュレーション」は、エージェントが実際に行動する前に
+              内部モデルを使って行動の結果をシミュレーションする機能を提供します。
+            </p>
+            
+            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">想像空間の特徴</h3>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold mb-2 text-indigo-600 dark:text-indigo-400">仮想的行動検証</h4>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    学習した予測モデルを使って行動シーケンスの結果を予測し、実際の試行前に評価します。
+                    これにより危険な行動や非効率な探索を避けることができます。
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2 text-indigo-600 dark:text-indigo-400">記号的計画との統合</h4>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    高レベルの記号的計画を低レベルの行動シーケンスに変換し、その実現可能性を想像空間で検証します。
+                    これにより記号とサブシンボルの橋渡しを実現しています。
+                  </p>
+                </div>
+              </div>
+              
+              <div className="mt-6">
+                <h4 className="font-semibold mb-2 text-indigo-600 dark:text-indigo-400">想像による学習最適化</h4>
+                <p className="text-gray-700 dark:text-gray-300">
+                  実際の環境と想像空間の両方でのQ学習を組み合わせることで、学習効率を大幅に向上させています。
+                  特に以下の式で定義される想像空間でのQ値更新を行います：
+                </p>
+                
+                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto mt-2">
+                  <p className="text-sm font-mono">
+                    Q<sub>im</sub>(s, a) ← Q<sub>im</sub>(s, a) + α[r + γ max<sub>a'</sub> Q<sub>im</sub>(s', a') - Q<sub>im</sub>(s, a)]
+                  </p>
+                  <p className="text-xs mt-2">
+                    ここで：<br />
+                    Q<sub>im</sub>は想像空間でのQ値<br />
+                    s'は予測モデルによる次状態の予測<br />
+                    r = r<sub>i</sub> + r<sub>e</sub> （内発的報酬と外部報酬の和）
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">報酬機械（Reward Machine）</h2>
+          <div className="prose dark:prose-invert max-w-none">
+            <p>
+              提案システムでは、複雑なタスクの報酬構造を表現するために<span className="term">報酬機械（Reward Machine）</span>を採用しています。
+              これは状態、行動、報酬の関係を明示的に表現する有限状態オートマトンの一種です。
+            </p>
+            
+            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
+              <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                <div className="text-center">
+                  {/* 報酬機械の図（簡略化した表現） */}
+                  <div className="mx-auto max-w-lg">
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="bg-yellow-100 dark:bg-yellow-900/30 p-3 rounded-full flex items-center justify-center">
+                        状態1
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <div className="w-full h-0 border-t-2 border-gray-400 dark:border-gray-500 relative">
+                          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs">行動A</span>
+                          <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs">報酬+1</span>
+                        </div>
+                      </div>
+                      <div className="bg-yellow-100 dark:bg-yellow-900/30 p-3 rounded-full flex items-center justify-center">
+                        状態2
+                      </div>
+                    </div>
+                    
+                    <div className="mt-8 grid grid-cols-3 gap-4">
+                      <div className="flex items-center justify-end">
+                        <div className="h-16 w-0 border-r-2 border-gray-400 dark:border-gray-500"></div>
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <div className="w-full h-0 border-t-2 border-gray-400 dark:border-gray-500 relative">
+                          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs">行動B</span>
+                          <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs">報酬+5</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-start">
+                        <div className="h-16 w-0 border-l-2 border-gray-400 dark:border-gray-500"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 grid grid-cols-3 gap-4">
+                      <div className="bg-yellow-100 dark:bg-yellow-900/30 p-3 rounded-full flex items-center justify-center">
+                        状態3
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <div className="w-full h-0 border-t-2 border-gray-400 dark:border-gray-500 relative">
+                          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs">行動C</span>
+                          <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs">報酬+10</span>
+                        </div>
+                      </div>
+                      <div className="bg-green-200 dark:bg-green-900/30 p-3 rounded-full flex items-center justify-center border-2 border-green-500">
+                        目標状態
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-gray-700 dark:text-gray-300">
+                報酬機械は以下の利点を提供します：
+              </p>
+              
+              <ul className="list-disc pl-6 space-y-2 mt-2 text-gray-700 dark:text-gray-300">
+                <li>段階的な報酬シグナルによる疎報酬問題の緩和</li>
+                <li>タスクの階層的構造化と分解</li>
+                <li>複雑な時間的依存関係の明示的表現</li>
+                <li>学習済み知識の再利用と転移可能性の向上</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <div className="flex justify-between mt-8">
+          <Link href="/background" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+            ← 背景
+          </Link>
+          <Link href="/experiments" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+            実験 →
+          </Link>
+        </div>
+      </div>
+    </Layout>
+  );
+}

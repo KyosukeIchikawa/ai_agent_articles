@@ -1,4 +1,5 @@
 import Layout from '../../components/Layout';
+import Link from 'next/link';
 
 export default function Background() {
   return (
@@ -129,14 +130,14 @@ export default function Background() {
 
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <a href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← トップページ
-            </a>
+            </Link>
           </div>
           <div>
-            <a href="/method/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/method/" className="text-blue-600 dark:text-blue-400 hover:underline">
               提案手法 →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

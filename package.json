@@ -9,8 +9,10 @@
     "export": "next export",
     "lint": "next lint",
     "check-links": "node src/scripts/check-links.js",
+    "check-links:ghpages": "CHECK_GITHUB_PAGES=true node src/scripts/check-links.js",
+    "fix-links": "node src/scripts/fix_next_links.js",
     "precommit": "npm run check-links",
-    "prebuild": "npm run check-links"
+    "prebuild": "npm run check-links:ghpages"
   },
   "dependencies": {
     "chart.js": "^4.0.0",

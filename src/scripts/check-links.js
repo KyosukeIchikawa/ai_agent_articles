@@ -13,25 +13,36 @@ const stat = promisify(fs.stat);
 
 // Next.jsの設定ファイルを読み込む
 let trailingSlashConfig = true; // デフォルト値
+let basePathConfig = ''; // デフォルトは空文字
+
 try {
   const nextConfigPath = path.resolve(__dirname, '../../next.config.js');
   if (fs.existsSync(nextConfigPath)) {
     const nextConfigContent = fs.readFileSync(nextConfigPath, 'utf-8');
+    
     // 正規表現で trailingSlash の設定を抽出
     const trailingSlashMatch = nextConfigContent.match(/trailingSlash:\s*(true|false)/);
     if (trailingSlashMatch && trailingSlashMatch[1]) {
       trailingSlashConfig = trailingSlashMatch[1] === 'true';
     }
+    
+    // basePath の設定を抽出
+    const basePathMatch = nextConfigContent.match(/basePath:.*?['"]([^'"]+)['"]/);
+    if (basePathMatch && basePathMatch[1]) {
+      basePathConfig = basePathMatch[1];
+    }
   }
 } catch (error) {
   console.warn('Next.jsの設定ファイルの読み込み中にエラーが発生しました:', error);
-  console.warn('デフォルト設定（trailingSlash: true）を使用します。');
+  console.warn('デフォルト設定（trailingSlash: true, basePath: ""）を使用します。');
 }
 
 // プロジェクトルートディレクトリ
 const rootDir = path.resolve(__dirname, '../../');
+
 // ソースディレクトリ
 const srcDir = path.join(rootDir, 'src');
+
 // pagesディレクトリ
 const pagesDir = path.join(srcDir, 'pages');
 
@@ -70,11 +81,15 @@ const skipFiles = [
 
 // 標準的なページパスのルートマッピング（動的ルーティングを含む）
 const validPagePaths = new Set();
+
 // 実際に存在するファイルパス
 const existingFiles = new Set();
 
 // 見つかったリンク切れの情報を格納する配列
 const brokenLinks = [];
+
+// GitHubPagesの検証モード
+const checkGitHubPages = process.env.CHECK_GITHUB_PAGES === 'true';
 
 /**
  * ディレクトリを再帰的に走査して全てのファイルを探索する
@@ -207,6 +222,27 @@ function isValidInternalLink(link) {
     }
     
     return false;
+  }
+  
+  // GitHub Pagesモードでの検証（リポジトリ名変更の問題を検出）
+  if (checkGitHubPages && basePathConfig && normalizedLink.startsWith('/')) {
+    // basePath の検証: GitHub Pages上でのリンクにリポジトリ名を含める必要がある
+    // 例: /method/ → /ai_visual_arxiv/method/
+    
+    // リンクがすでにbasePathで始まっているか確認
+    const hasBasePath = normalizedLink.startsWith(basePathConfig);
+    
+    // GitHub Pagesでデプロイする場合、内部リンクはbasePathで始まる必要がある
+    if (!hasBasePath && normalizedLink !== '/') {
+      // basePathが設定されているのに、リンクにbasePathがない
+      return false;
+    }
+    
+    // basePathを持つリンクの場合、basePathを取り除いて検証する
+    if (hasBasePath) {
+      normalizedLink = normalizedLink.substr(basePathConfig.length);
+      if (normalizedLink === '') normalizedLink = '/';
+    }
   }
   
   // trailing slash の検証

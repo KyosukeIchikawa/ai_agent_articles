@@ -134,7 +134,7 @@ export default function Background() {
             </a>
           </div>
           <div>
-            <a href="/method" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <a href="/method/" className="text-blue-600 dark:text-blue-400 hover:underline">
               提案手法 →
             </a>
           </div>

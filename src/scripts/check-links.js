@@ -4,13 +4,29 @@
  * 
  * 使い方: node src/scripts/check-links.js
  */
-
 const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const readdir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
 const stat = promisify(fs.stat);
+
+// Next.jsの設定ファイルを読み込む
+let trailingSlashConfig = true; // デフォルト値
+try {
+  const nextConfigPath = path.resolve(__dirname, '../../next.config.js');
+  if (fs.existsSync(nextConfigPath)) {
+    const nextConfigContent = fs.readFileSync(nextConfigPath, 'utf-8');
+    // 正規表現で trailingSlash の設定を抽出
+    const trailingSlashMatch = nextConfigContent.match(/trailingSlash:\s*(true|false)/);
+    if (trailingSlashMatch && trailingSlashMatch[1]) {
+      trailingSlashConfig = trailingSlashMatch[1] === 'true';
+    }
+  }
+} catch (error) {
+  console.warn('Next.jsの設定ファイルの読み込み中にエラーが発生しました:', error);
+  console.warn('デフォルト設定（trailingSlash: true）を使用します。');
+}
 
 // プロジェクトルートディレクトリ
 const rootDir = path.resolve(__dirname, '../../');
@@ -176,11 +192,6 @@ function isValidInternalLink(link) {
   // クエリパラメータとハッシュを削除
   normalizedLink = normalizedLink.split('?')[0].split('#')[0];
   
-  // 末尾の / を削除
-  if (normalizedLink.endsWith('/') && normalizedLink !== '/') {
-    normalizedLink = normalizedLink.slice(0, -1);
-  }
-  
   // データファイルへのリンクなど、特定のファイルをチェック
   if (normalizedLink.includes('.') && !normalizedLink.endsWith('/')) {
     // publicディレクトリ内のファイルチェック
@@ -198,13 +209,35 @@ function isValidInternalLink(link) {
     return false;
   }
   
+  // trailing slash の検証
+  // trailingSlashConfig が true の場合、ページリンクは末尾にスラッシュが必要
+  // trailingSlashConfig が false の場合、ページリンクは末尾にスラッシュが不要
+  if (normalizedLink !== '/') {
+    const hasTrailingSlash = normalizedLink.endsWith('/');
+    if (trailingSlashConfig && !hasTrailingSlash) {
+      // trailingSlash が必要なのに、リンクに末尾のスラッシュがない
+      return false;
+    } else if (!trailingSlashConfig && hasTrailingSlash) {
+      // trailingSlash が不要なのに、リンクに末尾のスラッシュがある
+      return false;
+    }
+  }
+  
+  // 末尾のスラッシュを調整して正規化（検証のため）
+  let pathForValidation = normalizedLink;
+  if (normalizedLink !== '/') {
+    if (normalizedLink.endsWith('/')) {
+      pathForValidation = normalizedLink.slice(0, -1);
+    }
+  }
+  
   // ページのルーティングパスのチェック
-  if (validPagePaths.has(normalizedLink)) {
+  if (validPagePaths.has(pathForValidation)) {
     return true;
   }
   
   // 動的ルーティングの場合のワイルドカードチェック
-  const linkParts = normalizedLink.split('/');
+  const linkParts = pathForValidation.split('/');
   const foundWildcardMatch = [...validPagePaths].some(validPath => {
     if (!validPath.includes('*')) return false;
     

@@ -135,8 +135,8 @@ export default function Background() {
             </Link>
           </div>
           <div>
-            <Link href="/method/" className="text-blue-600 hover:underline">
-              次のセクション：3 Method
+            <Link href="/related-work/" className="text-blue-600 hover:underline">
+              関連研究
             </Link>
           </div>
         </div>

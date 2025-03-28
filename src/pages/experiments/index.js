@@ -1,30 +1,31 @@
 import Layout from '../../components/Layout';
+import Link from 'next/link';
 
 export default function Experiments() {
   return (
     <Layout title="実験と結果">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800">4. 実験</h1>
-          <p className="text-lg text-gray-600">
+          <h1 className="text-3xl font-bold mb-4 text-indigo-800">4. 実験</h1>
+          <p className="text-lg text-indigo-600">
             Curiosity-Driven Imaginationの評価と検証
           </p>
         </header>
 
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">4.1 実験設定</h2>
+          <h2 className="text-2xl font-bold mb-4 text-indigo-700">4.1 実験設定</h2>
           <div className="prose max-w-none">
             <p>
               提案手法の有効性を評価するために、以下の実験設定が用いられました。
               これらの実験は、動的で不確実なオープンワールド環境での適応能力を検証することを目的としています。
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">4.1.1 実験環境</h3>
+            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-6 rounded-lg shadow-sm border border-indigo-100 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-indigo-800">4.1.1 実験環境</h3>
               
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <h4 className="text-lg font-medium mb-2 text-blue-600">ロボット操作ドメイン</h4>
+                  <h4 className="text-lg font-medium mb-2 text-indigo-700">ロボット操作ドメイン</h4>
                   <p className="text-gray-700">
                     物理シミュレーション環境内のロボットアームが、様々なオブジェクトを操作するタスクを行います。
                     環境内には複数のオブジェクト（ブロック、球、カップなど）があり、それらを移動、積み重ね、または特定の位置に配置するタスクが課されます。
@@ -32,79 +33,79 @@ export default function Experiments() {
                 </div>
                 
                 <figure className="text-center">
-                  <div className="bg-gray-100 p-4 rounded-lg mb-2">
+                  <div className="bg-white p-4 rounded-lg mb-2 shadow-inner">
                     {/* ロボット操作環境の図（簡略化した表現） */}
-                    <div className="aspect-w-16 aspect-h-9 bg-white rounded-lg relative">
+                    <div className="aspect-w-16 aspect-h-9 bg-gradient-to-b from-blue-50 to-indigo-50 rounded-lg relative">
                       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-2 bg-gray-300 rounded"></div>
-                      <div className="absolute bottom-4 left-1/4 w-2 h-20 bg-blue-500 rounded"></div>
-                      <div className="absolute bottom-24 left-1/4 w-24 h-2 bg-blue-500 rounded-l"></div>
-                      <div className="absolute bottom-24 left-1/4 transform translate-x-24 w-8 h-12 bg-blue-500 rounded"></div>
+                      <div className="absolute bottom-4 left-1/4 w-2 h-20 bg-indigo-500 rounded"></div>
+                      <div className="absolute bottom-24 left-1/4 w-24 h-2 bg-indigo-500 rounded-l"></div>
+                      <div className="absolute bottom-24 left-1/4 transform translate-x-24 w-8 h-12 bg-indigo-500 rounded"></div>
                       
                       {/* オブジェクト */}
                       <div className="absolute bottom-6 left-1/2 w-6 h-6 bg-red-500 rounded"></div>
                       <div className="absolute bottom-6 left-2/3 w-6 h-6 bg-green-500 rounded-full"></div>
-                      <div className="absolute bottom-6 right-1/4 w-8 h-4 bg-yellow-500 rounded-t"></div>
+                      <div className="absolute bottom-6 right-1/4 w-8 h-4 bg-amber-500 rounded-t"></div>
                     </div>
                   </div>
-                  <figcaption className="text-sm text-gray-600">図1: ロボット操作実験環境の概念図</figcaption>
+                  <figcaption className="text-sm text-indigo-600">図1: ロボット操作実験環境の概念図</figcaption>
                 </figure>
               </div>
               
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">4.1.2 タスクと逐次的新規性注入</h3>
+              <h3 className="text-xl font-semibold mb-3 text-indigo-800">4.1.2 タスクと逐次的新規性注入</h3>
               
               <p className="text-gray-700 mb-4">
-                実験では、<span className="term">逐次的新規性注入（Sequential Novelty Injections）</span>という手法が用いられました。
+                実験では、<span className="text-indigo-700 font-medium">逐次的新規性注入（Sequential Novelty Injections）</span>という手法が用いられました。
                 これは、エージェントが学習過程で徐々に新しい状況や課題に直面することを意味します。具体的には以下のようなシナリオが設定されました：
               </p>
               
               <div className="overflow-x-auto">
                 <table className="min-w-full border-collapse">
                   <thead>
-                    <tr className="bg-gray-100">
-                      <th className="px-4 py-2 border border-gray-300 text-left">フェーズ</th>
-                      <th className="px-4 py-2 border border-gray-300 text-left">環境の変化</th>
-                      <th className="px-4 py-2 border border-gray-300 text-left">適応課題</th>
+                    <tr className="bg-indigo-100">
+                      <th className="px-4 py-2 border border-indigo-200 text-left text-indigo-800">フェーズ</th>
+                      <th className="px-4 py-2 border border-indigo-200 text-left text-indigo-800">環境の変化</th>
+                      <th className="px-4 py-2 border border-indigo-200 text-left text-indigo-800">適応課題</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="bg-white">
-                      <td className="px-4 py-2 border border-gray-300">初期段階</td>
-                      <td className="px-4 py-2 border border-gray-300">基本的なブロック操作タスク</td>
-                      <td className="px-4 py-2 border border-gray-300">基本的な物体把持と配置を学習</td>
+                      <td className="px-4 py-2 border border-indigo-100 font-medium text-indigo-700">初期段階</td>
+                      <td className="px-4 py-2 border border-indigo-100">基本的なブロック操作タスク</td>
+                      <td className="px-4 py-2 border border-indigo-100">基本的な物体把持と配置を学習</td>
                     </tr>
-                    <tr className="bg-gray-50">
-                      <td className="px-4 py-2 border border-gray-300">新規性注入 1</td>
-                      <td className="px-4 py-2 border border-gray-300">新しい形状のオブジェクトの導入</td>
-                      <td className="px-4 py-2 border border-gray-300">異なる把持戦略の必要性</td>
-                    </tr>
-                    <tr className="bg-white">
-                      <td className="px-4 py-2 border border-gray-300">新規性注入 2</td>
-                      <td className="px-4 py-2 border border-gray-300">オブジェクトの物理特性変化（重さ、摩擦）</td>
-                      <td className="px-4 py-2 border border-gray-300">力制御と動作計画の調整</td>
-                    </tr>
-                    <tr className="bg-gray-50">
-                      <td className="px-4 py-2 border border-gray-300">新規性注入 3</td>
-                      <td className="px-4 py-2 border border-gray-300">障害物の追加と環境の制約</td>
-                      <td className="px-4 py-2 border border-gray-300">障害物回避と代替経路計画</td>
+                    <tr className="bg-indigo-50">
+                      <td className="px-4 py-2 border border-indigo-100 font-medium text-indigo-700">新規性注入 1</td>
+                      <td className="px-4 py-2 border border-indigo-100">新しい形状のオブジェクトの導入</td>
+                      <td className="px-4 py-2 border border-indigo-100">異なる把持戦略の必要性</td>
                     </tr>
                     <tr className="bg-white">
-                      <td className="px-4 py-2 border border-gray-300">新規性注入 4</td>
-                      <td className="px-4 py-2 border border-gray-300">動的に変化するオブジェクトと相互作用</td>
-                      <td className="px-4 py-2 border border-gray-300">予測不可能な変化への対応</td>
+                      <td className="px-4 py-2 border border-indigo-100 font-medium text-indigo-700">新規性注入 2</td>
+                      <td className="px-4 py-2 border border-indigo-100">オブジェクトの物理特性変化（重さ、摩擦）</td>
+                      <td className="px-4 py-2 border border-indigo-100">力制御と動作計画の調整</td>
+                    </tr>
+                    <tr className="bg-indigo-50">
+                      <td className="px-4 py-2 border border-indigo-100 font-medium text-indigo-700">新規性注入 3</td>
+                      <td className="px-4 py-2 border border-indigo-100">障害物の追加と環境の制約</td>
+                      <td className="px-4 py-2 border border-indigo-100">障害物回避と代替経路計画</td>
+                    </tr>
+                    <tr className="bg-white">
+                      <td className="px-4 py-2 border border-indigo-100 font-medium text-indigo-700">新規性注入 4</td>
+                      <td className="px-4 py-2 border border-indigo-100">動的に変化するオブジェクトと相互作用</td>
+                      <td className="px-4 py-2 border border-indigo-100">予測不可能な変化への対応</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
             
-            <h3 className="text-xl font-bold mb-3 text-gray-800">4.1.3 比較手法</h3>
+            <h3 className="text-xl font-bold mb-3 text-indigo-800">4.1.3 比較手法</h3>
             <p>
               提案手法の効果を評価するために、以下の比較手法が実装されました：
             </p>
             
             <div className="grid md:grid-cols-2 gap-6 my-6">
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                <h4 className="text-lg font-medium mb-2 text-gray-800">従来のTAMPアプローチ</h4>
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-sm border border-blue-100">
+                <h4 className="text-lg font-medium mb-2 text-blue-700">従来のTAMPアプローチ</h4>
                 <ul className="list-disc pl-6 space-y-1 text-gray-700">
                   <li>記号的計画（Symbolic Planning）に基づく高レベル計画</li>
                   <li>事前定義されたオペレータセット</li>
@@ -113,8 +114,8 @@ export default function Experiments() {
                 </ul>
               </div>
               
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                <h4 className="text-lg font-medium mb-2 text-gray-800">標準的な強化学習アプローチ</h4>
+              <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-4 rounded-lg shadow-sm border border-purple-100">
+                <h4 className="text-lg font-medium mb-2 text-purple-700">標準的な強化学習アプローチ</h4>
                 <ul className="list-disc pl-6 space-y-1 text-gray-700">
                   <li>深層強化学習（Deep Reinforcement Learning, Deep RL）</li>
                   <li>内発的報酬を用いない標準的な手法</li>
@@ -124,69 +125,69 @@ export default function Experiments() {
               </div>
             </div>
             
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-              <h4 className="text-lg font-medium mb-2 text-gray-800">提案手法の変種</h4>
+            <div className="bg-gradient-to-r from-indigo-50 to-violet-50 p-4 rounded-lg shadow-sm border border-indigo-100">
+              <h4 className="text-lg font-medium mb-2 text-indigo-700">提案手法の変種</h4>
               <ul className="list-disc pl-6 space-y-1 text-gray-700">
-                <li><strong>ICMのみ</strong>：好奇心駆動型探索は使用するが、想像空間でのシミュレーションなし</li>
-                <li><strong>想像空間のみ</strong>：内部モデルでのシミュレーションは行うが、好奇心駆動型探索なし</li>
-                <li><strong>フル提案手法（ICM + 想像空間 + 報酬機械）</strong>：本論文の提案手法</li>
+                <li><strong className="text-indigo-600">ICMのみ</strong>：好奇心駆動型探索は使用するが、想像空間でのシミュレーションなし</li>
+                <li><strong className="text-violet-600">想像空間のみ</strong>：内部モデルでのシミュレーションは行うが、好奇心駆動型探索なし</li>
+                <li><strong className="text-blue-600">フル提案手法（ICM + 想像空間 + 報酬機械）</strong>：本論文の提案手法</li>
               </ul>
             </div>
             
-            <h3 className="text-xl font-bold mb-3 mt-6 text-gray-800">4.1.4 評価指標</h3>
+            <h3 className="text-xl font-bold mb-3 mt-6 text-indigo-800">4.1.4 評価指標</h3>
             <p>
               以下の指標を用いて各手法の性能を評価しました：
             </p>
             
             <ul className="list-disc pl-6 space-y-2 text-gray-700 my-4">
-              <li><strong>タスク達成率</strong>：各フェーズでタスクを正常に完了できた割合</li>
-              <li><strong>適応時間</strong>：新規性注入後、元のパフォーマンスレベルに回復するまでに要したエピソード数</li>
-              <li><strong>サンプル効率</strong>：一定のパフォーマンスレベルに達するために必要なサンプル数</li>
-              <li><strong>新規オペレータ発見率</strong>：システムが自動的に発見できた新しいオペレータの数</li>
-              <li><strong>ロバスト性</strong>：環境の変動に対するパフォーマンスの安定性</li>
+              <li><strong className="text-indigo-700">タスク達成率</strong>：各フェーズでタスクを正常に完了できた割合</li>
+              <li><strong className="text-blue-700">適応時間</strong>：新規性注入後、元のパフォーマンスレベルに回復するまでに要したエピソード数</li>
+              <li><strong className="text-violet-700">サンプル効率</strong>：一定のパフォーマンスレベルに達するために必要なサンプル数</li>
+              <li><strong className="text-purple-700">新規オペレータ発見率</strong>：システムが自動的に発見できた新しいオペレータの数</li>
+              <li><strong className="text-indigo-700">ロバスト性</strong>：環境の変動に対するパフォーマンスの安定性</li>
             </ul>
           </div>
         </section>
         
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">4.2 実験結果</h2>
+          <h2 className="text-2xl font-bold mb-4 text-indigo-800">4.2 実験結果</h2>
           <div className="prose max-w-none">
             <p>
               実験結果は、提案手法「Curiosity-Driven Imagination」が従来のアプローチと比較して、
               オープンワールド環境での適応能力において優れていることを示しました。
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">4.2.1 主要な実験結果</h3>
+            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-6 rounded-lg shadow-sm border border-indigo-100 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-indigo-800">4.2.1 主要な実験結果</h3>
               
               <div className="mb-6">
-                <h4 className="text-lg font-medium mb-2 text-blue-600">タスク達成率</h4>
+                <h4 className="text-lg font-medium mb-2 text-indigo-700">タスク達成率</h4>
                 
                 <figure className="text-center">
-                  <div className="bg-gray-100 p-4 rounded-lg mb-2">
+                  <div className="bg-white p-4 rounded-lg mb-2 shadow-inner">
                     {/* タスク達成率のグラフ（簡略化した表現） */}
-                    <div className="h-64 w-full bg-white rounded-lg relative">
+                    <div className="h-64 w-full bg-gradient-to-b from-white to-blue-50 rounded-lg relative">
                       {/* Y軸 */}
                       <div className="absolute h-full w-px bg-gray-400 left-16"></div>
-                      <div className="absolute left-6 top-0 text-xs">100%</div>
-                      <div className="absolute left-6 top-1/4 text-xs">75%</div>
-                      <div className="absolute left-6 top-1/2 text-xs">50%</div>
-                      <div className="absolute left-6 top-3/4 text-xs">25%</div>
-                      <div className="absolute left-6 bottom-0 text-xs">0%</div>
+                      <div className="absolute left-6 top-0 text-xs text-indigo-700">100%</div>
+                      <div className="absolute left-6 top-1/4 text-xs text-indigo-700">75%</div>
+                      <div className="absolute left-6 top-1/2 text-xs text-indigo-700">50%</div>
+                      <div className="absolute left-6 top-3/4 text-xs text-indigo-700">25%</div>
+                      <div className="absolute left-6 bottom-0 text-xs text-indigo-700">0%</div>
                       
                       {/* X軸 */}
                       <div className="absolute w-full h-px bg-gray-400 bottom-8 left-16"></div>
-                      <div className="absolute bottom-2 left-16 text-xs">初期</div>
-                      <div className="absolute bottom-2 left-1/3 text-xs">注入1</div>
-                      <div className="absolute bottom-2 left-1/2 text-xs">注入2</div>
-                      <div className="absolute bottom-2 left-2/3 text-xs">注入3</div>
-                      <div className="absolute bottom-2 right-8 text-xs">注入4</div>
+                      <div className="absolute bottom-2 left-16 text-xs text-indigo-700">初期</div>
+                      <div className="absolute bottom-2 left-1/3 text-xs text-indigo-700">注入1</div>
+                      <div className="absolute bottom-2 left-1/2 text-xs text-indigo-700">注入2</div>
+                      <div className="absolute bottom-2 left-2/3 text-xs text-indigo-700">注入3</div>
+                      <div className="absolute bottom-2 right-8 text-xs text-indigo-700">注入4</div>
                       
                       {/* 提案手法の線 */}
-                      <div className="absolute left-16 top-12 w-4/5 h-px bg-green-500" style={{ transform: 'rotate(-5deg)' }}></div>
-                      <div className="absolute left-[calc(16px+20%)] top-16 w-[20%] h-px bg-green-500" style={{ transform: 'rotate(-25deg)' }}></div>
-                      <div className="absolute left-[calc(16px+40%)] top-24 w-[20%] h-px bg-green-500" style={{ transform: 'rotate(-15deg)' }}></div>
-                      <div className="absolute left-[calc(16px+60%)] top-28 w-[20%] h-px bg-green-500" style={{ transform: 'rotate(-10deg)' }}></div>
+                      <div className="absolute left-16 top-12 w-4/5 h-px bg-indigo-500" style={{ transform: 'rotate(-5deg)' }}></div>
+                      <div className="absolute left-[calc(16px+20%)] top-16 w-[20%] h-px bg-indigo-500" style={{ transform: 'rotate(-25deg)' }}></div>
+                      <div className="absolute left-[calc(16px+40%)] top-24 w-[20%] h-px bg-indigo-500" style={{ transform: 'rotate(-15deg)' }}></div>
+                      <div className="absolute left-[calc(16px+60%)] top-28 w-[20%] h-px bg-indigo-500" style={{ transform: 'rotate(-10deg)' }}></div>
                       
                       {/* 比較手法の線 */}
                       <div className="absolute left-16 top-12 w-[20%] h-px bg-blue-500" style={{ transform: 'rotate(-5deg)' }}></div>
@@ -196,16 +197,16 @@ export default function Experiments() {
                       
                       {/* 凡例 */}
                       <div className="absolute top-2 right-2 flex items-center">
-                        <div className="w-4 h-px bg-green-500 mr-1"></div>
-                        <span className="text-xs">提案手法</span>
+                        <div className="w-4 h-px bg-indigo-500 mr-1"></div>
+                        <span className="text-xs text-indigo-700">提案手法</span>
                       </div>
                       <div className="absolute top-6 right-2 flex items-center">
                         <div className="w-4 h-px bg-blue-500 mr-1"></div>
-                        <span className="text-xs">比較手法</span>
+                        <span className="text-xs text-blue-700">比較手法</span>
                       </div>
                     </div>
                   </div>
-                  <figcaption className="text-sm text-gray-600">図2: 各フェーズでのタスク達成率の比較</figcaption>
+                  <figcaption className="text-sm text-indigo-600">図2: 各フェーズでのタスク達成率の比較</figcaption>
                 </figure>
                 
                 <p className="text-gray-700 mt-4">
@@ -215,54 +216,54 @@ export default function Experiments() {
               </div>
               
               <div className="mb-6">
-                <h4 className="text-lg font-medium mb-2 text-green-600">適応時間</h4>
+                <h4 className="text-lg font-medium mb-2 text-indigo-700">適応時間</h4>
                 
                 <div className="overflow-x-auto">
                   <table className="min-w-full border-collapse">
                     <thead>
-                      <tr className="bg-gray-100">
-                        <th className="px-4 py-2 border border-gray-300 text-left">手法</th>
-                        <th className="px-4 py-2 border border-gray-300 text-center">注入1</th>
-                        <th className="px-4 py-2 border border-gray-300 text-center">注入2</th>
-                        <th className="px-4 py-2 border border-gray-300 text-center">注入3</th>
-                        <th className="px-4 py-2 border border-gray-300 text-center">注入4</th>
+                      <tr className="bg-indigo-100">
+                        <th className="px-4 py-2 border border-indigo-200 text-left text-indigo-800">手法</th>
+                        <th className="px-4 py-2 border border-indigo-200 text-center text-indigo-800">注入1</th>
+                        <th className="px-4 py-2 border border-indigo-200 text-center text-indigo-800">注入2</th>
+                        <th className="px-4 py-2 border border-indigo-200 text-center text-indigo-800">注入3</th>
+                        <th className="px-4 py-2 border border-indigo-200 text-center text-indigo-800">注入4</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr className="bg-white">
-                        <td className="px-4 py-2 border border-gray-300 font-medium">提案手法</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">12エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">18エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">25エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">30エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 font-medium text-indigo-700">提案手法</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-indigo-600">12エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-indigo-600">18エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-indigo-600">25エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-indigo-600">30エピソード</td>
                       </tr>
-                      <tr className="bg-gray-50">
-                        <td className="px-4 py-2 border border-gray-300 font-medium">TAMP</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">35エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">60エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">90エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">120+エピソード</td>
-                      </tr>
-                      <tr className="bg-white">
-                        <td className="px-4 py-2 border border-gray-300 font-medium">標準RL</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">45エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">80エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">100+エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">120+エピソード</td>
-                      </tr>
-                      <tr className="bg-gray-50">
-                        <td className="px-4 py-2 border border-gray-300 font-medium">ICMのみ</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">20エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">35エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">50エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">65エピソード</td>
+                      <tr className="bg-indigo-50">
+                        <td className="px-4 py-2 border border-indigo-100 font-medium text-blue-700">TAMP</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-blue-600">35エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-blue-600">60エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-blue-600">90エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-blue-600">120+エピソード</td>
                       </tr>
                       <tr className="bg-white">
-                        <td className="px-4 py-2 border border-gray-300 font-medium">想像空間のみ</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">25エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">40エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">55エピソード</td>
-                        <td className="px-4 py-2 border border-gray-300 text-center">70エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 font-medium text-purple-700">標準RL</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-purple-600">45エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-purple-600">80エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-purple-600">100+エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-purple-600">120+エピソード</td>
+                      </tr>
+                      <tr className="bg-indigo-50">
+                        <td className="px-4 py-2 border border-indigo-100 font-medium text-sky-700">ICMのみ</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-sky-600">20エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-sky-600">35エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-sky-600">50エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-sky-600">65エピソード</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="px-4 py-2 border border-indigo-100 font-medium text-violet-700">想像空間のみ</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-violet-600">25エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-violet-600">40エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-violet-600">55エピソード</td>
+                        <td className="px-4 py-2 border border-indigo-100 text-center text-violet-600">70エピソード</td>
                       </tr>
                     </tbody>
                   </table>
@@ -276,7 +277,7 @@ export default function Experiments() {
               </div>
               
               <div>
-                <h4 className="text-lg font-medium mb-2 text-purple-600">オペレータ発見能力</h4>
+                <h4 className="text-lg font-medium mb-2 text-indigo-700">オペレータ発見能力</h4>
                 
                 <p className="text-gray-700 mb-4">
                   新規性注入後、提案手法は以下のような新しいオペレータを自動的に発見し学習しました：
@@ -284,16 +285,16 @@ export default function Experiments() {
                 
                 <ul className="list-disc pl-6 space-y-2 text-gray-700">
                   <li>
-                    <strong>異なる把持戦略</strong>：新しい形状のオブジェクトに対して、適切な把持位置と力の制御方法を発見
+                    <strong className="text-indigo-600">異なる把持戦略</strong>：新しい形状のオブジェクトに対して、適切な把持位置と力の制御方法を発見
                   </li>
                   <li>
-                    <strong>障害物回避行動</strong>：障害物を検知し、最適な回避経路を生成するオペレータを学習
+                    <strong className="text-blue-600">障害物回避行動</strong>：障害物を検知し、最適な回避経路を生成するオペレータを学習
                   </li>
                   <li>
-                    <strong>複合行動</strong>：基本オペレータを組み合わせた効率的な行動シーケンスを発見
+                    <strong className="text-violet-600">複合行動</strong>：基本オペレータを組み合わせた効率的な行動シーケンスを発見
                   </li>
                   <li>
-                    <strong>適応的制御</strong>：オブジェクトの物理特性に応じて動きの速度と力を調整するオペレータを学習
+                    <strong className="text-purple-600">適応的制御</strong>：オブジェクトの物理特性に応じて動きの速度と力を調整するオペレータを学習
                   </li>
                 </ul>
                 
@@ -304,75 +305,75 @@ export default function Experiments() {
               </div>
             </div>
             
-            <h3 className="text-xl font-bold mb-3 text-gray-800">4.2.2 コンポーネント分析</h3>
+            <h3 className="text-xl font-bold mb-3 text-indigo-800">4.2.2 コンポーネント分析</h3>
             
             <p>
               提案手法の各コンポーネントの貢献を評価するために、異なる変種の比較実験が行われました：
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
+            <div className="bg-gradient-to-r from-indigo-50 to-violet-50 p-6 rounded-lg shadow-sm border border-indigo-100 my-6">
               <figure className="text-center">
-                <div className="bg-gray-100 p-4 rounded-lg mb-2">
+                <div className="bg-white p-4 rounded-lg mb-2 shadow-inner">
                   {/* コンポーネント分析のグラフ（簡略化した表現） */}
-                  <div className="h-64 w-full bg-white rounded-lg relative">
+                  <div className="h-64 w-full bg-gradient-to-b from-white to-blue-50 rounded-lg relative">
                     {/* Y軸 - サンプル効率 */}
                     <div className="absolute h-full w-px bg-gray-400 left-16"></div>
-                    <div className="absolute left-2 top-1/2 transform -rotate-90 origin-left text-xs">サンプル効率</div>
+                    <div className="absolute left-2 top-1/2 transform -rotate-90 origin-left text-xs text-indigo-700">サンプル効率</div>
                     
                     {/* X軸 - 適応能力 */}
                     <div className="absolute w-full h-px bg-gray-400 bottom-8 left-16"></div>
-                    <div className="absolute bottom-2 left-1/2 text-xs">適応能力</div>
+                    <div className="absolute bottom-2 left-1/2 text-xs text-indigo-700">適応能力</div>
                     
                     {/* 各手法のプロット */}
-                    <div className="absolute left-24 bottom-16 w-4 h-4 rounded-full bg-green-500"></div>
-                    <div className="absolute left-40 bottom-24 w-4 h-4 rounded-full bg-blue-500"></div>
-                    <div className="absolute left-56 bottom-32 w-4 h-4 rounded-full bg-yellow-500"></div>
-                    <div className="absolute left-72 bottom-48 w-4 h-4 rounded-full bg-red-500"></div>
-                    <div className="absolute left-96 bottom-40 w-4 h-4 rounded-full bg-purple-500"></div>
+                    <div className="absolute left-24 bottom-16 w-4 h-4 rounded-full bg-indigo-500"></div>
+                    <div className="absolute left-40 bottom-24 w-4 h-4 rounded-full bg-sky-500"></div>
+                    <div className="absolute left-56 bottom-32 w-4 h-4 rounded-full bg-violet-500"></div>
+                    <div className="absolute left-72 bottom-48 w-4 h-4 rounded-full bg-purple-500"></div>
+                    <div className="absolute left-96 bottom-40 w-4 h-4 rounded-full bg-blue-500"></div>
                     
                     {/* 凡例 */}
                     <div className="absolute top-2 right-2 space-y-1 text-xs">
                       <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
-                        <span>フル提案手法</span>
+                        <div className="w-3 h-3 rounded-full bg-indigo-500 mr-1"></div>
+                        <span className="text-indigo-700">フル提案手法</span>
                       </div>
                       <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-blue-500 mr-1"></div>
-                        <span>ICMのみ</span>
+                        <div className="w-3 h-3 rounded-full bg-sky-500 mr-1"></div>
+                        <span className="text-sky-700">ICMのみ</span>
                       </div>
                       <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-yellow-500 mr-1"></div>
-                        <span>想像空間のみ</span>
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-red-500 mr-1"></div>
-                        <span>標準RL</span>
+                        <div className="w-3 h-3 rounded-full bg-violet-500 mr-1"></div>
+                        <span className="text-violet-700">想像空間のみ</span>
                       </div>
                       <div className="flex items-center">
                         <div className="w-3 h-3 rounded-full bg-purple-500 mr-1"></div>
-                        <span>TAMP</span>
+                        <span className="text-purple-700">標準RL</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-blue-500 mr-1"></div>
+                        <span className="text-blue-700">TAMP</span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <figcaption className="text-sm text-gray-600">図3: 各手法のサンプル効率と適応能力の比較</figcaption>
+                <figcaption className="text-sm text-indigo-600">図3: 各手法のサンプル効率と適応能力の比較</figcaption>
               </figure>
               
               <div className="mt-4">
-                <h4 className="text-lg font-medium mb-2 text-gray-800">分析結果</h4>
+                <h4 className="text-lg font-medium mb-2 text-indigo-800">分析結果</h4>
                 <ul className="list-disc pl-6 space-y-2 text-gray-700">
                   <li>
-                    <strong>ICMの貢献</strong>：好奇心駆動型探索により、新規性の高い状況への積極的な探索が促進され、
+                    <strong className="text-sky-700">ICMの貢献</strong>：好奇心駆動型探索により、新規性の高い状況への積極的な探索が促進され、
                     環境の変化に対する適応速度が向上しました。ICMのみの変種は標準RLより大幅に適応が速かったですが、
                     フル提案手法には及びませんでした。
                   </li>
                   <li>
-                    <strong>想像空間の貢献</strong>：内部シミュレーションにより、実際の試行錯誤なしに多数の行動計画を評価でき、
+                    <strong className="text-violet-700">想像空間の貢献</strong>：内部シミュレーションにより、実際の試行錯誤なしに多数の行動計画を評価でき、
                     サンプル効率が大幅に向上しました。想像空間のみの変種はTAMPより効率的でしたが、
                     好奇心駆動型探索がないため新規状況での効率は劣りました。
                   </li>
                   <li>
-                    <strong>統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
+                    <strong className="text-indigo-700">統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
                     高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
                     想像空間でその状況を詳細に検討することで、効率的かつ効果的な学習が実現しました。
                   </li>
@@ -381,6 +382,29 @@ export default function Experiments() {
             </div>
           </div>
         </section>
+        
+        <div className="flex justify-between mt-10 pt-6 border-t border-indigo-100">
+          <div>
+            <Link href="/method/">
+              <a className="text-indigo-600 hover:text-indigo-800 hover:underline flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                提案手法
+              </a>
+            </Link>
+          </div>
+          <div>
+            <Link href="/results/">
+              <a className="text-indigo-600 hover:text-indigo-800 hover:underline flex items-center">
+                結果と分析
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </Link>
+          </div>
+        </div>
       </div>
     </Layout>
   );

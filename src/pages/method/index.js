@@ -6,78 +6,78 @@ export default function Method() {
     <Layout title="提案手法">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800">3. 提案手法：Curiosity-Driven Imagination</h1>
-          <p className="text-lg text-gray-600">
+          <h1 className="text-3xl font-bold mb-4 text-indigo-800">3. 提案手法：Curiosity-Driven Imagination</h1>
+          <p className="text-lg text-indigo-600">
             好奇心駆動型の探索と想像力に基づく行動計画の統合アプローチ
           </p>
         </header>
 
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">3.1 アプローチの概要</h2>
+          <h2 className="text-2xl font-bold mb-4 text-indigo-700 border-b-2 border-indigo-200 pb-2">3.1 アプローチの概要</h2>
           <div className="prose max-w-none">
             <p>
-              私たちの提案する<span className="term">Curiosity-Driven Imagination (CDI)</span>は、オープンワールド環境でのロボット適応能力を向上させるための新しいフレームワークです。
+              私たちの提案する<span className="term font-semibold text-indigo-700">Curiosity-Driven Imagination (CDI)</span>は、オープンワールド環境でのロボット適応能力を向上させるための新しいフレームワークです。
               CDIは、内発的好奇心に基づく効率的な探索と、想像空間を活用した内部シミュレーションを統合し、下図のようなアーキテクチャを持ちます。
             </p>
             
             <figure className="my-8">
-              <div className="bg-white p-4 rounded-lg">
-                <div className="relative border-2 border-gray-300 rounded-lg p-4 bg-gray-50">
+              <div className="bg-white p-4 rounded-lg shadow-md">
+                <div className="relative border-2 border-indigo-200 rounded-lg p-4 bg-gradient-to-br from-white to-indigo-50">
                   {/* モジュール構成を表現するための図 */}
                   <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-3 py-4 px-6 bg-blue-100 rounded-lg border border-blue-200 text-center font-semibold">
+                    <div className="col-span-3 py-4 px-6 bg-gradient-to-r from-indigo-300 to-blue-300 rounded-lg border border-indigo-400 text-center font-semibold shadow-sm text-white">
                       Curiosity-Driven Imagination フレームワーク
                     </div>
                     
                     <div className="col-span-1 space-y-4">
-                      <div className="p-3 bg-green-100 rounded-lg border border-green-200 text-center">
+                      <div className="p-3 bg-gradient-to-br from-green-100 to-green-200 rounded-lg border border-green-300 text-center shadow-sm">
                         <div className="font-medium">内発的好奇心モジュール</div>
                         <div className="text-xs mt-1 text-gray-600">Intrinsic Curiosity Module (ICM)</div>
                       </div>
                       
-                      <div className="p-3 bg-yellow-100 rounded-lg border border-yellow-200 text-center">
+                      <div className="p-3 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg border border-blue-300 text-center shadow-sm">
                         <div className="font-medium">状態遷移モデル</div>
                         <div className="text-xs mt-1 text-gray-600">State Transition Model</div>
                       </div>
                     </div>
                     
                     <div className="col-span-1 space-y-4">
-                      <div className="p-3 bg-purple-100 rounded-lg border border-purple-200 text-center">
+                      <div className="p-3 bg-gradient-to-br from-violet-100 to-violet-200 rounded-lg border border-violet-300 text-center shadow-sm">
                         <div className="font-medium">想像空間</div>
                         <div className="text-xs mt-1 text-gray-600">Imagination Space</div>
                       </div>
                       
-                      <div className="p-3 bg-red-100 rounded-lg border border-red-200 text-center">
+                      <div className="p-3 bg-gradient-to-br from-rose-100 to-rose-200 rounded-lg border border-rose-300 text-center shadow-sm">
                         <div className="font-medium">報酬機械</div>
                         <div className="text-xs mt-1 text-gray-600">Reward Machine</div>
                       </div>
                     </div>
                     
                     <div className="col-span-1 space-y-4">
-                      <div className="p-3 bg-indigo-100 rounded-lg border border-indigo-200 text-center">
+                      <div className="p-3 bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-lg border border-indigo-300 text-center shadow-sm">
                         <div className="font-medium">オペレータ発見</div>
                         <div className="text-xs mt-1 text-gray-600">Operator Discovery</div>
                       </div>
                       
-                      <div className="p-3 bg-pink-100 rounded-lg border border-pink-200 text-center">
+                      <div className="p-3 bg-gradient-to-br from-cyan-100 to-cyan-200 rounded-lg border border-cyan-300 text-center shadow-sm">
                         <div className="font-medium">政策学習</div>
                         <div className="text-xs mt-1 text-gray-600">Policy Learning</div>
                       </div>
                     </div>
                     
-                    <div className="col-span-3 py-3 px-6 bg-gray-100 rounded-lg border border-gray-200 text-center font-medium">
+                    <div className="col-span-3 py-3 px-6 bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg border border-gray-300 text-center font-medium shadow-sm">
                       環境とのインタラクション
                     </div>
                   </div>
                   
                   {/* 矢印などの関係性の表現 */}
-                  <div className="absolute left-1/4 top-[45%] transform -translate-x-1/2 rotate-90">→</div>
-                  <div className="absolute left-3/4 top-[45%] transform -translate-x-1/2 rotate-90">→</div>
-                  <div className="absolute left-1/2 top-[40%] transform -translate-x-1/2">↔</div>
-                  <div className="absolute left-1/2 top-[60%] transform -translate-x-1/2">↔</div>
+                  <div className="absolute left-1/4 top-[45%] transform -translate-x-1/2 rotate-90 text-indigo-600">→</div>
+                  <div className="absolute left-3/4 top-[45%] transform -translate-x-1/2 rotate-90 text-indigo-600">→</div>
+                  <div className="absolute left-1/2 top-[40%] transform -translate-x-1/2 text-indigo-600">↔</div>
+                  <div className="absolute left-1/2 top-[60%] transform -translate-x-1/2 text-indigo-600">↔</div>
                 </div>
               </div>
-              <figcaption className="text-center text-sm text-gray-600">
+              <figcaption className="text-center text-sm text-gray-600 mt-2">
                 図1: Curiosity-Driven Imagination (CDI)フレームワークのアーキテクチャ概要
               </figcaption>
             </figure>
@@ -88,16 +88,16 @@ export default function Method() {
             
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
               <li>
-                <strong>好奇心駆動型の探索（Curiosity-Driven Exploration）</strong>：内発的好奇心に基づいて新しい状態や未知の状況を積極的に探索し、環境についての知識を効率的に獲得します。
+                <strong className="text-green-700">好奇心駆動型の探索（Curiosity-Driven Exploration）</strong>：内発的好奇心に基づいて新しい状態や未知の状況を積極的に探索し、環境についての知識を効率的に獲得します。
               </li>
               <li>
-                <strong>想像空間でのシミュレーション（Imagination-Based Simulation）</strong>：実際に行動する前に、内部モデルを用いて異なる行動の結果を「想像」し、効率的な行動計画を生成します。
+                <strong className="text-violet-700">想像空間でのシミュレーション（Imagination-Based Simulation）</strong>：実際に行動する前に、内部モデルを用いて異なる行動の結果を「想像」し、効率的な行動計画を生成します。
               </li>
               <li>
-                <strong>オペレータの動的発見と学習（Dynamic Operator Discovery and Learning）</strong>：環境との相互作用から新しいオペレータ（基本的な行動ユニット）を自動的に発見し、それに対応する政策を学習します。
+                <strong className="text-indigo-700">オペレータの動的発見と学習（Dynamic Operator Discovery and Learning）</strong>：環境との相互作用から新しいオペレータ（基本的な行動ユニット）を自動的に発見し、それに対応する政策を学習します。
               </li>
               <li>
-                <strong>報酬機械を通じた長期的計画（Long-Term Planning via Reward Machines）</strong>：複雑なタスクを分解し、内部的な報酬信号を生成することで、長期的な目標達成を促進します。
+                <strong className="text-rose-700">報酬機械を通じた長期的計画（Long-Term Planning via Reward Machines）</strong>：複雑なタスクを分解し、内部的な報酬信号を生成することで、長期的な目標達成を促進します。
               </li>
             </ul>
             
@@ -105,36 +105,36 @@ export default function Method() {
               これらの要素を統合することで、CDIは従来の手法と比較して以下の利点を提供します：
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">提案手法の主な利点</h3>
+            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-6 rounded-lg shadow-sm border border-indigo-100 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-indigo-800 border-b border-indigo-100 pb-2">提案手法の主な利点</h3>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-blue-600">サンプル効率の向上</h4>
+                <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-400">
+                  <h4 className="text-lg font-medium mb-2 text-blue-700">サンプル効率の向上</h4>
                   <p className="text-gray-700">
                     想像空間での事前シミュレーションにより、実際の試行錯誤の回数を大幅に削減します。
                     また、好奇心駆動の探索により、情報量の多い状態に積極的に移動することで、効率的に環境を理解します。
                   </p>
                 </div>
                 
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-green-600">適応能力の向上</h4>
+                <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-400">
+                  <h4 className="text-lg font-medium mb-2 text-green-700">適応能力の向上</h4>
                   <p className="text-gray-700">
                     既知のオペレータを組み合わせて新しい行動を生成し、未知の状況に対応します。
                     また、好奇心によって新しい環境変化に対して敏感に反応し、迅速に適応戦略を更新します。
                   </p>
                 </div>
                 
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-purple-600">知識の転移と再利用</h4>
+                <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-violet-400">
+                  <h4 className="text-lg font-medium mb-2 text-violet-700">知識の転移と再利用</h4>
                   <p className="text-gray-700">
                     抽象化されたオペレータの形で知識を保存することで、新しい状況にも既存の知識を適用できます。
                     これにより、ゼロから学習し直す必要性が軽減されます。
                   </p>
                 </div>
                 
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-red-600">計画と学習の統合</h4>
+                <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-rose-400">
+                  <h4 className="text-lg font-medium mb-2 text-rose-700">計画と学習の統合</h4>
                   <p className="text-gray-700">
                     記号的計画と強化学習を緊密に統合することで、それぞれの利点を活かした効率的な問題解決が可能になります。
                     特に、未知の環境での探索と適応において大きな強みとなります。
@@ -146,7 +146,7 @@ export default function Method() {
         </section>
         
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">3.2 システムコンポーネント</h2>
+          <h2 className="text-2xl font-bold mb-4 text-indigo-700 border-b-2 border-indigo-200 pb-2">3.2 システムコンポーネント</h2>
           <div className="prose max-w-none">
             <p>
               CDIフレームワークは、相互に連携する複数のコンポーネントで構成されています。
@@ -154,8 +154,8 @@ export default function Method() {
             </p>
             
             <div className="my-6 space-y-8">
-              <div className="bg-green-50 p-6 rounded-lg shadow-sm border border-green-200">
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm border border-green-100">
+                <h3 className="text-xl font-semibold mb-3 text-green-800 border-b border-green-100 pb-2">
                   3.2.1 内発的好奇心モジュール（ICM）
                 </h3>
                 <p className="mb-4 text-gray-700">
@@ -164,8 +164,8 @@ export default function Method() {
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">主要機能:</h4>
+                  <div className="bg-white bg-opacity-70 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium mb-2 text-green-700">主要機能:</h4>
                     <ul className="list-disc pl-6 space-y-1 text-gray-700">
                       <li>状態表現の学習と特徴抽出</li>
                       <li>状態遷移の予測誤差計算</li>
@@ -174,8 +174,8 @@ export default function Method() {
                     </ul>
                   </div>
                   
-                  <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">利点:</h4>
+                  <div className="bg-white bg-opacity-70 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium mb-2 text-green-700">利点:</h4>
                     <ul className="list-disc pl-6 space-y-1 text-gray-700">
                       <li>不確実な領域を優先的に探索</li>
                       <li>「新奇性バイアス」の実現</li>
@@ -185,7 +185,7 @@ export default function Method() {
                   </div>
                 </div>
                 
-                <div className="mt-4 text-sm text-gray-600">
+                <div className="mt-4 text-sm text-gray-600 bg-white bg-opacity-60 p-3 rounded-lg">
                   <p className="font-semibold">技術詳細:</p>
                   <p>
                     ICMは前向きモデル（行動から次状態を予測）と逆モデル（状態遷移から行動を予測）の双方を学習し、
@@ -195,8 +195,8 @@ export default function Method() {
                 </div>
               </div>
               
-              <div className="bg-purple-50 p-6 rounded-lg shadow-sm border border-purple-200">
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">
+              <div className="bg-gradient-to-r from-violet-50 to-purple-50 p-6 rounded-lg shadow-sm border border-violet-100">
+                <h3 className="text-xl font-semibold mb-3 text-violet-800 border-b border-violet-100 pb-2">
                   3.2.2 想像空間（Imagination Space）
                 </h3>
                 <p className="mb-4 text-gray-700">
@@ -205,8 +205,8 @@ export default function Method() {
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">主要機能:</h4>
+                  <div className="bg-white bg-opacity-70 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium mb-2 text-violet-700">主要機能:</h4>
                     <ul className="list-disc pl-6 space-y-1 text-gray-700">
                       <li>学習した遷移モデルに基づく内部シミュレーション</li>
                       <li>計画の評価と最適化</li>
@@ -215,8 +215,8 @@ export default function Method() {
                     </ul>
                   </div>
                   
-                  <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">利点:</h4>
+                  <div className="bg-white bg-opacity-70 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium mb-2 text-violet-700">利点:</h4>
                     <ul className="list-disc pl-6 space-y-1 text-gray-700">
                       <li>実環境でのサンプル数を削減</li>
                       <li>危険な状況を事前に回避</li>
@@ -226,7 +226,7 @@ export default function Method() {
                   </div>
                 </div>
                 
-                <div className="mt-4 text-sm text-gray-600">
+                <div className="mt-4 text-sm text-gray-600 bg-white bg-opacity-60 p-3 rounded-lg">
                   <p className="font-semibold">技術詳細:</p>
                   <p>
                     想像空間は確率的遷移モデル P(s<sub>t+1</sub> | s<sub>t</sub>, a<sub>t</sub>) を用いて実装され、
@@ -236,8 +236,8 @@ export default function Method() {
                 </div>
               </div>
               
-              <div className="bg-indigo-50 p-6 rounded-lg shadow-sm border border-indigo-200">
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">
+              <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-6 rounded-lg shadow-sm border border-indigo-100">
+                <h3 className="text-xl font-semibold mb-3 text-indigo-800 border-b border-indigo-100 pb-2">
                   3.2.3 オペレータ発見と政策学習
                 </h3>
                 <p className="mb-4 text-gray-700">
@@ -246,8 +246,8 @@ export default function Method() {
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">主要機能:</h4>
+                  <div className="bg-white bg-opacity-70 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium mb-2 text-indigo-700">主要機能:</h4>
                     <ul className="list-disc pl-6 space-y-1 text-gray-700">
                       <li>環境変化の検出と新オペレータの候補特定</li>
                       <li>オペレータの前提条件と効果の学習</li>
@@ -256,8 +256,8 @@ export default function Method() {
                     </ul>
                   </div>
                   
-                  <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">利点:</h4>
+                  <div className="bg-white bg-opacity-70 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium mb-2 text-indigo-700">利点:</h4>
                     <ul className="list-disc pl-6 space-y-1 text-gray-700">
                       <li>事前定義されたオペレータへの依存を排除</li>
                       <li>環境変化や未知の状況に対する適応能力を向上</li>
@@ -267,7 +267,7 @@ export default function Method() {
                   </div>
                 </div>
                 
-                <div className="mt-4 text-sm text-gray-600">
+                <div className="mt-4 text-sm text-gray-600 bg-white bg-opacity-60 p-3 rounded-lg">
                   <p className="font-semibold">技術詳細:</p>
                   <p>
                     オペレータは前提条件 pre(o)、効果 eff(o)、そして実行政策 π<sub>o</sub> の3つ組として表現されます。
@@ -278,8 +278,8 @@ export default function Method() {
                 </div>
               </div>
               
-              <div className="bg-red-50 p-6 rounded-lg shadow-sm border border-red-200">
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">
+              <div className="bg-gradient-to-r from-rose-50 to-pink-50 p-6 rounded-lg shadow-sm border border-rose-100">
+                <h3 className="text-xl font-semibold mb-3 text-rose-800 border-b border-rose-100 pb-2">
                   3.2.4 報酬機械（Reward Machine）
                 </h3>
                 <p className="mb-4 text-gray-700">
@@ -288,8 +288,8 @@ export default function Method() {
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">主要機能:</h4>
+                  <div className="bg-white bg-opacity-70 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium mb-2 text-rose-700">主要機能:</h4>
                     <ul className="list-disc pl-6 space-y-1 text-gray-700">
                       <li>タスクの階層的分解と表現</li>
                       <li>状態や進捗に基づく内部報酬の生成</li>
@@ -298,8 +298,8 @@ export default function Method() {
                     </ul>
                   </div>
                   
-                  <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">利点:</h4>
+                  <div className="bg-white bg-opacity-70 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-lg font-medium mb-2 text-rose-700">利点:</h4>
                     <ul className="list-disc pl-6 space-y-1 text-gray-700">
                       <li>疎報酬問題の緩和</li>
                       <li>長期的計画の効率化</li>
@@ -309,7 +309,7 @@ export default function Method() {
                   </div>
                 </div>
                 
-                <div className="mt-4 text-sm text-gray-600">
+                <div className="mt-4 text-sm text-gray-600 bg-white bg-opacity-60 p-3 rounded-lg">
                   <p className="font-semibold">技術詳細:</p>
                   <p>
                     報酬機械は形式的には有限状態オートマトン（FSA）として実装され、
@@ -321,34 +321,34 @@ export default function Method() {
               </div>
             </div>
             
-            <h3 className="text-xl font-bold mb-3 text-gray-800">3.3 コンポーネント間の統合と情報フロー</h3>
+            <h3 className="text-xl font-bold mb-3 text-violet-800 border-b border-violet-200 pb-2">3.3 コンポーネント間の統合と情報フロー</h3>
             <p>
               CDIフレームワークの強みは、各コンポーネントが密接に連携し、情報を共有しながら動作する点にあります。
               以下に、主要な情報フローと相互作用を示します：
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
+            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-6 rounded-lg shadow-sm border border-indigo-100 my-6">
               <ol className="list-decimal pl-6 space-y-3 text-gray-700">
                 <li>
-                  <strong>ICMと想像空間の連携</strong>：ICMが特定した興味深い状態や不確実な領域が、想像空間でのシミュレーション対象として優先されます。
+                  <strong className="text-blue-700">ICMと想像空間の連携</strong>：ICMが特定した興味深い状態や不確実な領域が、想像空間でのシミュレーション対象として優先されます。
                   これにより、探索リソースを最も情報価値の高い状態に集中させることができます。
                 </li>
                 <li>
-                  <strong>想像空間とオペレータ発見の相互作用</strong>：想像空間でのシミュレーション結果は、新しいオペレータの候補を特定するために使用されます。
+                  <strong className="text-violet-700">想像空間とオペレータ発見の相互作用</strong>：想像空間でのシミュレーション結果は、新しいオペレータの候補を特定するために使用されます。
                   逆に、発見されたオペレータは想像空間でのシミュレーションの精度と効率を向上させます。
                 </li>
                 <li>
-                  <strong>オペレータと報酬機械の連携</strong>：発見されたオペレータはタスク計画の基本単位となり、報酬機械の状態遷移設計に影響を与えます。
+                  <strong className="text-indigo-700">オペレータと報酬機械の連携</strong>：発見されたオペレータはタスク計画の基本単位となり、報酬機械の状態遷移設計に影響を与えます。
                   報酬機械はオペレータの組み合わせ方やシーケンスに関する情報を提供し、オペレータの高レベルな利用を導きます。
                 </li>
                 <li>
-                  <strong>全体的なフィードバックループ</strong>：実環境との相互作用の結果は、各コンポーネントのモデルを更新し、システム全体の精度を継続的に向上させます。
+                  <strong className="text-green-700">全体的なフィードバックループ</strong>：実環境との相互作用の結果は、各コンポーネントのモデルを更新し、システム全体の精度を継続的に向上させます。
                   このフィードバックループにより、CDIは環境の変化に対して継続的に適応できます。
                 </li>
               </ol>
             </div>
             
-            <p className="highlight">
+            <p className="bg-gradient-to-r from-indigo-100 to-blue-100 border-l-4 border-indigo-500 p-4 rounded">
               この統合されたアプローチにより、CDIは単に個々のコンポーネントの機能を足し合わせた以上の性能を発揮します。
               各要素が相互に強化し合うことで、オープンワールド環境における適応能力、学習効率、そして環境理解の深さが大幅に向上します。
               これは特に、動的に変化する環境や未知の状況に直面した際に顕著な利点となります。
@@ -356,15 +356,25 @@ export default function Method() {
           </div>
         </section>
         
-        <div className="flex justify-between mt-10 pt-6 border-t border-gray-200">
+        <div className="flex justify-between mt-10 pt-6 border-t border-indigo-100">
           <div>
-            <Link href="/background/" className="text-blue-600 hover:underline">
-              ← 背景
+            <Link href="/related-work/">
+              <a className="text-indigo-600 hover:text-indigo-800 hover:underline flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                関連研究
+              </a>
             </Link>
           </div>
           <div>
-            <Link href="/experiments/" className="text-blue-600 hover:underline">
-              実験 →
+            <Link href="/experiments/">
+              <a className="text-indigo-600 hover:text-indigo-800 hover:underline flex items-center">
+                実験
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
             </Link>
           </div>
         </div>

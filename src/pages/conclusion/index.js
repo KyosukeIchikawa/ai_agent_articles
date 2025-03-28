@@ -6,28 +6,28 @@ export default function Conclusion() {
     <Layout title="結論">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800">5. 結論</h1>
-          <p className="text-lg text-gray-600">
+          <h1 className="text-3xl font-bold mb-4 text-indigo-800">5. 結論</h1>
+          <p className="text-lg text-indigo-600">
             研究成果のまとめと将来展望
           </p>
         </header>
 
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">5.1 研究成果の要約</h2>
+          <h2 className="text-2xl font-bold mb-4 text-indigo-700">5.1 研究成果の要約</h2>
           <div className="prose max-w-none">
             <p>
               本研究では、オープンワールド環境でのロボットの適応能力を向上させるための新しい枠組みとして、
-              <span className="term">Curiosity-Driven Imagination (CDI)</span>を提案しました。
+              <span className="text-indigo-700 font-medium">Curiosity-Driven Imagination (CDI)</span>を提案しました。
               CDIは内発的好奇心に基づく効率的な探索と、想像空間を活用した内部シミュレーションを統合することで、
               未知の状況や変化する環境に対する適応能力を大幅に向上させることを実証しました。
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">5.1.1 主要な貢献</h3>
+            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-6 rounded-lg shadow-sm border border-indigo-100 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-indigo-800">5.1.1 主要な貢献</h3>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-blue-600">理論的貢献</h4>
+                <div className="bg-white p-4 rounded-lg shadow-inner">
+                  <h4 className="text-lg font-medium mb-2 text-indigo-700">理論的貢献</h4>
                   <ul className="list-disc pl-6 space-y-1 text-gray-700">
                     <li>好奇心駆動型探索と想像ベースの計画を統合する新しい理論的枠組み</li>
                     <li>オープンワールド適応のための階層的知識表現モデル</li>
@@ -36,8 +36,8 @@ export default function Conclusion() {
                   </ul>
                 </div>
                 
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-green-600">実践的貢献</h4>
+                <div className="bg-white p-4 rounded-lg shadow-inner">
+                  <h4 className="text-lg font-medium mb-2 text-blue-700">実践的貢献</h4>
                   <ul className="list-disc pl-6 space-y-1 text-gray-700">
                     <li>従来の3〜4倍の速さで環境変化に適応できるシステムの実現</li>
                     <li>サンプル効率を平均65%向上させる想像ベースのシミュレーション</li>
@@ -47,10 +47,10 @@ export default function Conclusion() {
                 </div>
               </div>
               
-              <div className="mt-6">
-                <h4 className="text-lg font-medium mb-2 text-purple-600">検証結果</h4>
+              <div className="mt-6 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg">
+                <h4 className="text-lg font-medium mb-2 text-indigo-700">検証結果</h4>
                 <p className="text-gray-700">
-                  複数の実験を通じて、CDIは従来の<span className="term">Task and Motion Planning (TAMP)</span>手法や
+                  複数の実験を通じて、CDIは従来の<span className="text-blue-700 font-medium">Task and Motion Planning (TAMP)</span>手法や
                   標準的な強化学習アプローチと比較して、特に以下の点で優れた性能を示しました：
                 </p>
                 <ul className="list-disc pl-6 space-y-1 text-gray-700">
@@ -71,17 +71,17 @@ export default function Conclusion() {
         </section>
         
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">5.2 将来展望</h2>
+          <h2 className="text-2xl font-bold mb-4 text-indigo-700">5.2 将来展望</h2>
           <div className="prose max-w-none">
             <p>
               CDIフレームワークは有望な成果を示しましたが、さらなる発展と拡張の余地があります。
               将来の研究方向として、以下の課題に取り組むことが重要です：
             </p>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
+            <div className="bg-gradient-to-r from-violet-50 to-purple-50 p-6 rounded-lg shadow-sm border border-violet-100 my-6">
               <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">5.2.1 スケーラビリティの向上</h3>
+                <div className="bg-white p-4 rounded-lg shadow-inner">
+                  <h3 className="text-xl font-semibold mb-3 text-indigo-700">5.2.1 スケーラビリティの向上</h3>
                   <ul className="list-disc pl-6 space-y-1 text-gray-700">
                     <li>高次元空間での効率的なモデル学習手法の開発</li>
                     <li>計算資源の制約下での想像シミュレーションの最適化</li>
@@ -90,8 +90,8 @@ export default function Conclusion() {
                   </ul>
                 </div>
                 
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">5.2.2 汎用性の拡大</h3>
+                <div className="bg-white p-4 rounded-lg shadow-inner">
+                  <h3 className="text-xl font-semibold mb-3 text-blue-700">5.2.2 汎用性の拡大</h3>
                   <ul className="list-disc pl-6 space-y-1 text-gray-700">
                     <li>マルチエージェント環境への適応</li>
                     <li>部分観測可能環境での効果的な探索戦略</li>
@@ -102,8 +102,8 @@ export default function Conclusion() {
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">5.2.3 安全性と信頼性の強化</h3>
+                <div className="bg-white p-4 rounded-lg shadow-inner">
+                  <h3 className="text-xl font-semibold mb-3 text-violet-700">5.2.3 安全性と信頼性の強化</h3>
                   <ul className="list-disc pl-6 space-y-1 text-gray-700">
                     <li>不確実性の明示的なモデル化と安全な探索</li>
                     <li>モデル予測の信頼性評価メカニズム</li>
@@ -112,8 +112,8 @@ export default function Conclusion() {
                   </ul>
                 </div>
                 
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">5.2.4 実応用への展開</h3>
+                <div className="bg-white p-4 rounded-lg shadow-inner">
+                  <h3 className="text-xl font-semibold mb-3 text-purple-700">5.2.4 実応用への展開</h3>
                   <ul className="list-disc pl-6 space-y-1 text-gray-700">
                     <li>実ロボットプラットフォームへの実装と長期的評価</li>
                     <li>人間との協調作業におけるCDIの活用</li>
@@ -124,16 +124,16 @@ export default function Conclusion() {
               </div>
             </div>
             
-            <p className="highlight">
+            <div className="bg-gradient-to-r from-indigo-100 to-blue-100 border-l-4 border-indigo-500 p-4 rounded">
               今後、これらの課題に取り組むことで、CDIフレームワークはより強力で汎用的な適応型AIシステムの
               基盤技術として発展していく可能性があります。特に、人間のような柔軟な適応能力と
               想像力を持つ自律システムの実現に向けた重要なステップとなることが期待されます。
-            </p>
+            </div>
           </div>
         </section>
         
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">5.3 最終考察</h2>
+          <h2 className="text-2xl font-bold mb-4 text-indigo-700">5.3 最終考察</h2>
           <div className="prose max-w-none">
             <p>
               オープンワールド環境におけるAIの適応能力は、未だ人間や動物の柔軟性には遠く及びませんが、
@@ -142,7 +142,7 @@ export default function Conclusion() {
               AIシステムの設計において新しい視点を提供します。
             </p>
             
-            <blockquote className="bg-blue-50 p-6 rounded-lg my-6 border-l-4 border-blue-500">
+            <blockquote className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg my-6 border-l-4 border-blue-500 shadow-sm">
               <p className="text-gray-700 italic">
                 "好奇心と想像力は、人間の適応知能の核心であり、真に自律的なAIシステムを構築する上での
                 重要な要素である。これらの能力を計算論的にモデル化し、実装することは、
@@ -156,24 +156,36 @@ export default function Conclusion() {
               本研究で提案したフレームワークをどのように統合できるかという点です。
             </p>
             
-            <p>
-              最終的に、CDIのようなアプローチが成熟すれば、事前にプログラムされた応答に依存するのではなく、
-              環境との相互作用から継続的に学習し、未知の状況に創造的に対応できるAIシステムの開発が
-              可能になるでしょう。これは、ロボティクス、自動運転、介護支援など、予測不可能な実世界環境で
-              動作する必要のあるあらゆるAIシステムにとって、変革をもたらす可能性を秘めています。
-            </p>
+            <div className="bg-gradient-to-r from-indigo-50 to-violet-50 p-6 rounded-lg shadow-sm border border-indigo-100 my-6">
+              <p className="text-gray-700">
+                最終的に、CDIのようなアプローチが成熟すれば、事前にプログラムされた応答に依存するのではなく、
+                環境との相互作用から継続的に学習し、未知の状況に創造的に対応できるAIシステムの開発が
+                可能になるでしょう。これは、ロボティクス、自動運転、介護支援など、予測不可能な実世界環境で
+                動作する必要のあるあらゆるAIシステムにとって、変革をもたらす可能性を秘めています。
+              </p>
+            </div>
           </div>
         </section>
         
-        <div className="flex justify-between mt-10 pt-6 border-t border-gray-200">
+        <div className="flex justify-between mt-10 pt-6 border-t border-indigo-100">
           <div>
-            <Link href="/discussion/" className="text-blue-600 hover:underline">
-              ← 議論と考察
+            <Link href="/discussion/">
+              <a className="text-indigo-600 hover:text-indigo-800 hover:underline flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                議論と考察
+              </a>
             </Link>
           </div>
           <div>
-            <Link href="/references/" className="text-blue-600 hover:underline">
-              参考文献 →
+            <Link href="/references/">
+              <a className="text-indigo-600 hover:text-indigo-800 hover:underline flex items-center">
+                参考文献
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
             </Link>
           </div>
         </div>

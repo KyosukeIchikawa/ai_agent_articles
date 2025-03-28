@@ -37,7 +37,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <Head>
         <title>{title} | 論文解説</title>
         <meta name="description" content="Curiosity-Driven Imagination: Discovering Plan Operators and Learning Associated Policies for Open-World Adaptation の論文解説" />
@@ -47,15 +47,16 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
           rel="stylesheet"
         />
       </Head>
+
       <header className="sticky top-0 z-20 bg-white shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold text-blue-600">
+          <Link href="/" className="text-xl font-bold text-primary">
             Curiosity-Driven Imagination
           </Link>
           <div className="flex items-center space-x-4">
             {/* ハンバーガーメニュー - 目次も含む */}
             <button
-              className="block md:hidden text-gray-700"
+              className="block md:hidden text-text"
               onClick={toggleMenu}
               aria-expanded={isMenuOpen}
             >
@@ -92,8 +93,8 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
                 <li key={link.href}>
                   <Link 
                     href={link.href} 
-                    className={`text-gray-700 hover:text-blue-600 ${
-                      router.pathname === link.href ? 'font-semibold text-blue-600' : ''
+                    className={`text-text hover:text-primary ${
+                      router.pathname === link.href ? 'font-semibold text-primary' : ''
                     }`}
                   >
                     {link.label}
@@ -111,14 +112,14 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
           } md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white shadow-lg`}
         >
           <nav className="container mx-auto px-4 py-2">
-            <h3 className="text-lg font-semibold my-2 text-gray-800">目次</h3>
+            <h3 className="text-lg font-semibold my-2 text-text">目次</h3>
             <ul className="flex flex-col space-y-3 pb-4">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href} 
-                    className={`block py-2 text-gray-700 hover:text-blue-600 ${
-                      router.pathname === link.href ? 'font-semibold text-blue-600' : ''
+                    className={`block py-2 text-text hover:text-primary ${
+                      router.pathname === link.href ? 'font-semibold text-primary' : ''
                     }`}
                   >
                     {link.label}
@@ -134,14 +135,14 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
         <div className="flex flex-col lg:flex-row">
           <aside className="hidden lg:block w-64 shrink-0 mr-8">
             <div className="sticky top-24 p-4 bg-white rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-4 text-gray-800">目次</h3>
+              <h3 className="text-lg font-semibold mb-4 text-text">目次</h3>
               <ul className="space-y-2">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     <Link 
                       href={link.href} 
-                      className={`text-gray-700 hover:text-blue-600 ${
-                        router.pathname === link.href ? 'font-semibold text-blue-600' : ''
+                      className={`text-text hover:text-primary ${
+                        router.pathname === link.href ? 'font-semibold text-primary' : ''
                       }`}
                     >
                       {link.label}
@@ -158,8 +159,8 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
           
           <aside className="hidden xl:block w-64 shrink-0 ml-8">
             <div className="sticky top-24 p-4 bg-white rounded-lg shadow">
-              <h3 className="text-lg font-semibold mb-4 text-gray-800">論文情報</h3>
-              <div className="space-y-2 text-sm text-gray-700">
+              <h3 className="text-lg font-semibold mb-4 text-text">論文情報</h3>
+              <div className="space-y-2 text-sm text-text">
                 <p>
                   <strong>タイトル:</strong> Curiosity-Driven Imagination: Discovering Plan Operators and Learning Associated Policies for Open-World Adaptation
                 </p>
@@ -174,7 +175,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
                     href="https://arxiv.org/abs/2503.04931v1"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+                    className="text-primary hover:underline"
                   >
                     原論文を読む (arXiv)
                   </a>
@@ -187,7 +188,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
       
       <ScrollToTop />
       
-      <footer className="bg-gray-800 text-white py-8">
+      <footer className="bg-text text-white py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">

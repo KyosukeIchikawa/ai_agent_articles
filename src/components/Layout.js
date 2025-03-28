@@ -57,7 +57,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
       <Head>
         <title>{title} | 論文解説</title>
         <meta name="description" content="Curiosity-Driven Imagination: Discovering Plan Operators and Learning Associated Policies for Open-World Adaptation の論文解説" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/ai_visual_arxiv/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Source+Code+Pro&display=swap"
           rel="stylesheet"
@@ -65,7 +65,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
       </Head>
       <header className="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
+          <Link href="/ai_visual_arxiv/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
             Curiosity-Driven Imagination
           </Link>
           <div className="flex items-center space-x-4">

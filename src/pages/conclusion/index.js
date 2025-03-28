@@ -251,12 +251,12 @@ export default function Conclusion() {
 
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <Link href="/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/ai_visual_arxiv/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 実験と結果
             </Link>
           </div>
           <div>
-            <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/ai_visual_arxiv/" className="text-blue-600 dark:text-blue-400 hover:underline">
               トップページ →
             </Link>
           </div>

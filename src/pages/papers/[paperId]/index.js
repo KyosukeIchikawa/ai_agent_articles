@@ -25,7 +25,7 @@ export default function PaperDetail() {
           <p className="text-lg mb-6 text-gray-600 dark:text-gray-300">
             指定されたIDの論文は存在しないか、移動した可能性があります。
           </p>
-          <Link href="/papers/">
+          <Link href="/ai_visual_arxiv/papers/">
             <a className="text-blue-600 dark:text-blue-400 hover:underline">
               論文一覧に戻る
             </a>

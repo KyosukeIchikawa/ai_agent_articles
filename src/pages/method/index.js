@@ -281,10 +281,10 @@ export default function Method() {
         </section>
 
         <div className="flex justify-between mt-8">
-          <Link href="/ai_visual_arxiv/background" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+          <Link href="/ai_visual_arxiv/background/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
             ← 背景
           </Link>
-          <Link href="/ai_visual_arxiv/experiments" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+          <Link href="/ai_visual_arxiv/experiments/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
             実験 →
           </Link>
         </div>

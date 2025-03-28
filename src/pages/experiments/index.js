@@ -106,7 +106,7 @@ export default function Experiments() {
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <h4 className="text-lg font-medium mb-2 text-gray-800">従来のTAMPアプローチ</h4>
                 <ul className="list-disc pl-6 space-y-1 text-gray-700">
-                  <li>記号的計画に基づく高レベル計画</li>
+                  <li>記号的計画（Symbolic Planning）に基づく高レベル計画</li>
                   <li>事前定義されたオペレータセット</li>
                   <li>動作計画のためのサンプリングベース手法</li>
                   <li>内部モデルはあるが、想像空間での計画生成はなし</li>
@@ -116,10 +116,10 @@ export default function Experiments() {
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <h4 className="text-lg font-medium mb-2 text-gray-800">標準的な強化学習アプローチ</h4>
                 <ul className="list-disc pl-6 space-y-1 text-gray-700">
-                  <li>深層強化学習（Deep RL）</li>
+                  <li>深層強化学習（Deep Reinforcement Learning, Deep RL）</li>
                   <li>内発的報酬を用いない標準的な手法</li>
-                  <li>階層的強化学習（HRL）</li>
-                  <li>モデルベース強化学習（但し想像空間なし）</li>
+                  <li>階層的強化学習（Hierarchical Reinforcement Learning, HRL）</li>
+                  <li>モデルベース強化学習（Model-Based Reinforcement Learning）（但し想像空間なし）</li>
                 </ul>
               </div>
             </div>

@@ -88,16 +88,16 @@ export default function Method() {
             
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
               <li>
-                <strong>好奇心駆動型の探索</strong>：内発的好奇心に基づいて新しい状態や未知の状況を積極的に探索し、環境についての知識を効率的に獲得します。
+                <strong>好奇心駆動型の探索（Curiosity-Driven Exploration）</strong>：内発的好奇心に基づいて新しい状態や未知の状況を積極的に探索し、環境についての知識を効率的に獲得します。
               </li>
               <li>
-                <strong>想像空間でのシミュレーション</strong>：実際に行動する前に、内部モデルを用いて異なる行動の結果を「想像」し、効率的な行動計画を生成します。
+                <strong>想像空間でのシミュレーション（Imagination-Based Simulation）</strong>：実際に行動する前に、内部モデルを用いて異なる行動の結果を「想像」し、効率的な行動計画を生成します。
               </li>
               <li>
-                <strong>オペレータの動的発見と学習</strong>：環境との相互作用から新しいオペレータ（基本的な行動ユニット）を自動的に発見し、それに対応する政策を学習します。
+                <strong>オペレータの動的発見と学習（Dynamic Operator Discovery and Learning）</strong>：環境との相互作用から新しいオペレータ（基本的な行動ユニット）を自動的に発見し、それに対応する政策を学習します。
               </li>
               <li>
-                <strong>報酬機械を通じた長期的計画</strong>：複雑なタスクを分解し、内部的な報酬信号を生成することで、長期的な目標達成を促進します。
+                <strong>報酬機械を通じた長期的計画（Long-Term Planning via Reward Machines）</strong>：複雑なタスクを分解し、内部的な報酬信号を生成することで、長期的な目標達成を促進します。
               </li>
             </ul>
             

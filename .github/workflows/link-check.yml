@@ -25,5 +25,10 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Check links
+    - name: Check regular links
       run: npm run check-links
+      
+    - name: Check GitHub Pages links
+      run: npm run ghpages:check
+      env:
+        CHECK_GITHUB_PAGES: 'true'

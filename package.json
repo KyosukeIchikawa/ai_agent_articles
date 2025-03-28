@@ -10,7 +10,7 @@
     "lint": "next lint",
     "check-links": "node src/scripts/check-links.js",
     "precommit": "npm run check-links",
-    "prebuild": "npm run check-links:ghpages"
+    "prebuild": "npm run check-links"
   },
   "dependencies": {
     "chart.js": "^4.0.0",

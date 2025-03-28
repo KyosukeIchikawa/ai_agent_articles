@@ -86,7 +86,7 @@ export default function Home() {
           </div>
           <div>
             <Link href="/background/" className="text-blue-600 hover:underline">
-              次のセクション：1 Background
+              背景
             </Link>
           </div>
         </div>

@@ -1,4 +1,5 @@
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout'
+import Link from 'next/link';;
 
 export default function References() {
   return (
@@ -174,9 +175,9 @@ export default function References() {
         
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <a href="/conclusion/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/conclusion/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 結論
-            </a>
+            </Link>
           </div>
           <div>
             <a href="/" className="text-blue-600 dark:text-blue-400 hover:underline">

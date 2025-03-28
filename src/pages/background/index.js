@@ -131,12 +131,12 @@ export default function Background() {
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
             <Link href="/ai_visual_arxiv/" className="text-blue-600 dark:text-blue-400 hover:underline">
-              ← トップページ
+              トップページ
             </Link>
           </div>
           <div>
             <Link href="/ai_visual_arxiv/method/" className="text-blue-600 dark:text-blue-400 hover:underline">
-              提案手法 →
+              次のセクション：3 Method
             </Link>
           </div>
         </div>

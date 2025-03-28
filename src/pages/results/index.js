@@ -181,40 +181,40 @@ export default function Results() {
     <Layout title="結果と分析">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">5. 結果と分析</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <h1 className="text-3xl font-bold mb-4 text-gray-800">5. 結果と分析</h1>
+          <p className="text-lg text-gray-600">
             提案手法「Curiosity-Driven Imagination」の実験結果とその分析
           </p>
         </header>
         <section>
-          <div className="prose dark:prose-invert max-w-none">
+          <div className="prose max-w-none">
             <p>
               以下では、ロボット操作タスクにおけるCuriosity-Driven Imaginationの評価結果と、
               ベースライン手法との比較分析を紹介します。評価は、タスク達成率、学習効率、環境変化への適応能力に焦点を当てて行われました。
             </p>
             
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.1 タスク達成率の比較</h3>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">5.1 タスク達成率の比較</h3>
               
               <div className="mb-6">
                 <div className="flex justify-center">
-                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
-                    <div className="w-full h-64 bg-white dark:bg-gray-700">
+                  <div className="bg-gray-100 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
+                    <div className="w-full h-64 bg-white">
                       <Bar data={taskCompletionData} options={taskCompletionOptions} />
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
+                    <p className="text-sm text-gray-600 mt-2 text-center">
                       図1: 異なる難易度のタスクにおける各手法の達成率
                     </p>
                   </div>
                 </div>
               </div>
               
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <p className="text-gray-700 mb-4">
                 図1は、異なる難易度のタスクに対する各手法の達成率を示しています。Curiosity-Driven Imagination（CDI）は、
                 特に複雑なタスクと環境変化が発生するシナリオにおいて、他の手法を大幅に上回る性能を示しました。
               </p>
               
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
                 <li>
                   <strong>標準タスク</strong>：環境変化のない基本的なタスクでは、CDIと高度なTAMP手法の間に有意な差は見られませんでした。
                   これは、静的な環境では従来の計画アプローチも効果的に機能することを示しています。
@@ -230,27 +230,27 @@ export default function Results() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.2 学習効率と収束速度</h3>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">5.2 学習効率と収束速度</h3>
               
               <div className="mb-6">
                 <div className="flex justify-center">
-                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
-                    <div className="w-full h-64 bg-white dark:bg-gray-700">
+                  <div className="bg-gray-100 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
+                    <div className="w-full h-64 bg-white">
                       <Line data={learningCurveData} options={learningCurveOptions} />
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
+                    <p className="text-sm text-gray-600 mt-2 text-center">
                       図2: 累積報酬に対するエピソード数の学習曲線
                     </p>
                   </div>
                 </div>
               </div>
               
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <p className="text-gray-700 mb-4">
                 図2は、各手法の学習効率と収束速度を示しています。以下の観察結果が得られました：
               </p>
               
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
                 <li>
                   <strong>データ効率</strong>：CDIは学習に必要なサンプル数（エピソード数）が他の手法と比較して顕著に少なく、
                   約30%少ないサンプルで同等のパフォーマンスを達成しました。
@@ -265,27 +265,27 @@ export default function Results() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.3 環境変化への適応能力</h3>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">5.3 環境変化への適応能力</h3>
               
               <div className="mb-6">
                 <div className="flex justify-center">
-                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
-                    <div className="w-full h-64 bg-white dark:bg-gray-700">
+                  <div className="bg-gray-100 p-4 rounded-lg" style={{ maxWidth: '700px', width: '100%' }}>
+                    <div className="w-full h-64 bg-white">
                       <Bar data={recoveryTimeData} options={recoveryTimeOptions} />
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
+                    <p className="text-sm text-gray-600 mt-2 text-center">
                       図3: 環境変化後のパフォーマンス回復時間
                     </p>
                   </div>
                 </div>
               </div>
               
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <p className="text-gray-700 mb-4">
                 図3は、環境が変化した後に各手法が元のパフォーマンスレベルに回復するまでに必要なエピソード数を示しています：
               </p>
               
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
                 <li>
                   <strong>軽微な変化</strong>：オブジェクトの位置変更などの軽微な環境変化に対して、CDIは平均して3エピソード以内に適応し、
                   TAMP+RL（8エピソード）とRL Only（12エピソード）を大幅に上回りました。
@@ -301,57 +301,57 @@ export default function Results() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.4 アブレーション研究</h3>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">5.4 アブレーション研究</h3>
               
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <p className="text-gray-700 mb-4">
                 CDIの各コンポーネントの重要性を理解するために、以下のアブレーション研究を実施しました：
               </p>
               
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                  <thead className="bg-gray-50 dark:bg-gray-800">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">モデルバリアント</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">達成率</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">収束エピソード</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">適応時間</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">モデルバリアント</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">達成率</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">収束エピソード</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">適応時間</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-800">
+                  <tbody className="bg-white divide-y divide-gray-200">
                     <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">完全なCDI</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">85%</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">42</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">7.3</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">完全なCDI</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">85%</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">42</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">7.3</td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">ICMなし</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">64%</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">78</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">16.5</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">ICMなし</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">64%</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">78</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">16.5</td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">想像空間なし</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">72%</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">61</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">11.2</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">想像空間なし</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">72%</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">61</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">11.2</td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">報酬機械なし</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">76%</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">54</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">9.8</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">報酬機械なし</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">76%</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">54</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">9.8</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               
-              <p className="text-gray-700 dark:text-gray-300 mt-4">
+              <p className="text-gray-700 mt-4">
                 アブレーション研究から、以下の洞察が得られました：
               </p>
               
-              <ul className="list-disc pl-6 space-y-2 mt-3 text-gray-700 dark:text-gray-300">
+              <ul className="list-disc pl-6 space-y-2 mt-3 text-gray-700">
                 <li>
                   <strong>内発的好奇心モジュール（ICM）</strong>の除去は最も大きな性能低下をもたらし、達成率が21%低下し、
                   収束に必要なエピソード数が86%増加しました。これは、ICMが効率的な探索と新しい状況の発見に不可欠であることを示しています。
@@ -374,14 +374,14 @@ export default function Results() {
             </p>
           </div>
         </section>
-        <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex justify-between mt-10 pt-6 border-t border-gray-200">
           <div>
-            <Link href="/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/experiments/" className="text-blue-600 hover:underline">
               ← 実験
             </Link>
           </div>
           <div>
-            <Link href="/discussion/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/discussion/" className="text-blue-600 hover:underline">
               議論と今後の展望 →
             </Link>
           </div>

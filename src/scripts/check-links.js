@@ -240,9 +240,10 @@ function isValidInternalLink(link) {
   // クエリパラメータとハッシュを削除
   normalizedLink = normalizedLink.split('?')[0].split('#')[0];
   
-  // ベースパス処理: GitHub Pages環境ではベースパスを考慮する
-  if (checkGitHubPages && normalizedLink.startsWith(GITHUB_PAGES_BASE_PATH)) {
-    // ベースパスを取り除く（検証のため）
+  // ベースパス処理: GitHub Pagesのベースパスから始まるリンクはモードに関わらず特別扱い
+  // 通常モードでもGitHub Pages用のリンクを正しく検証できるようにする
+  if (normalizedLink.startsWith(GITHUB_PAGES_BASE_PATH)) {
+    // ベースパスを取り除いて検証（通常モードでもGitHub Pages用のパスを正しく扱う）
     normalizedLink = normalizedLink.replace(GITHUB_PAGES_BASE_PATH, '') || '/';
   }
   

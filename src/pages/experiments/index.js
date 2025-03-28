@@ -374,4 +374,14 @@ export default function Experiments() {
                   <li>
                     <strong>統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
                     高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
-                    
+                    想像空間でその状況を詳細に検討することで、効率的かつ効果的な学習が実現しました。
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </Layout>
+  );
+}

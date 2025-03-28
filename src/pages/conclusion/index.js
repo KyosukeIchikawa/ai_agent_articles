@@ -167,12 +167,12 @@ export default function Conclusion() {
         
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <Link href="/ai_visual_arxiv/discussion/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/discussion/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 議論と考察
             </Link>
           </div>
           <div>
-            <Link href="/ai_visual_arxiv/references/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/references/" className="text-blue-600 dark:text-blue-400 hover:underline">
               参考文献 →
             </Link>
           </div>

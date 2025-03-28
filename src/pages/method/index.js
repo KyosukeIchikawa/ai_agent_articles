@@ -358,12 +358,12 @@ export default function Method() {
         
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <Link href="/ai_visual_arxiv/background/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/background/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 背景
             </Link>
           </div>
           <div>
-            <Link href="/ai_visual_arxiv/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
               実験 →
             </Link>
           </div>

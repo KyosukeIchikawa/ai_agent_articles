@@ -6,7 +6,6 @@ import ScrollToTop from './ScrollToTop';
 
 export default function Layout({ children, title = 'Curiosity-Driven Imagination' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobileTableOfContents, setIsMobileTableOfContents] = useState(false);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
@@ -18,19 +17,10 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
   // ページ遷移時にメニューを閉じる
   useEffect(() => {
     setIsMenuOpen(false);
-    setIsMobileTableOfContents(false);
   }, [router.pathname]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    // メニューを開いたら目次は閉じる
-    if (!isMenuOpen) {
-      setIsMobileTableOfContents(false);
-    }
-  };
-
-  const toggleMobileTableOfContents = () => {
-    setIsMobileTableOfContents(!isMobileTableOfContents);
   };
 
   // ナビゲーションリンク
@@ -63,18 +53,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
             Curiosity-Driven Imagination
           </Link>
           <div className="flex items-center space-x-4">
-            {/* モバイル用目次ボタン */}
-            <button
-              className="block md:hidden text-gray-700"
-              onClick={toggleMobileTableOfContents}
-              aria-expanded={isMobileTableOfContents}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-            </button>
-            
-            {/* ハンバーガーメニュー */}
+            {/* ハンバーガーメニュー - 目次も含む */}
             <button
               className="block md:hidden text-gray-700"
               onClick={toggleMenu}
@@ -125,13 +104,14 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
           </nav>
         </div>
         
-        {/* モバイル用メインナビゲーション */}
+        {/* モバイル用メインナビゲーション（目次を含む） */}
         <div
           className={`${
             isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
           } md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white shadow-lg`}
         >
           <nav className="container mx-auto px-4 py-2">
+            <h3 className="text-lg font-semibold my-2 text-gray-800">目次</h3>
             <ul className="flex flex-col space-y-3 pb-4">
               {navLinks.map((link) => (
                 <li key={link.href}>
@@ -147,31 +127,6 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
               ))}
             </ul>
           </nav>
-        </div>
-        
-        {/* モバイル用目次ドロップダウン */}
-        <div
-          className={`${
-            isMobileTableOfContents ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
-          } md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white shadow-lg`}
-        >
-          <div className="container mx-auto px-4 py-2">
-            <h3 className="text-lg font-semibold my-2 text-gray-800">目次</h3>
-            <ul className="flex flex-col space-y-2 pb-4">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link 
-                    href={link.href} 
-                    className={`block py-2 text-gray-700 hover:text-blue-600 ${
-                      router.pathname === link.href ? 'font-semibold text-blue-600' : ''
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </header>
       

@@ -22,31 +22,9 @@ AIの論文を解説する記事を作成し、ウェブサイトにします。
 
 ## ✅ 開発の進め方（TDD）
 
-### 現在のブランチを確認する
+### ブランチについて
 
-作業を始める前に、必ず現在のブランチを確認し、最新をpullしてください。
-
-```sh
-git branch
-git pull origin main
-```
-
-作業内容に応じてブランチを切り替え、新しいブランチで開発を始めてください。
-
-```
-git switch -c feature/your-feature-name
-```
-
-ブランチの命名規則は以下の通りです。
-
-| 種類         | プレフィックス | 使用例                                     |
-| ------------ | ------------ | ---------------------------------------- |
-| 機能追加     | `feature/`   | `feature/add-clipboard-ui`               |
-| バグ修正     | `fix/`       | `fix/issue-クリップボードが更新されない問題修正` |
-| リファクタリング | `refactor/`  | `refactor/improve-history-struct`         |
-| ドキュメント | `docs/`      | `docs/update-readme`                      |
-| CI/CDや設定変更 | `chore/`     | `chore/update-pre-commit-hooks`          |
-
+mainブランチで開発してください。
 
 ### はじめに設計書を作る
 

@@ -267,7 +267,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
             </div>
             <div>
               <a
-                href="https://github.comai_visual_arxiven-imagination"
+                href="https://github.com/KyosukeIchikawa/ai_visual_arxiv/?tab=readme-ov-file#ai-visual-arxiv"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white"

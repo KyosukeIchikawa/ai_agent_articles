@@ -6,258 +6,174 @@ export default function Conclusion() {
     <Layout title="結論">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">結論</h1>
+          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">5. 結論</h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
-            研究の総括と将来の展望
+            研究成果のまとめと将来展望
           </p>
         </header>
 
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">研究の総括</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">5.1 研究成果の要約</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p>
-              本研究では、オープンワールド環境における動的で予測不可能な変化に素早く適応できるロボットシステムを開発するために、
-              <span className="term">Curiosity-Driven Imagination（好奇心駆動型想像力）</span>というアプローチを提案しました。
-              この手法は、内発的好奇心に基づく効率的な環境探索と、想像空間内での計画シミュレーションを組み合わせたハイブリッドアーキテクチャです。
+              本研究では、オープンワールド環境でのロボットの適応能力を向上させるための新しい枠組みとして、
+              <span className="term">Curiosity-Driven Imagination (CDI)</span>を提案しました。
+              CDIは内発的好奇心に基づく効率的な探索と、想像空間を活用した内部シミュレーションを統合することで、
+              未知の状況や変化する環境に対する適応能力を大幅に向上させることを実証しました。
             </p>
             
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">主要な研究成果</h3>
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                <li>
-                  <strong>学習と計画の統合</strong>：低レベルの学習ベースコンポーネント（ICM）と高レベルの記号的計画コンポーネントを
-                  効果的に統合するハイブリッドアーキテクチャを開発しました。
-                </li>
-                <li>
-                  <strong>効率的な環境探索</strong>：内発的好奇心モジュール（ICM）を通じて、新規で興味深い経験を優先的に探索する
-                  メカニズムを実現しました。
-                </li>
-                <li>
-                  <strong>想像空間シミュレーション</strong>：実世界での試行錯誤なしに、内部モデルを用いて行動計画を評価・検証できる
-                  想像空間を構築しました。
-                </li>
-                <li>
-                  <strong>オペレータ発見</strong>：新規状況に対応するための新しい行動オペレータを自動的に発見・学習する能力を実現しました。
-                </li>
-                <li>
-                  <strong>報酬機械生成</strong>：複雑なタスク構造を反映した報酬機械を生成し、長期的な目標に向けた学習を促進する
-                  メカニズムを開発しました。
-                </li>
-              </ul>
+            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.1.1 主要な貢献</h3>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-lg font-medium mb-2 text-blue-600 dark:text-blue-400">理論的貢献</h4>
+                  <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
+                    <li>好奇心駆動型探索と想像ベースの計画を統合する新しい理論的枠組み</li>
+                    <li>オープンワールド適応のための階層的知識表現モデル</li>
+                    <li>内発的動機付けと目標指向行動のバランスを取るメカニズム</li>
+                    <li>記号的計画と連続的制御の統合アプローチ</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-medium mb-2 text-green-600 dark:text-green-400">実践的貢献</h4>
+                  <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
+                    <li>従来の3〜4倍の速さで環境変化に適応できるシステムの実現</li>
+                    <li>サンプル効率を平均65%向上させる想像ベースのシミュレーション</li>
+                    <li>新しいオペレータを自動的に発見・学習するメカニズム</li>
+                    <li>類似タスク間での知識転移率を70%まで向上</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="mt-6">
+                <h4 className="text-lg font-medium mb-2 text-purple-600 dark:text-purple-400">検証結果</h4>
+                <p className="text-gray-700 dark:text-gray-300">
+                  複数の実験を通じて、CDIは従来の<span className="term">Task and Motion Planning (TAMP)</span>手法や
+                  標準的な強化学習アプローチと比較して、特に以下の点で優れた性能を示しました：
+                </p>
+                <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
+                  <li>逐次的な新規性注入に対する迅速な適応</li>
+                  <li>未知のオブジェクトや環境変化への効率的な対応</li>
+                  <li>複雑なタスクの階層的分解と解決</li>
+                  <li>実環境でのサンプル数削減と学習効率の向上</li>
+                </ul>
+              </div>
             </div>
             
             <p>
-              実験結果は、提案手法が従来のアプローチ（Task and Motion Planning、標準的な強化学習）と比較して、以下の点で優れていることを示しました：
+              これらの成果は、ロボットや自律システムのオープンワールド適応能力を向上させるための
+              基盤となる技術を提供するものであり、実世界の複雑な環境で動作する知的システムの
+              開発に重要な意義を持ちます。
+            </p>
+          </div>
+        </section>
+        
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">5.2 将来展望</h2>
+          <div className="prose dark:prose-invert max-w-none">
+            <p>
+              CDIフレームワークは有望な成果を示しましたが、さらなる発展と拡張の余地があります。
+              将来の研究方向として、以下の課題に取り組むことが重要です：
             </p>
             
-            <div className="grid md:grid-cols-3 gap-6 my-6">
-              <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
-                <div className="text-center mb-2">
-                  <span className="inline-block bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-lg font-semibold rounded-full w-8 h-8 flex items-center justify-center">
-                    1
-                  </span>
+            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.2.1 スケーラビリティの向上</h3>
+                  <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
+                    <li>高次元空間での効率的なモデル学習手法の開発</li>
+                    <li>計算資源の制約下での想像シミュレーションの最適化</li>
+                    <li>大規模環境での知識表現の効率化</li>
+                    <li>分散学習アーキテクチャへの拡張</li>
+                  </ul>
                 </div>
-                <h4 className="text-center text-lg font-medium mb-2 text-gray-800 dark:text-gray-100">適応速度</h4>
-                <p className="text-gray-700 dark:text-gray-300 text-center">
-                  新規性注入後、3〜4倍速く元のパフォーマンスレベルに回復
-                </p>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.2.2 汎用性の拡大</h3>
+                  <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
+                    <li>マルチエージェント環境への適応</li>
+                    <li>部分観測可能環境での効果的な探索戦略</li>
+                    <li>ドメイン間での知識転移メカニズムの強化</li>
+                    <li>異なる物理法則を持つ環境への適応能力の向上</li>
+                  </ul>
+                </div>
               </div>
               
-              <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
-                <div className="text-center mb-2">
-                  <span className="inline-block bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 text-lg font-semibold rounded-full w-8 h-8 flex items-center justify-center">
-                    2
-                  </span>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.2.3 安全性と信頼性の強化</h3>
+                  <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
+                    <li>不確実性の明示的なモデル化と安全な探索</li>
+                    <li>モデル予測の信頼性評価メカニズム</li>
+                    <li>形式的検証可能な安全保証の統合</li>
+                    <li>人間の監視との効果的な連携メカニズム</li>
+                  </ul>
                 </div>
-                <h4 className="text-center text-lg font-medium mb-2 text-gray-800 dark:text-gray-100">サンプル効率</h4>
-                <p className="text-gray-700 dark:text-gray-300 text-center">
-                  少ない実世界サンプルで高パフォーマンスを達成
-                </p>
-              </div>
-              
-              <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
-                <div className="text-center mb-2">
-                  <span className="inline-block bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 text-lg font-semibold rounded-full w-8 h-8 flex items-center justify-center">
-                    3
-                  </span>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.2.4 実応用への展開</h3>
+                  <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
+                    <li>実ロボットプラットフォームへの実装と長期的評価</li>
+                    <li>人間との協調作業におけるCDIの活用</li>
+                    <li>産業応用に適したリアルタイム処理の最適化</li>
+                    <li>特定ドメイン（医療、災害対応等）への特化型CDIの開発</li>
+                  </ul>
                 </div>
-                <h4 className="text-center text-lg font-medium mb-2 text-gray-800 dark:text-gray-100">ロバスト性</h4>
-                <p className="text-gray-700 dark:text-gray-300 text-center">
-                  予測不可能な環境変化に対する安定した対応能力
-                </p>
               </div>
             </div>
             
             <p className="highlight">
-              これらの結果は、好奇心駆動型の探索と想像空間でのシミュレーションを組み合わせることが、
-              オープンワールド環境でのロボットの適応能力を向上させる効果的なアプローチであることを示しています。
-              このハイブリッドアプローチにより、記号的計画の解釈性と強化学習の適応性を兼ね備えたシステムが実現しました。
+              今後、これらの課題に取り組むことで、CDIフレームワークはより強力で汎用的な適応型AIシステムの
+              基盤技術として発展していく可能性があります。特に、人間のような柔軟な適応能力と
+              想像力を持つ自律システムの実現に向けた重要なステップとなることが期待されます。
             </p>
           </div>
         </section>
-
+        
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">研究の意義と適用範囲</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">5.3 最終考察</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p>
-              本研究の成果は、以下のような幅広い分野に貢献する可能性があります：
+              オープンワールド環境におけるAIの適応能力は、未だ人間や動物の柔軟性には遠く及びませんが、
+              本研究で提案したCDIフレームワークは、その方向への重要な一歩を示しています。
+              内発的好奇心と想像力を組み合わせるという自然界の生物から着想を得たアプローチは、
+              AIシステムの設計において新しい視点を提供します。
             </p>
             
-            <div className="grid md:grid-cols-2 gap-6 my-6">
-              <div className="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
-                <h3 className="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">ロボット工学</h3>
-                <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
-                  <li>製造環境での適応的ロボット制御</li>
-                  <li>家庭用サービスロボットの環境適応能力向上</li>
-                  <li>災害対応ロボットの未知環境での運用</li>
-                  <li>宇宙探査ロボットの自律的探査能力</li>
-                </ul>
-              </div>
-              
-              <div className="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
-                <h3 className="text-xl font-semibold mb-3 text-green-600 dark:text-green-400">人工知能</h3>
-                <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
-                  <li>生涯学習システムの開発</li>
-                  <li>転移学習の効率化</li>
-                  <li>メタ学習アプローチの強化</li>
-                  <li>自律的知識獲得システム</li>
-                </ul>
-              </div>
-              
-              <div className="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
-                <h3 className="text-xl font-semibold mb-3 text-yellow-600 dark:text-yellow-400">認知科学</h3>
-                <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
-                  <li>人間の好奇心と探索行動のモデル化</li>
-                  <li>心的シミュレーションのメカニズム理解</li>
-                  <li>想像力と計画能力の計算モデル</li>
-                  <li>認知発達プロセスの解明</li>
-                </ul>
-              </div>
-              
-              <div className="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
-                <h3 className="text-xl font-semibold mb-3 text-red-600 dark:text-red-400">自動運転</h3>
-                <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
-                  <li>未知の交通状況への適応</li>
-                  <li>危険予測と回避のための想像空間シミュレーション</li>
-                  <li>変化する環境条件への対応</li>
-                  <li>交通ルールが異なる地域への適応</li>
-                </ul>
-              </div>
-            </div>
+            <blockquote className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg my-6 border-l-4 border-blue-500 dark:border-blue-400">
+              <p className="text-gray-700 dark:text-gray-300 italic">
+                "好奇心と想像力は、人間の適応知能の核心であり、真に自律的なAIシステムを構築する上での
+                重要な要素である。これらの能力を計算論的にモデル化し、実装することは、
+                AIがより複雑で開かれた環境で機能するために不可欠な進歩である。"
+              </p>
+            </blockquote>
             
             <p>
-              提案手法のコア技術は、動的で不確実な環境での意思決定を必要とする様々なドメインに応用可能です。
-              特に、事前に完全に定義できない環境での自律エージェントの運用において、その価値が高いと考えられます。
+              本研究は、適応型AIの開発における一連の課題に対処するものですが、同時に多くの新たな研究の方向性を示唆しています。
+              特に興味深いのは、人間の認知能力の他の側面（メタ認知、類推的推論、創造的問題解決など）と
+              本研究で提案したフレームワークをどのように統合できるかという点です。
+            </p>
+            
+            <p>
+              最終的に、CDIのようなアプローチが成熟すれば、事前にプログラムされた応答に依存するのではなく、
+              環境との相互作用から継続的に学習し、未知の状況に創造的に対応できるAIシステムの開発が
+              可能になるでしょう。これは、ロボティクス、自動運転、介護支援など、予測不可能な実世界環境で
+              動作する必要のあるあらゆるAIシステムにとって、変革をもたらす可能性を秘めています。
             </p>
           </div>
         </section>
-
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">今後の研究方向</h2>
-          <div className="prose dark:prose-invert max-w-none">
-            <p>
-              本研究の成果を基に、以下の方向での発展が期待されます：
-            </p>
-            
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">技術的発展</h3>
-              
-              <div className="space-y-4">
-                <div className="flex">
-                  <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-3 mt-1">
-                    <span className="text-blue-800 dark:text-blue-200 text-sm font-semibold">1</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-gray-800 dark:text-gray-100">スケーラビリティの向上</h4>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      より複雑な環境や多様なタスクに対応できるよう、システムのスケーラビリティを向上させる研究。
-                      特に、高次元の状態空間や長期的な依存関係を持つタスクでの効率的な学習と計画が課題。
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mr-3 mt-1">
-                    <span className="text-green-800 dark:text-green-200 text-sm font-semibold">2</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-gray-800 dark:text-gray-100">マルチエージェント拡張</h4>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      複数のエージェントが協調して環境を探索し、知識を共有する仕組みへの拡張。
-                      異なるエージェントの経験を統合して、より効率的な学習と適応を実現する方法の研究。
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 h-6 w-6 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mr-3 mt-1">
-                    <span className="text-purple-800 dark:text-purple-200 text-sm font-semibold">3</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-gray-800 dark:text-gray-100">内部モデルの精緻化</h4>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      より正確な世界モデルを構築するための手法開発。特に、不確実性の表現と計画への統合、
-                      物理的制約や因果関係の学習能力の向上が重要。
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 h-6 w-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mr-3 mt-1">
-                    <span className="text-red-800 dark:text-red-200 text-sm font-semibold">4</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-gray-800 dark:text-gray-100">抽象化レベルの自動調整</h4>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      タスクの複雑さや環境の特性に応じて、適切な抽象化レベルを動的に選択するメカニズムの開発。
-                      これにより、計算効率と表現力のバランスを最適化。
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">応用研究</h3>
-              
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                <li>
-                  <strong>実世界ロボットへの実装</strong>：実際のロボットプラットフォームでの提案手法の評価と検証。
-                  シミュレーションと実世界のギャップを埋めるための研究。
-                </li>
-                <li>
-                  <strong>人間とのインタラクション</strong>：人間とロボットが協調して問題解決を行うシナリオでの適用。
-                  ロボットが人間の意図を理解し、適切に補助する能力の向上。
-                </li>
-                <li>
-                  <strong>生涯学習</strong>：長期にわたって経験を蓄積し、継続的に能力を向上させる生涯学習エージェントの開発。
-                  知識の忘却と保持のバランスを考慮した学習メカニズム。
-                </li>
-                <li>
-                  <strong>説明可能AI</strong>：エージェントの意思決定プロセスを人間が理解できる形で説明する能力の開発。
-                  想像空間での探索プロセスの可視化と解釈可能な表現。
-                </li>
-              </ul>
-            </div>
-            
-            <p className="highlight">
-              今後の研究を通じて、よりロバストで適応性の高い知的システムの開発が期待されます。
-              特に、人間の認知能力に見られる好奇心と想像力の計算モデルをさらに発展させることで、
-              真の意味でオープンワールドに対応可能な自律エージェントの実現に近づくでしょう。
-              本研究は、そのような未来のAIシステムに向けた重要な一歩と位置づけられます。
-            </p>
-          </div>
-        </section>
-
+        
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <Link href="/ai_visual_arxiv/experiments/" className="text-blue-600 dark:text-blue-400 hover:underline">
-              ← 実験と結果
+            <Link href="/ai_visual_arxiv/discussion/" className="text-blue-600 dark:text-blue-400 hover:underline">
+              ← 議論と考察
             </Link>
           </div>
           <div>
-            <Link href="/ai_visual_arxiv/" className="text-blue-600 dark:text-blue-400 hover:underline">
-              トップページ →
+            <Link href="/ai_visual_arxiv/references/" className="text-blue-600 dark:text-blue-400 hover:underline">
+              参考文献 →
             </Link>
           </div>
         </div>

@@ -1,17 +1,17 @@
 import React from 'react';
 import Layout from '../../components/Layout';
+import Link from 'next/link';
 
 export default function RelatedWork() {
   return (
     <Layout title="関連研究">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">関連研究</h1>
+          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">2. 関連研究</h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
             Curiosity-Driven Imaginationに関連する既存研究の概要
           </p>
         </header>
-
         <section>
           <div className="prose dark:prose-invert max-w-none">
             <p>
@@ -20,7 +20,7 @@ export default function RelatedWork() {
             </p>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">内発的好奇心（Intrinsic Curiosity）</h3>
+              <h3 className="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">2.1 内発的好奇心（Intrinsic Curiosity）</h3>
               <p className="text-gray-700 dark:text-gray-300">
                 内発的好奇心は、外部報酬が希少または存在しない環境での探索を促進するメカニズムです。
                 以下の研究がこの分野に重要な貢献をしています：
@@ -43,7 +43,7 @@ export default function RelatedWork() {
             </div>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-green-600 dark:text-green-400">想像力ベースの計画（Imagination-based Planning）</h3>
+              <h3 className="text-xl font-semibold mb-3 text-green-600 dark:text-green-400">2.2 想像力ベースの計画（Imagination-based Planning）</h3>
               <p className="text-gray-700 dark:text-gray-300">
                 想像力ベースの計画は、エージェントが内部モデルを使って行動結果をシミュレーションし、実際の実行前に計画を評価・改善する手法です：
               </p>
@@ -65,7 +65,7 @@ export default function RelatedWork() {
             </div>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-purple-600 dark:text-purple-400">ハイブリッドアプローチ（記号的計画と強化学習の統合）</h3>
+              <h3 className="text-xl font-semibold mb-3 text-purple-600 dark:text-purple-400">2.3 ハイブリッドアプローチ（記号的計画と強化学習の統合）</h3>
               <p className="text-gray-700 dark:text-gray-300">
                 記号的計画と強化学習を統合するハイブリッドアプローチは、両者の長所を組み合わせる試みです：
               </p>
@@ -86,7 +86,7 @@ export default function RelatedWork() {
             </div>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-red-600 dark:text-red-400">報酬機械（Reward Machines）</h3>
+              <h3 className="text-xl font-semibold mb-3 text-red-600 dark:text-red-400">2.4 報酬機械（Reward Machines）</h3>
               <p className="text-gray-700 dark:text-gray-300">
                 報酬機械は、複雑な報酬構造を形式的に表現するためのフレームワークです：
               </p>
@@ -109,17 +109,16 @@ export default function RelatedWork() {
             </p>
           </div>
         </section>
-
         <div className="flex justify-between mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <a href="/ai_visual_arxiv/background/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/ai_visual_arxiv/background/" className="text-blue-600 dark:text-blue-400 hover:underline">
               ← 背景
-            </a>
+            </Link>
           </div>
           <div>
-            <a href="/ai_visual_arxiv/method/" className="text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href="/ai_visual_arxiv/method/" className="text-blue-600 dark:text-blue-400 hover:underline">
               提案手法 →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

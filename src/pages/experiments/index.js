@@ -5,14 +5,14 @@ export default function Experiments() {
     <Layout title="実験と結果">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">実験と結果</h1>
+          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">4. 実験</h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
             Curiosity-Driven Imaginationの評価と検証
           </p>
         </header>
 
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">実験設定</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">4.1 実験設定</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p>
               提案手法の有効性を評価するために、以下の実験設定が用いられました。
@@ -20,7 +20,7 @@ export default function Experiments() {
             </p>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">実験環境</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">4.1.1 実験環境</h3>
               
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>
@@ -50,7 +50,7 @@ export default function Experiments() {
                 </figure>
               </div>
               
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">タスクと逐次的新規性注入</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">4.1.2 タスクと逐次的新規性注入</h3>
               
               <p className="text-gray-700 dark:text-gray-300 mb-4">
                 実験では、<span className="term">逐次的新規性注入（Sequential Novelty Injections）</span>という手法が用いられました。
@@ -97,7 +97,7 @@ export default function Experiments() {
               </div>
             </div>
             
-            <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-100">比較手法</h3>
+            <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-100">4.1.3 比較手法</h3>
             <p>
               提案手法の効果を評価するために、以下の比較手法が実装されました：
             </p>
@@ -133,7 +133,7 @@ export default function Experiments() {
               </ul>
             </div>
             
-            <h3 className="text-xl font-bold mb-3 mt-6 text-gray-800 dark:text-gray-100">評価指標</h3>
+            <h3 className="text-xl font-bold mb-3 mt-6 text-gray-800 dark:text-gray-100">4.1.4 評価指標</h3>
             <p>
               以下の指標を用いて各手法の性能を評価しました：
             </p>
@@ -149,7 +149,7 @@ export default function Experiments() {
         </section>
         
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">実験結果</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">4.2 実験結果</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p>
               実験結果は、提案手法「Curiosity-Driven Imagination」が従来のアプローチと比較して、
@@ -157,7 +157,7 @@ export default function Experiments() {
             </p>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">主要な実験結果</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">4.2.1 主要な実験結果</h3>
               
               <div className="mb-6">
                 <h4 className="text-lg font-medium mb-2 text-blue-600 dark:text-blue-400">タスク達成率</h4>
@@ -304,7 +304,7 @@ export default function Experiments() {
               </div>
             </div>
             
-            <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-100">コンポーネント分析</h3>
+            <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-100">4.2.2 コンポーネント分析</h3>
             
             <p>
               提案手法の各コンポーネントの貢献を評価するために、異なる変種の比較実験が行われました：

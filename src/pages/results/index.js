@@ -19,26 +19,26 @@ ChartJS.register(
 export default function Results() {
   // タスク達成率のデータ
   const taskCompletionData = {
-    labels: ['標準タスク', '変化するタスク', '新規オブジェクトタスク'],
+    labels: ['標準タスク', '環境変化タスク', '新規オブジェクトタスク'],
     datasets: [
       {
         label: 'Curiosity-Driven Imagination',
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        data: [92, 85, 78],
+        data: [92, 86, 78],
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
       },
       {
         label: 'TAMP+RL',
         backgroundColor: 'rgba(153, 102, 255, 0.6)',
-        data: [90, 67, 54],
+        data: [89, 65, 52],
         borderColor: 'rgba(153, 102, 255, 1)',
         borderWidth: 1,
       },
       {
-        label: 'RL',
+        label: 'RL Only',
         backgroundColor: 'rgba(255, 159, 64, 0.6)',
-        data: [82, 45, 32],
+        data: [80, 43, 30],
         borderColor: 'rgba(255, 159, 64, 1)',
         borderWidth: 1,
       },
@@ -89,7 +89,7 @@ export default function Results() {
         fill: true,
       },
       {
-        label: 'RL',
+        label: 'RL Only',
         data: [0, 5, 13, 21, 30, 38, 48, 58, 66, 72, 78],
         borderColor: 'rgba(255, 159, 64, 1)',
         backgroundColor: 'rgba(255, 159, 64, 0.2)',
@@ -146,7 +146,7 @@ export default function Results() {
         borderWidth: 1,
       },
       {
-        label: 'RL',
+        label: 'RL Only',
         backgroundColor: 'rgba(255, 159, 64, 0.6)',
         data: [12, 20, 28],
         borderColor: 'rgba(255, 159, 64, 1)',
@@ -181,7 +181,7 @@ export default function Results() {
     <Layout title="結果と分析">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">結果と分析</h1>
+          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">5. 結果と分析</h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
             提案手法「Curiosity-Driven Imagination」の実験結果とその分析
           </p>
@@ -194,7 +194,7 @@ export default function Results() {
             </p>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">タスク達成率の比較</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.1 タスク達成率の比較</h3>
               
               <div className="mb-6">
                 <div className="flex justify-center">
@@ -220,8 +220,8 @@ export default function Results() {
                   これは、静的な環境では従来の計画アプローチも効果的に機能することを示しています。
                 </li>
                 <li>
-                  <strong>変化するタスク</strong>：タスク実行中に環境変化が導入されるシナリオでは、CDIは約85%の達成率を維持し、
-                  次に高いTAMP+RL手法（67%）を18%上回りました。これは、CDIのオンライン適応能力の有効性を示しています。
+                  <strong>環境変化タスク</strong>：タスク実行中に環境変化が導入されるシナリオでは、CDIは約86%の達成率を維持し、
+                  次に高いTAMP+RL手法（65%）を21%上回りました。これは、CDIのオンライン適応能力の有効性を示しています。
                 </li>
                 <li>
                   <strong>新規オブジェクトタスク</strong>：以前に遭遇したことのない新しいオブジェクトが導入されるシナリオでは、
@@ -231,7 +231,7 @@ export default function Results() {
             </div>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">学習効率と収束速度</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.2 学習効率と収束速度</h3>
               
               <div className="mb-6">
                 <div className="flex justify-center">
@@ -266,7 +266,7 @@ export default function Results() {
             </div>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">環境変化への適応能力</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.3 環境変化への適応能力</h3>
               
               <div className="mb-6">
                 <div className="flex justify-center">
@@ -288,7 +288,7 @@ export default function Results() {
               <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
                 <li>
                   <strong>軽微な変化</strong>：オブジェクトの位置変更などの軽微な環境変化に対して、CDIは平均して3エピソード以内に適応し、
-                  TAMP+RL（8エピソード）とRL単独（12エピソード）を大幅に上回りました。
+                  TAMP+RL（8エピソード）とRL Only（12エピソード）を大幅に上回りました。
                 </li>
                 <li>
                   <strong>中程度の変化</strong>：新しい障害物の導入などの中程度の変化に対して、CDIは平均7エピソードで適応し、
@@ -302,7 +302,7 @@ export default function Results() {
             </div>
             
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">アブレーション研究</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">5.4 アブレーション研究</h3>
               
               <p className="text-gray-700 dark:text-gray-300 mb-4">
                 CDIの各コンポーネントの重要性を理解するために、以下のアブレーション研究を実施しました：

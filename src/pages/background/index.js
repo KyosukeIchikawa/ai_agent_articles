@@ -6,14 +6,14 @@ export default function Background() {
     <Layout title="背景">
       <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">背景</h1>
+          <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">1. 背景</h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
             オープンワールド環境におけるロボット適応の課題と既存アプローチの限界
           </p>
         </header>
 
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">オープンワールド環境の課題</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">1.1 オープンワールド環境の課題</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p>
               実世界環境でのロボット操作は、構造化された単純な環境と異なり、予測不可能な変化や未知の状況に直面することが多くあります。
@@ -58,7 +58,7 @@ export default function Background() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">従来のアプローチとその限界</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">1.2 従来のアプローチとその限界</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p>
               オープンワールド環境でのロボット制御に対する従来のアプローチには、主に以下の2つがあります：

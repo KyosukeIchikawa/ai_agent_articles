@@ -1,10 +1,27 @@
 #!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
 
-# リンクチェックを実行
+echo "🔍 通常のリンクチェックを実行中..."
 npm run check-links
 
-# リンクチェックが失敗した場合はコミットを中止
+# 通常のリンクチェックが失敗した場合
 if [ $? -ne 0 ]; then
   echo "❌ リンクチェックに失敗しました。コミットを中止します。"
+  echo "修正してから再度コミットしてください。"
   exit 1
 fi
+
+echo "🔍 GitHub Pages用のリンクチェックを実行中..."
+npm run ghpages:check
+
+# GitHub Pages用のリンクチェックが失敗した場合
+if [ $? -ne 0 ]; then
+  echo "❌ GitHub Pages用のリンク問題が検出されました！"
+  echo "修正するには以下のコマンドを実行してください:"
+  echo "npm run ghpages:fix"
+  echo ""
+  echo "修正後、再度コミットしてください。"
+  exit 1
+fi
+
+echo "✅ すべてのリンクチェックに成功しました。"

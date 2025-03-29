@@ -434,7 +434,7 @@ export default function Experiments() {
                 bgGradient="from-white to-secondary-light"
               />
               
-              <div className="mt-4"></div>
+              <div className="mt-4">
                 <h4 className="text-lg font-medium mb-2 text-primary">分析結果</h4>
                 <ul className="list-disc pl-6 space-y-2 text-text">
                   <li>

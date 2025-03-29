@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
 import ResponsiveChart from '../../components/ResponsiveChart';
-import { Bar, Scatter } from 'react-chartjs-2';
+import dynamic from 'next/dynamic';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 
 // Chart.jsコンポーネントの登録
@@ -16,50 +16,83 @@ ChartJS.register(
   Legend
 );
 
+// クライアントサイドのみでレンダリングされるChartコンポーネント
+const ClientSideBarChart = dynamic(() => 
+  import('../../components/ClientSideChart').then((mod) => mod.ClientSideBarChart), 
+  { ssr: false }
+);
+
+const ClientSideScatterChart = dynamic(() => 
+  import('../../components/ClientSideChart').then((mod) => mod.ClientSideScatterChart), 
+  { ssr: false }
+);
+
+// デフォルトカラー（サーバーサイドレンダリング用）
+const defaultColors = {
+  primary: { main: 'rgba(52, 152, 219, 0.7)', border: 'rgba(52, 152, 219, 1)', light: 'rgba(52, 152, 219, 0.2)' },
+  secondary: { main: 'rgba(46, 204, 113, 0.7)', border: 'rgba(46, 204, 113, 1)', light: 'rgba(46, 204, 113, 0.2)' },
+  accent: { main: 'rgba(231, 76, 60, 0.7)', border: 'rgba(231, 76, 60, 1)', light: 'rgba(231, 76, 60, 0.2)' },
+};
+
 export default function Experiments() {
   // Tailwindカラーの変数を作成
-  const [colors, setColors] = useState({
-    primary: { main: 'rgba(52, 152, 219, 0.7)', border: 'rgba(52, 152, 219, 1)', light: 'rgba(52, 152, 219, 0.2)' },
-    secondary: { main: 'rgba(46, 204, 113, 0.7)', border: 'rgba(46, 204, 113, 1)', light: 'rgba(46, 204, 113, 0.2)' },
-    accent: { main: 'rgba(231, 76, 60, 0.7)', border: 'rgba(231, 76, 60, 1)', light: 'rgba(231, 76, 60, 0.2)' },
-  });
+  const [colors, setColors] = useState(defaultColors);
+  const [isMounted, setIsMounted] = useState(false);
 
-  // マウント時にTailwindのカスタムカラーを取得
+  // クライアントサイドでのみ実行されるカラー設定
   useEffect(() => {
+    setIsMounted(true);
+    
     // カラー取得関数
     const getColorWithOpacity = (colorName, opacity = 1) => {
-      const el = document.createElement('div');
-      el.classList.add(`text-${colorName}`);
-      document.body.appendChild(el);
-      const color = window.getComputedStyle(el).color;
-      document.body.removeChild(el);
-
-      // RGB値を抽出してRGBA形式に変換
-      const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-      if (rgbMatch) {
-        return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${opacity})`;
+      try {
+        const el = document.createElement('div');
+        el.classList.add(`text-${colorName}`);
+        document.body.appendChild(el);
+        const color = window.getComputedStyle(el).color;
+        document.body.removeChild(el);
+        
+        // RGB値を抽出してRGBA形式に変換
+        const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        if (rgbMatch) {
+          return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${opacity})`;
+        }
+        return color;
+      } catch (e) {
+        // エラーが発生した場合、デフォルト値を返す
+        console.warn('Error getting color:', e);
+        if (colorName === 'primary') {
+          return opacity === 1 ? 'rgba(52, 152, 219, 1)' : 
+                opacity === 0.2 ? 'rgba(52, 152, 219, 0.2)' : 'rgba(52, 152, 219, 0.7)';
+        } else if (colorName === 'secondary') {
+          return opacity === 1 ? 'rgba(46, 204, 113, 1)' : 
+                opacity === 0.2 ? 'rgba(46, 204, 113, 0.2)' : 'rgba(46, 204, 113, 0.7)';
+        } else {
+          return opacity === 1 ? 'rgba(231, 76, 60, 1)' : 
+                opacity === 0.2 ? 'rgba(231, 76, 60, 0.2)' : 'rgba(231, 76, 60, 0.7)';
+        }
       }
-
-      return color;
     };
 
-    setColors({
-      primary: {
-        main: getColorWithOpacity('primary', 0.7),
-        border: getColorWithOpacity('primary', 1),
-        light: getColorWithOpacity('primary', 0.2),
-      },
-      secondary: {
-        main: getColorWithOpacity('secondary', 0.7),
-        border: getColorWithOpacity('secondary', 1),
-        light: getColorWithOpacity('secondary', 0.2),
-      },
-      accent: {
-        main: getColorWithOpacity('accent', 0.7),
-        border: getColorWithOpacity('accent', 1),
-        light: getColorWithOpacity('accent', 0.2),
-      },
-    });
+    if (typeof window !== 'undefined') {
+      setColors({
+        primary: {
+          main: getColorWithOpacity('primary', 0.7),
+          border: getColorWithOpacity('primary', 1),
+          light: getColorWithOpacity('primary', 0.2),
+        },
+        secondary: {
+          main: getColorWithOpacity('secondary', 0.7),
+          border: getColorWithOpacity('secondary', 1),
+          light: getColorWithOpacity('secondary', 0.2),
+        },
+        accent: {
+          main: getColorWithOpacity('accent', 0.7),
+          border: getColorWithOpacity('accent', 1),
+          light: getColorWithOpacity('accent', 0.2),
+        },
+      });
+    }
   }, []);
 
   // タスク達成率のデータ
@@ -455,27 +488,9 @@ export default function Experiments() {
                 <ResponsiveChart
                   chart={
                     <div className="h-full w-full">
-                      <Bar 
+                      <ClientSideBarChart 
                         data={taskCompletionData} 
-                        options={{
-                          ...taskCompletionOptions,
-                          responsive: true,
-                          maintainAspectRatio: true,
-                          plugins: {
-                            ...taskCompletionOptions.plugins,
-                            legend: {
-                              ...taskCompletionOptions.plugins?.legend,
-                              position: window.innerWidth < 768 ? 'bottom' : 'top',
-                              labels: {
-                                boxWidth: window.innerWidth < 768 ? 10 : 12,
-                                padding: window.innerWidth < 768 ? 10 : 10,
-                                font: {
-                                  size: window.innerWidth < 768 ? 10 : 12
-                                }
-                              }
-                            }
-                          }
-                        }} 
+                        options={taskCompletionOptions} 
                       />
                     </div>
                   }
@@ -529,27 +544,9 @@ export default function Experiments() {
               <ResponsiveChart
                 chart={
                   <div className="h-full w-full">
-                    <Scatter 
+                    <ClientSideScatterChart 
                       data={componentAnalysisData} 
-                      options={{
-                        ...componentAnalysisOptions,
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                          ...componentAnalysisOptions.plugins,
-                          legend: {
-                            ...componentAnalysisOptions.plugins?.legend,
-                            position: window.innerWidth < 768 ? 'bottom' : 'top',
-                            labels: {
-                              boxWidth: window.innerWidth < 768 ? 10 : 12,
-                              padding: window.innerWidth < 768 ? 8 : 10,
-                              font: {
-                                size: window.innerWidth < 768 ? 10 : 12
-                              }
-                            }
-                          }
-                        }
-                      }} 
+                      options={componentAnalysisOptions} 
                     />
                   </div>
                 }

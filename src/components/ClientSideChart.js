@@ -20,6 +20,10 @@ export const ClientSideBarChart = ({ data, options }) => {
         ...options,
         responsive: true,
         maintainAspectRatio: false,
+        animation: {
+          duration: 1000,
+          easing: 'easeOutQuad'
+        },
         plugins: {
           ...options.plugins,
           legend: {
@@ -46,6 +50,7 @@ export const ClientSideBarChart = ({ data, options }) => {
           ...options.scales,
           y: {
             ...options.scales?.y,
+            beginAtZero: true, // ゼロから始めることを明示
             ticks: {
               ...(options.scales?.y?.ticks || {}),
               font: {
@@ -98,7 +103,17 @@ export const ClientSideBarChart = ({ data, options }) => {
     <div className="h-full w-full">
       <Bar 
         data={data} 
-        options={chartOptions} 
+        options={{
+          ...chartOptions,
+          // アニメーションの明示的な設定
+          animation: {
+            ...chartOptions.animation,
+            // 下から上へのアニメーション設定
+            origin: {
+              y: 1
+            }
+          }
+        }} 
         style={{ 
           maxHeight: '100%', 
           width: '100%'

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
 import ResponsiveChart from '../../components/ResponsiveChart';
-import { Bar, Line } from 'react-chartjs-2';
+import dynamic from 'next/dynamic';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 
 // Chart.jsコンポーネントの登録
@@ -17,13 +17,27 @@ ChartJS.register(
   Legend
 );
 
+// クライアントサイドのみでレンダリングされるChartコンポーネント
+const ClientSideBarChart = dynamic(() => 
+  import('../../components/ClientSideChart').then((mod) => mod.ClientSideBarChart), 
+  { ssr: false }
+);
+
+const ClientSideLineChart = dynamic(() => 
+  import('../../components/ClientSideChart').then((mod) => mod.ClientSideLineChart), 
+  { ssr: false }
+);
+
+// デフォルトカラー（サーバーサイドレンダリング用）
+const defaultColors = {
+  primary: { main: 'rgba(52, 152, 219, 0.7)', border: 'rgba(52, 152, 219, 1)', light: 'rgba(52, 152, 219, 0.2)' },
+  secondary: { main: 'rgba(46, 204, 113, 0.7)', border: 'rgba(46, 204, 113, 1)', light: 'rgba(46, 204, 113, 0.2)' },
+  accent: { main: 'rgba(231, 76, 60, 0.7)', border: 'rgba(231, 76, 60, 1)', light: 'rgba(231, 76, 60, 0.2)' },
+};
+
 export default function Results() {
   // Tailwindカラーの変数を作成
-  const [colors, setColors] = useState({
-    primary: { main: 'rgba(52, 152, 219, 0.7)', border: 'rgba(52, 152, 219, 1)', light: 'rgba(52, 152, 219, 0.2)' },
-    secondary: { main: 'rgba(46, 204, 113, 0.7)', border: 'rgba(46, 204, 113, 1)', light: 'rgba(46, 204, 113, 0.2)' },
-    accent: { main: 'rgba(231, 76, 60, 0.7)', border: 'rgba(231, 76, 60, 1)', light: 'rgba(231, 76, 60, 0.2)' },
-  });
+  const [colors, setColors] = useState(defaultColors);
 
   // マウント時にTailwindのカスタムカラーを取得
   useEffect(() => {
@@ -285,13 +299,21 @@ export default function Results() {
               <h3 className="text-xl font-semibold mb-3 text-primary">5.1 タスク達成率の比較</h3>
               
               <div className="mb-6">
-                <ResponsiveChart
-                  chart={<Bar data={taskCompletionData} />}
-                  baseOptions={taskCompletionOptions}
-                  caption="図1: 異なる難易度のタスクにおける各手法の達成率"
-                  captionColor="text-primary"
-                  bgGradient="from-white to-primary-light"
-                />
+                <div className="rounded-lg overflow-hidden shadow-sm mb-4">
+                  <ResponsiveChart
+                    chart={
+                      <div className="h-full w-full">
+                        <ClientSideBarChart 
+                          data={taskCompletionData} 
+                          options={taskCompletionOptions} 
+                        />
+                      </div>
+                    }
+                    caption="図1: 異なる難易度のタスクにおける各手法の達成率"
+                    captionColor="text-primary"
+                    bgGradient="from-white to-primary-light"
+                  />
+                </div>
               </div>
               
               <p className="text-text mb-4">
@@ -319,13 +341,21 @@ export default function Results() {
               <h3 className="text-xl font-semibold mb-3 text-primary">5.2 学習効率と収束速度</h3>
               
               <div className="mb-6">
-                <ResponsiveChart
-                  chart={<Line data={learningCurveData} />}
-                  baseOptions={learningCurveOptions}
-                  caption="図2: 累積報酬に対するエピソード数の学習曲線"
-                  captionColor="text-primary"
-                  bgGradient="from-white to-secondary-light"
-                />
+                <div className="rounded-lg overflow-hidden shadow-sm mb-4">
+                  <ResponsiveChart
+                    chart={
+                      <div className="h-full w-full">
+                        <ClientSideLineChart 
+                          data={learningCurveData} 
+                          options={learningCurveOptions} 
+                        />
+                      </div>
+                    }
+                    caption="図2: 累積報酬に対するエピソード数の学習曲線"
+                    captionColor="text-primary"
+                    bgGradient="from-white to-secondary-light"
+                  />
+                </div>
               </div>
               
               <p className="text-text mb-4">
@@ -351,13 +381,21 @@ export default function Results() {
               <h3 className="text-xl font-semibold mb-3 text-primary">5.3 環境変化への適応能力</h3>
               
               <div className="mb-6">
-                <ResponsiveChart
-                  chart={<Bar data={recoveryTimeData} />}
-                  baseOptions={recoveryTimeOptions}
-                  caption="図3: 環境変化後のパフォーマンス回復時間"
-                  captionColor="text-accent"
-                  bgGradient="from-white to-accent-light"
-                />
+                <div className="rounded-lg overflow-hidden shadow-sm mb-4">
+                  <ResponsiveChart
+                    chart={
+                      <div className="h-full w-full">
+                        <ClientSideBarChart 
+                          data={recoveryTimeData} 
+                          options={recoveryTimeOptions} 
+                        />
+                      </div>
+                    }
+                    caption="図3: 環境変化後のパフォーマンス回復時間"
+                    captionColor="text-accent"
+                    bgGradient="from-white to-accent-light"
+                  />
+                </div>
               </div>
               
               <p className="text-text mb-4">

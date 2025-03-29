@@ -1,29 +1,36 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
+import PaperHeader from '../components/PaperHeader';
+import StartReadingButton from '../components/StartReadingButton';
 
 export default function Home() {
+  // 論文情報の定義
+  const paperInfo = {
+    title: "Curiosity-Driven Imagination",
+    subtitle: "好奇心駆動型想像力によるオープンワールド適応",
+    description: "ロボットが未知の環境に素早く適応するための革新的アプローチ",
+    authors: [
+      { name: "Pierrick Lorang", affiliations: ["1", "2"] },
+      { name: "Hong Lu", affiliations: ["1"] },
+      { name: "Matthias Scheutz", affiliations: ["1"] }
+    ],
+    affiliations: {
+      "1": "Tufts University, USA",
+      "2": "AIT Austrian Institute of Technology GmbH, Austria"
+    }
+  };
+
   return (
     <Layout title="トップページ">
       <div className="space-y-8">
-        <header className="text-center mb-10 bg-gradient-to-r from-primary-light via-blue-50 to-primary-light py-10 rounded-xl shadow-sm">
-          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-text">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary to-primary">
-              Curiosity-Driven Imagination
-            </span>
-            <span className="block text-xl md:text-2xl font-medium mt-3 text-primary">
-              好奇心駆動型想像力によるオープンワールド適応
-            </span>
-          </h1>
-          <p className="text-lg text-primary max-w-3xl mx-auto">
-            ロボットが未知の環境に素早く適応するための革新的アプローチ
-          </p>
-          <div className="mt-4 text-text">
-            <p>Pierrick Lorang<sup>1,2</sup>, Hong Lu<sup>1</sup>, Matthias Scheutz<sup>1</sup></p>
-            <p className="text-sm mt-1">
-              <sup>1</sup>Tufts University, USA | <sup>2</sup>AIT Austrian Institute of Technology GmbH, Austria
-            </p>
-          </div>
-        </header>
+        {/* 論文ヘッダー */}
+        <PaperHeader 
+          title={paperInfo.title}
+          subtitle={paperInfo.subtitle}
+          description={paperInfo.description}
+          authors={paperInfo.authors}
+          affiliations={paperInfo.affiliations}
+        />
 
         <section>
           <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">論文概要</h2>
@@ -233,16 +240,8 @@ export default function Home() {
           </p>
         </section>
         
-        <div className="flex justify-center mt-10">
-          <Link href="/background/">
-            <a className="px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg shadow-md hover:from-primary hover:to-secondary/90 transition duration-300 flex items-center">
-              論文を読み始める
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          </Link>
-        </div>
+        {/* 論文を読み始めるボタン */}
+        <StartReadingButton href="/background/" text="論文を読み始める" />
       </div>
     </Layout>
   );

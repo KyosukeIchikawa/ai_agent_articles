@@ -42,7 +42,7 @@ export default function Method() {
               </div>
             </div>
             
-            <div className="bg-gradient-to-r from-primary-light to-blue-50 p-6 rounded-lg shadow-sm border border-primary/20 my-6">
+            <div className="bg-gradient-to-r from-primary-light to-primary-light/30 p-6 rounded-lg shadow-sm border border-primary/20 my-6">
               <h3 className="text-xl font-semibold mb-3 text-primary border-b border-primary/20 pb-2">4.1 Bi-Level Curiosityアルゴリズム</h3>
               <p className="text-text">
                 提案するBi-Level Curiosityアルゴリズムは、連続的（低レベル）と記号的（高レベル）の二つの層で環境を理解するアプローチです。

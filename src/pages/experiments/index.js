@@ -353,111 +353,114 @@ export default function Experiments() {
         
         <section>
           <h2 className="text-2xl font-bold mb-4 text-primary">4.2 実験結果</h2>
-          <div className="prose max-w-none">
-            <p>
-              実験結果は、提案手法「Curiosity-Driven Imagination」が従来のアプローチと比較して、
-              オープンワールド環境での適応能力において優れていることを示しました。
-            </p>
-            
-            <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">4.2.1 主要な実験結果</h3>
-              
-              <div className="mb-6">
-                <h4 className="text-lg font-medium mb-2 text-primary">タスク達成率</h4>
+          <div className="bg-gradient-to-r from-secondary-light to-secondary-light/30 p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
+            <h3 className="text-xl font-semibold mb-3 text-secondary border-b border-secondary/20 pb-2">4.2 実験結果</h3>
+            <div className="prose max-w-none">
+              <p>
+                実験結果は、提案手法「Curiosity-Driven Imagination」が従来のアプローチと比較して、
+                オープンワールド環境での適応能力において優れていることを示しました。
+              </p>
                 
+              <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
+                  <h3 className="text-xl font-semibold mb-3 text-primary">4.2.1 主要な実験結果</h3>
+                  
+                <div className="mb-6">
+                  <h4 className="text-lg font-medium mb-2 text-primary">タスク達成率</h4>
+                    
+                  <div className="rounded-lg overflow-hidden shadow-sm mb-4">
+                    <ResponsiveChart
+                      chart={
+                        <div className="h-full w-full">
+                          <ClientSideBarChart 
+                            data={taskCompletionData} 
+                            options={taskCompletionOptions} 
+                          />
+                        </div>
+                      }
+                      caption="図2: 各フェーズでのタスク達成率の比較"
+                      captionColor="text-primary"
+                      bgGradient="from-white to-primary-light"
+                    />
+                  </div>
+                    
+                  <p className="text-text mt-4">
+                    提案手法は、新規性注入後の性能低下が比較手法より小さく、迅速に元のパフォーマンスレベルに回復しました。
+                    特に、3回目と4回目の新規性注入後も80%以上のタスク達成率を維持した一方、従来のアプローチは50%以下まで低下しました。
+                  </p>
+                </div>
+                  
+                <div>
+                  <h4 className="text-lg font-medium mb-2 text-primary">オペレータ発見能力</h4>
+                  
+                  <p className="text-text mb-4">
+                    新規性注入後、提案手法は以下のような新しいオペレータを自動的に発見し学習しました：
+                  </p>
+                    
+                  <ul className="list-disc pl-6 space-y-2 text-text">
+                    <li>
+                      <strong className="text-primary">異なる把持戦略</strong>：新しい形状のオブジェクトに対して、適切な把持位置と力の制御方法を発見
+                    </li>
+                    <li>
+                      <strong className="text-primary">障害物回避行動</strong>：障害物を検知し、最適な回避経路を生成するオペレータを学習
+                    </li>
+                    <li>
+                      <strong className="text-accent">複合行動</strong>：基本オペレータを組み合わせた効率的な行動シーケンスを発見
+                    </li>
+                    <li>
+                      <strong className="text-secondary">適応的制御</strong>：オブジェクトの物理特性に応じて動きの速度と力を調整するオペレータを学習
+                    </li>
+                  </ul>
+                    
+                  <p className="text-text mt-4">
+                    提案手法は平均して各新規性注入後に3〜5個の新しいオペレータを発見できた一方、
+                    従来のTAMPアプローチは事前定義されたオペレータのみを使用し、標準的な強化学習は明示的なオペレータを形成しませんでした。
+                  </p>
+                </div>
+              </div>
+                
+              <h3 className="text-xl font-bold mb-3 text-primary">4.2.2 コンポーネント分析</h3>
+              
+              <p>
+                提案手法の各コンポーネントの貢献を評価するために、異なる変種の比較実験が行われました：
+              </p>
+                
+              <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
                 <div className="rounded-lg overflow-hidden shadow-sm mb-4">
                   <ResponsiveChart
                     chart={
                       <div className="h-full w-full">
-                        <ClientSideBarChart 
-                          data={taskCompletionData} 
-                          options={taskCompletionOptions} 
+                        <ClientSideScatterChart 
+                          data={componentAnalysisData} 
+                          options={componentAnalysisOptions} 
                         />
                       </div>
                     }
-                    caption="図2: 各フェーズでのタスク達成率の比較"
+                    caption="図3: 各手法のサンプル効率と適応能力の比較"
                     captionColor="text-primary"
-                    bgGradient="from-white to-primary-light"
+                    bgGradient="from-white to-secondary-light"
                   />
                 </div>
-                
-                <p className="text-text mt-4">
-                  提案手法は、新規性注入後の性能低下が比較手法より小さく、迅速に元のパフォーマンスレベルに回復しました。
-                  特に、3回目と4回目の新規性注入後も80%以上のタスク達成率を維持した一方、従来のアプローチは50%以下まで低下しました。
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="text-lg font-medium mb-2 text-primary">オペレータ発見能力</h4>
-                
-                <p className="text-text mb-4">
-                  新規性注入後、提案手法は以下のような新しいオペレータを自動的に発見し学習しました：
-                </p>
-                
-                <ul className="list-disc pl-6 space-y-2 text-text">
-                  <li>
-                    <strong className="text-primary">異なる把持戦略</strong>：新しい形状のオブジェクトに対して、適切な把持位置と力の制御方法を発見
-                  </li>
-                  <li>
-                    <strong className="text-primary">障害物回避行動</strong>：障害物を検知し、最適な回避経路を生成するオペレータを学習
-                  </li>
-                  <li>
-                    <strong className="text-accent">複合行動</strong>：基本オペレータを組み合わせた効率的な行動シーケンスを発見
-                  </li>
-                  <li>
-                    <strong className="text-secondary">適応的制御</strong>：オブジェクトの物理特性に応じて動きの速度と力を調整するオペレータを学習
-                  </li>
-                </ul>
-                
-                <p className="text-text mt-4">
-                  提案手法は平均して各新規性注入後に3〜5個の新しいオペレータを発見できた一方、
-                  従来のTAMPアプローチは事前定義されたオペレータのみを使用し、標準的な強化学習は明示的なオペレータを形成しませんでした。
-                </p>
-              </div>
-            </div>
-            
-            <h3 className="text-xl font-bold mb-3 text-primary">4.2.2 コンポーネント分析</h3>
-            
-            <p>
-              提案手法の各コンポーネントの貢献を評価するために、異なる変種の比較実験が行われました：
-            </p>
-            
-            <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
-              <div className="rounded-lg overflow-hidden shadow-sm mb-4">
-                <ResponsiveChart
-                  chart={
-                    <div className="h-full w-full">
-                      <ClientSideScatterChart 
-                        data={componentAnalysisData} 
-                        options={componentAnalysisOptions} 
-                      />
-                    </div>
-                  }
-                  caption="図3: 各手法のサンプル効率と適応能力の比較"
-                  captionColor="text-primary"
-                  bgGradient="from-white to-secondary-light"
-                />
-              </div>
-              
-              <div className="mt-4">
-                <h4 className="text-lg font-medium mb-2 text-primary">分析結果</h4>
-                <ul className="list-disc pl-6 space-y-2 text-text">
-                  <li>
-                    <strong className="text-primary">ICMの貢献</strong>：好奇心駆動型探索により、新規性の高い状況への積極的な探索が促進され、
-                    環境の変化に対する適応速度が向上しました。ICMのみの変種は標準RLより大幅に適応が速かったですが、
-                    フル提案手法には及びませんでした。
-                  </li>
-                  <li>
-                    <strong className="text-accent">想像空間の貢献</strong>：内部シミュレーションにより、実際の試行錯誤なしに多数の行動計画を評価でき、
-                    サンプル効率が大幅に向上しました。想像空間のみの変種はTAMPより効率的でしたが、
-                    好奇心駆動型探索がないため新規状況での効率は劣りました。
-                  </li>
-                  <li>
-                    <strong className="text-primary">統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
-                    高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
-                    想像空間でその状況を詳細に検討することで、効率的かつ効果的な学習が実現しました。
-                  </li>
-                </ul>
+                  
+                <div className="mt-4">
+                  <h4 className="text-lg font-medium mb-2 text-primary">分析結果</h4>
+                  <ul className="list-disc pl-6 space-y-2 text-text">
+                    <li>
+                      <strong className="text-primary">ICMの貢献</strong>：好奇心駆動型探索により、新規性の高い状況への積極的な探索が促進され、
+                      環境の変化に対する適応速度が向上しました。ICMのみの変種は標準RLより大幅に適応が速かったですが、
+                      フル提案手法には及びませんでした。
+                    </li>
+                    <li>
+                      <strong className="text-accent">想像空間の貢献</strong>：内部シミュレーションにより、実際の試行錯誤なしに多数の行動計画を評価でき、
+                      サンプル効率が大幅に向上しました。想像空間のみの変種はTAMPより効率的でしたが、
+                      好奇心駆動型探索がないため新規状況での効率は劣りました。
+                    </li>
+                    <li>
+                      <strong className="text-primary">統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
+                      高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
+                      想像空間でその状況を詳細に検討することで、効率的かつ効果的な学習が実現しました。
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

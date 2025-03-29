@@ -243,10 +243,6 @@ export default function Home() {
             </a>
           </Link>
         </div>
-        
-        <footer className="mt-10 pt-6 border-t border-gray-200 text-center text-gray-500 text-sm">
-          <p>原論文: <a href="https://arxiv.org/html/2503.04931v1" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">arXiv:2503.04931v1</a></p>
-        </footer>
       </div>
     </Layout>
   );

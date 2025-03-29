@@ -453,7 +453,32 @@ export default function Experiments() {
                 <h4 className="text-lg font-medium mb-2 text-primary">タスク達成率</h4>
                 
                 <ResponsiveChart
-                  chart={<Bar data={taskCompletionData} options={taskCompletionOptions} />}
+                  chart={
+                    <div className="h-full w-full">
+                      <Bar 
+                        data={taskCompletionData} 
+                        options={{
+                          ...taskCompletionOptions,
+                          responsive: true,
+                          maintainAspectRatio: true,
+                          plugins: {
+                            ...taskCompletionOptions.plugins,
+                            legend: {
+                              ...taskCompletionOptions.plugins?.legend,
+                              position: window.innerWidth < 768 ? 'bottom' : 'top',
+                              labels: {
+                                boxWidth: window.innerWidth < 768 ? 10 : 12,
+                                padding: window.innerWidth < 768 ? 10 : 10,
+                                font: {
+                                  size: window.innerWidth < 768 ? 10 : 12
+                                }
+                              }
+                            }
+                          }
+                        }} 
+                      />
+                    </div>
+                  }
                   caption="図2: 各フェーズでのタスク達成率の比較"
                   captionColor="text-primary"
                   bgGradient="from-white to-primary-light"
@@ -502,7 +527,32 @@ export default function Experiments() {
             
             <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
               <ResponsiveChart
-                chart={<Scatter data={componentAnalysisData} options={componentAnalysisOptions} />}
+                chart={
+                  <div className="h-full w-full">
+                    <Scatter 
+                      data={componentAnalysisData} 
+                      options={{
+                        ...componentAnalysisOptions,
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                          ...componentAnalysisOptions.plugins,
+                          legend: {
+                            ...componentAnalysisOptions.plugins?.legend,
+                            position: window.innerWidth < 768 ? 'bottom' : 'top',
+                            labels: {
+                              boxWidth: window.innerWidth < 768 ? 10 : 12,
+                              padding: window.innerWidth < 768 ? 8 : 10,
+                              font: {
+                                size: window.innerWidth < 768 ? 10 : 12
+                              }
+                            }
+                          }
+                        }
+                      }} 
+                    />
+                  </div>
+                }
                 caption="図3: 各手法のサンプル効率と適応能力の比較"
                 captionColor="text-primary"
                 bgGradient="from-white to-secondary-light"

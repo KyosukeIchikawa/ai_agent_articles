@@ -1,58 +1,74 @@
 import React from 'react';
+import Link from 'next/link';
 
 /**
- * 論文のヘッダー情報を表示するコンポーネント
+ * 論文のトップページ用ヘッダーコンポーネント
  * 
- * @param {Object} props
- * @param {string} props.title - 論文のタイトル（英語）
- * @param {string} props.subtitle - 論文のサブタイトル（日本語）
- * @param {string} props.description - 論文の簡単な説明
- * @param {Array} props.authors - 著者情報の配列
- * @param {Object} props.affiliations - 所属情報のオブジェクト
+ * @param {string} title - 論文タイトル
+ * @param {string} subtitle - 論文サブタイトル（オプション）
+ * @param {string} authors - 著者名（オプション）
+ * @param {string} venue - 発表場所（オプション）
+ * @param {string} date - 発表日（オプション）
+ * @param {string} paperUrl - 論文URL（オプション）
  */
-const PaperHeader = ({ 
+export default function PaperHeader({ 
   title, 
   subtitle, 
-  description, 
-  authors = [], 
-  affiliations = {} 
-}) => {
+  authors, 
+  venue, 
+  date, 
+  paperUrl 
+}) {
   return (
-    <header className="text-center mb-10 bg-gradient-to-r from-primary-light via-primary-light to-primary-light py-10 rounded-xl shadow-sm">
-      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-text">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary to-primary">
-          {title}
-        </span>
-        <span className="block text-xl md:text-2xl font-medium mt-3 text-primary">
-          {subtitle}
-        </span>
+    <header className="mb-8 text-center">
+      <h1 className="text-3xl md:text-4xl font-bold mb-3 text-primary">
+        {title}
       </h1>
-      <p className="text-lg text-primary max-w-3xl mx-auto">
-        {description}
-      </p>
-      <div className="mt-4 text-text">
-        <p>
-          {authors.map((author, index) => (
-            <React.Fragment key={index}>
-              {author.name}
-              {author.affiliations.map(affId => (
-                <sup key={affId}>{affId}</sup>
-              ))}
-              {index < authors.length - 1 ? ', ' : ''}
-            </React.Fragment>
-          ))}
+      
+      {subtitle && (
+        <p className="text-xl md:text-2xl mb-4 text-primary-dark">
+          {subtitle}
         </p>
-        <p className="text-sm mt-1">
-          {Object.entries(affiliations).map(([id, affiliation], index) => (
-            <React.Fragment key={id}>
-              <sup>{id}</sup>{affiliation}
-              {index < Object.entries(affiliations).length - 1 ? ' | ' : ''}
-            </React.Fragment>
-          ))}
+      )}
+      
+      {authors && (
+        <p className="text-lg mb-2 text-text">
+          {authors}
         </p>
-      </div>
+      )}
+      
+      {(venue || date) && (
+        <p className="text-md mb-4 text-text">
+          {venue}{venue && date && ', '}{date}
+        </p>
+      )}
+      
+      {paperUrl && (
+        <div className="mt-4">
+          <Link 
+            href={paperUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="h-5 w-5 mr-2" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
+              />
+            </svg>
+            原論文を読む
+          </Link>
+        </div>
+      )}
     </header>
   );
-};
-
-export default PaperHeader;
+}

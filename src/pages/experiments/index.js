@@ -5,6 +5,7 @@ import ResponsiveChart from '../../components/ResponsiveChart';
 import dynamic from 'next/dynamic';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import { getChartColors, getBarChartOptions, getLineChartOptions } from '../../utils/chartUtils';
+import FigureWithCaption from '../../components/FigureWithCaption';
 
 // Chart.jsコンポーネントの登録
 ChartJS.register(
@@ -366,23 +367,18 @@ export default function Experiments() {
                   
                 <div className="mb-6">
                   <h4 className="text-lg font-medium mb-2 text-primary">タスク達成率</h4>
-                    
-                  <div className="rounded-lg overflow-hidden shadow-sm mb-4">
-                    <ResponsiveChart
-                      chart={
-                        <div className="h-full w-full">
-                          <ClientSideBarChart 
-                            data={taskCompletionData} 
-                            options={taskCompletionOptions} 
-                          />
-                        </div>
-                      }
-                      caption="図2: 各フェーズでのタスク達成率の比較"
-                      captionColor="text-primary"
-                      bgGradient="from-white to-primary-light"
+                  
+                  <FigureWithCaption
+                    caption="各フェーズでのタスク達成率の比較"
+                    number="2"
+                    containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white"
+                  >
+                    <ClientSideBarChart 
+                      data={taskCompletionData} 
+                      options={taskCompletionOptions} 
                     />
-                  </div>
-                    
+                  </FigureWithCaption>
+                  
                   <p className="text-text mt-4">
                     提案手法は、新規性注入後の性能低下が比較手法より小さく、迅速に元のパフォーマンスレベルに回復しました。
                     特に、3回目と4回目の新規性注入後も80%以上のタスク達成率を維持した一方、従来のアプローチは50%以下まで低下しました。
@@ -425,21 +421,16 @@ export default function Experiments() {
               </p>
                 
               <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
-                <div className="rounded-lg overflow-hidden shadow-sm mb-4">
-                  <ResponsiveChart
-                    chart={
-                      <div className="h-full w-full">
-                        <ClientSideScatterChart 
-                          data={componentAnalysisData} 
-                          options={componentAnalysisOptions} 
-                        />
-                      </div>
-                    }
-                    caption="図3: 各手法のサンプル効率と適応能力の比較"
-                    captionColor="text-primary"
-                    bgGradient="from-white to-secondary-light"
+                <FigureWithCaption
+                  caption="各手法のサンプル効率と適応能力の比較"
+                  number="3"
+                  containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white"
+                >
+                  <ClientSideScatterChart 
+                    data={componentAnalysisData} 
+                    options={componentAnalysisOptions} 
                   />
-                </div>
+                </FigureWithCaption>
                   
                 <div className="mt-4">
                   <h4 className="text-lg font-medium mb-2 text-primary">分析結果</h4>

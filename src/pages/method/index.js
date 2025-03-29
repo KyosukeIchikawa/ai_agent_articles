@@ -1,17 +1,20 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
+import SectionHeader from '../../components/SectionHeader';
+import SectionContainer from '../../components/SectionContainer';
+import AlgorithmBlock from '../../components/AlgorithmBlock';
+import MathEquation from '../../components/MathEquation';
 
 export default function Method() {
   return (
     <Layout title="提案手法">
       <div className="space-y-8">
-        <header>
-          <h1 className="text-3xl font-bold mb-4 text-primary">4. 提案手法</h1>
-          <p className="text-lg text-primary">
-            Curiosity-Driven Imaginationの手法詳細
-          </p>
-        </header>
+        <SectionHeader
+          title="提案手法"
+          subtitle="Curiosity-Driven Imaginationの手法詳細"
+          sectionNumber="3"
+        />
         <section>
           <div className="prose max-w-none">
             <p>
@@ -239,39 +242,58 @@ export default function Method() {
                 アルゴリズムの大まかな流れは次のとおりです：
               </p>
               
-              <div className="bg-white p-4 rounded font-mono text-sm my-4 overflow-x-auto border border-secondary/10">
-                <pre className="text-text">
-{`1. 初期状態から開始
-2. 収束するまで繰り返し：
-   a. 想像空間で計画P_im を生成
-   b. 計画からLTL報酬機械R_m を生成
-   c. ICMを用いて環境を探索
-   d. 内発的報酬R_intrinsic と報酬機械R_m からの報酬を計算
-   e. 方策を更新
-   f. 新しい遷移から記号的オペレータを学習
-3. 収束したら発見したオペレータo_discovery を返す`}
-                </pre>
-              </div>
+              <AlgorithmBlock
+                title="Curiosity-Driven Imagination Algorithm"
+                number="1"
+                caption="提案手法の主要アルゴリズム"
+                lines={[
+                  "Input: 初期状態 s₀, 環境 E, 学習率 α, 割引率 γ",
+                  "Output: 発見された新しいオペレータ o_discovery",
+                  "",
+                  "// 初期化",
+                  "ICM ← 内発的好奇心モジュールを初期化",
+                  "π ← 方策ネットワークを初期化",
+                  "σ_im ← 想像的ドメインを初期化",
+                  "T_k ← 記号的遷移セットを初期化",
+                  "",
+                  "while not converged do",
+                  "    // フェーズ1: 想像空間での計画と報酬機械生成",
+                  "    P_im ← GeneratePlan(σ_im, s_current, goal)",
+                  "    R_m ← ConvertToRewardMachine(P_im)",
+                  "",
+                  "    // フェーズ2: 環境探索とICM報酬計算",
+                  "    for each episode do",
+                  "        s_t ← 現在の環境状態",
+                  "        a_t ← π(s_t)  // 方策から行動を選択",
+                  "        s_t+1, r_ext ← E(s_t, a_t)  // 環境から次状態と外部報酬を取得",
+                  "        r_int ← ICM.ComputeReward(s_t, a_t, s_t+1)  // 内発的報酬の計算",
+                  "        r_rm ← R_m.GetReward(s_t+1)  // 報酬機械からの報酬",
+                  "        r_total ← r_ext + βr_int + λr_rm  // 総報酬の計算",
+                  "        π ← UpdatePolicy(π, s_t, a_t, r_total, s_t+1, α, γ)  // 方策の更新",
+                  "        if IsNovelTransition(s_t, a_t, s_t+1) then",
+                  "            T_k ← T_k ∪ {(s_t, a_t, s_t+1)}  // 新しい遷移を記録",
+                  "        end if",
+                  "    end for",
+                  "",
+                  "    // フェーズ3: 記号的オペレータの学習と更新",
+                  "    if |T_k| > threshold then",
+                  "        o_new ← LearnOperator(T_k)  // 新しい遷移から記号的オペレータを学習",
+                  "        σ_im ← UpdateDomain(σ_im, o_new)  // 想像的ドメインの更新",
+                  "        ICM ← UpdateICM(ICM, T_k)  // ICMの更新",
+                  "        o_discovery ← o_discovery ∪ {o_new}  // 発見したオペレータを記録",
+                  "        T_k ← ∅  // 遷移セットをリセット",
+                  "    end if",
+                  "end while",
+                  "",
+                  "return o_discovery"
+                ]}
+              />
               
               <p className="text-text">
                 このアルゴリズムの特筆すべき点は、好奇心駆動型探索と記号的計画の統合により、
                 環境内の新しいオペレータを効率的に発見できる点です。特に、環境の変化によって
                 既存の計画が実行不可能になった場合、このアプローチは新しい解決策を
                 素早く見つけ出す能力を発揮します。
-              </p>
-            </div>
-            
-            <div className="bg-gradient-to-r from-primary-light to-accent-light p-6 rounded-lg shadow-sm my-8 border border-primary/20">
-              <h3 className="text-xl font-semibold mb-3 text-primary border-b border-primary/20 pb-2">4.6 まとめ</h3>
-              <p className="text-text">
-                Curiosity-Driven Imagination手法の核心は、内発的好奇心による効率的な探索と
-                想像空間での計画生成を組み合わせることで、未知の環境における新しいオペレータの
-                発見と学習を加速させる点にあります。Bi-Levelモデル、報酬機械、ICMの
-                それぞれが相補的に機能することで、記号的知識と連続的制御の橋渡しを実現し、
-                オープンワールド環境における適応性を大幅に向上させています。
-              </p>
-              <p className="mt-3 text-text">
-                次のセクションでは、この手法の有効性を検証するための実験設定と評価方法について説明します。
               </p>
             </div>
           </div>

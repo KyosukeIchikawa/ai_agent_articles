@@ -1,19 +1,23 @@
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
+import SectionHeader from '../../components/SectionHeader';
+import SectionContainer from '../../components/SectionContainer';
+import { getPaperById } from '../../data/papers';
 
 export default function Conclusion() {
+  const paper = getPaperById('curiosity-driven-imagination');
+  
   return (
     <Layout title="結論">
       <div className="space-y-8">
-        <header>
-          <h1 className="text-3xl font-bold mb-4 text-primary">7. 結論</h1>
-          <p className="text-lg text-primary">
-            研究成果のまとめと将来展望
-          </p>
-        </header>
+        <SectionHeader
+          number="8"
+          title="Conclusion"
+          subtitle="研究成果のまとめと将来展望"
+        />
 
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary">7.1 研究成果の要約</h2>
+        <SectionContainer>
+          <h2 className="text-2xl font-bold mb-4 text-primary">8.1 研究成果の要約</h2>
           <div className="prose max-w-none">
             <p>
               本研究では、オープンワールド環境でのロボットの適応能力を向上させるための新しい枠組みとして、
@@ -23,7 +27,7 @@ export default function Conclusion() {
             </p>
             
             <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">7.1.1 主要な貢献</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">8.1.1 主要な貢献</h3>
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white p-4 rounded-lg shadow-inner">
@@ -68,10 +72,10 @@ export default function Conclusion() {
               開発に重要な意義を持ちます。
             </p>
           </div>
-        </section>
+        </SectionContainer>
         
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary">7.2 将来展望</h2>
+        <SectionContainer>
+          <h2 className="text-2xl font-bold mb-4 text-primary">8.2 将来展望</h2>
           <div className="prose max-w-none">
             <p>
               CDIフレームワークは有望な成果を示しましたが、さらなる発展と拡張の余地があります。
@@ -81,7 +85,7 @@ export default function Conclusion() {
             <div className="bg-gradient-to-r from-accent-light to-primary-light p-6 rounded-lg shadow-sm border border-accent/20 my-6">
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div className="bg-white p-4 rounded-lg shadow-inner">
-                  <h3 className="text-xl font-semibold mb-3 text-primary">7.2.1 スケーラビリティの向上</h3>
+                  <h3 className="text-xl font-semibold mb-3 text-primary">8.2.1 スケーラビリティの向上</h3>
                   <ul className="list-disc pl-6 space-y-1 text-text">
                     <li>高次元空間での効率的なモデル学習手法の開発</li>
                     <li>計算資源の制約下での想像シミュレーションの最適化</li>
@@ -91,7 +95,7 @@ export default function Conclusion() {
                 </div>
                 
                 <div className="bg-white p-4 rounded-lg shadow-inner">
-                  <h3 className="text-xl font-semibold mb-3 text-secondary">7.2.2 汎用性の拡大</h3>
+                  <h3 className="text-xl font-semibold mb-3 text-secondary">8.2.2 汎用性の拡大</h3>
                   <ul className="list-disc pl-6 space-y-1 text-text">
                     <li>マルチエージェント環境への適応</li>
                     <li>部分観測可能環境での効果的な探索戦略</li>
@@ -103,7 +107,7 @@ export default function Conclusion() {
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white p-4 rounded-lg shadow-inner">
-                  <h3 className="text-xl font-semibold mb-3 text-accent">7.2.3 安全性と信頼性の強化</h3>
+                  <h3 className="text-xl font-semibold mb-3 text-accent">8.2.3 安全性と信頼性の強化</h3>
                   <ul className="list-disc pl-6 space-y-1 text-text">
                     <li>不確実性の明示的なモデル化と安全な探索</li>
                     <li>モデル予測の信頼性評価メカニズム</li>
@@ -113,7 +117,7 @@ export default function Conclusion() {
                 </div>
                 
                 <div className="bg-white p-4 rounded-lg shadow-inner">
-                  <h3 className="text-xl font-semibold mb-3 text-primary">7.2.4 実応用への展開</h3>
+                  <h3 className="text-xl font-semibold mb-3 text-primary">8.2.4 実応用への展開</h3>
                   <ul className="list-disc pl-6 space-y-1 text-text">
                     <li>実ロボットプラットフォームへの実装と長期的評価</li>
                     <li>人間との協調作業におけるCDIの活用</li>
@@ -130,10 +134,10 @@ export default function Conclusion() {
               想像力を持つ自律システムの実現に向けた重要なステップとなることが期待されます。
             </div>
           </div>
-        </section>
+        </SectionContainer>
         
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary">7.3 最終考察</h2>
+        <SectionContainer>
+          <h2 className="text-2xl font-bold mb-4 text-primary">8.3 最終考察</h2>
           <div className="prose max-w-none">
             <p>
               オープンワールド環境におけるAIの適応能力は、未だ人間や動物の柔軟性には遠く及びませんが、
@@ -165,7 +169,7 @@ export default function Conclusion() {
               </p>
             </div>
           </div>
-        </section>
+        </SectionContainer>
         
         <Navigation 
           paperId="curiosity-driven-imagination"

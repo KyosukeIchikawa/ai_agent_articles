@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
 import ResponsiveChart from '../../components/ResponsiveChart';
+import SectionHeader from '../../components/SectionHeader';
+import SectionContainer from '../../components/SectionContainer';
+import ComparisonCard from '../../components/ComparisonCard';
 import dynamic from 'next/dynamic';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import { getChartColors, getBarChartOptions, getLineChartOptions } from '../../utils/chartUtils';
+import { getPaperById } from '../../data/papers';
 
 // Chart.jsコンポーネントの登録
 ChartJS.register(
@@ -30,6 +34,8 @@ const ClientSideLineChart = dynamic(() =>
 );
 
 export default function Results() {
+  const paper = getPaperById('curiosity-driven-imagination');
+  
   // Tailwindカラーの変数を作成
   const [colors, setColors] = useState(getChartColors());
 
@@ -150,14 +156,13 @@ export default function Results() {
   return (
     <Layout title="結果と分析">
       <div className="space-y-8">
-        <header>
-          <h1 className="text-3xl font-bold mb-4 text-primary">5. 結果と分析</h1>
-          <p className="text-lg text-primary">
-            提案手法「Curiosity-Driven Imagination」の実験結果とその分析
-          </p>
-        </header>
+        <SectionHeader
+          number="6" 
+          title="Results and Analysis"
+          subtitle="提案手法「Curiosity-Driven Imagination」の実験結果とその分析"
+        />
 
-        <section>
+        <SectionContainer>
           <div className="prose max-w-none">
             <p>
               以下では、ロボット操作タスクにおけるCuriosity-Driven Imaginationの評価結果と、
@@ -165,7 +170,7 @@ export default function Results() {
             </p>
             
             <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">5.1 タスク達成率の比較</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">6.1 タスク達成率の比較</h3>
               
               <div className="mb-6">
                 <div className="rounded-lg overflow-hidden shadow-sm mb-4">
@@ -207,7 +212,7 @@ export default function Results() {
             </div>
             
             <div className="bg-gradient-to-r from-secondary-light to-primary-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">5.2 学習効率と収束速度</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">6.2 学習効率と収束速度</h3>
               
               <div className="mb-6">
                 <div className="rounded-lg overflow-hidden shadow-sm mb-4">
@@ -247,7 +252,7 @@ export default function Results() {
             </div>
             
             <div className="bg-gradient-to-r from-accent-light to-primary-light p-6 rounded-lg shadow-sm border border-accent/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">5.3 環境変化への適応能力</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">6.3 環境変化への適応能力</h3>
               
               <div className="mb-6">
                 <div className="rounded-lg overflow-hidden shadow-sm mb-4">
@@ -288,7 +293,7 @@ export default function Results() {
             </div>
             
             <div className="bg-gradient-to-r from-primary-light to-accent-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">5.4 アブレーション研究</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">6.4 アブレーション研究</h3>
               
               <p className="text-text mb-4">
                 CDIの各コンポーネントの重要性を理解するために、以下のアブレーション研究を実施しました：
@@ -359,7 +364,7 @@ export default function Results() {
               各コンポーネントがそれぞれ重要な役割を果たしており、システム全体としての相乗効果が優れた性能をもたらしています。
             </p>
           </div>
-        </section>
+        </SectionContainer>
 
         <Navigation 
           paperId="curiosity-driven-imagination"

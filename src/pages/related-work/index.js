@@ -1,18 +1,23 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
+import SectionHeader from '../../components/SectionHeader';
+import SectionContainer from '../../components/SectionContainer';
+import { getPaperById } from '../../data/papers';
 
 export default function RelatedWork() {
+  const paper = getPaperById('curiosity-driven-imagination');
+  
   return (
     <Layout title="関連研究">
       <div className="space-y-8">
-        <header>
-          <h1 className="text-3xl font-bold mb-4 text-primary">2. 関連研究</h1>
-          <p className="text-lg text-primary">
-            Curiosity-Driven Imaginationに関連する既存研究の概要
-          </p>
-        </header>
-        <section>
+        <SectionHeader 
+          number="2"
+          title="Related Work"
+          subtitle="Curiosity-Driven Imaginationに関連する既存研究の概要"
+        />
+        
+        <SectionContainer>
           <div className="prose max-w-none">
             <p>
               本研究は複数の研究分野の交点に位置しています。ここでは、内発的好奇心、想像力ベースの計画、記号的計画と強化学習の統合など、
@@ -108,9 +113,8 @@ export default function RelatedWork() {
               特に、内発的好奇心による効率的な探索と、想像空間での計画評価を組み合わせた点が革新的です。
             </p>
           </div>
-        </section>
+        </SectionContainer>
         
-        {/* ナビゲーションコンポーネントに置き換え */}
         <Navigation 
           paperId="curiosity-driven-imagination"
           currentSectionId="related-work" 

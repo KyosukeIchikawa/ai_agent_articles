@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PaperHeader from '../components/PaperHeader';
 import StartReadingButton from '../components/StartReadingButton';
 import { useEffect, useState } from 'react';
+import { getPaperById } from '../data/papers';
 
 export default function Home() {
   // 画面サイズの状態を管理
@@ -26,20 +27,14 @@ export default function Home() {
     };
   }, []);
 
-  // 論文情報の定義
+  // 論文情報の取得
+  const paper = getPaperById('curiosity-driven-imagination');
   const paperInfo = {
-    title: "Curiosity-Driven Imagination",
-    subtitle: "好奇心駆動型想像力によるオープンワールド適応",
-    description: "ロボットが未知の環境に素早く適応するための革新的アプローチ",
-    authors: [
-      { name: "Pierrick Lorang", affiliations: ["1", "2"] },
-      { name: "Hong Lu", affiliations: ["1"] },
-      { name: "Matthias Scheutz", affiliations: ["1"] }
-    ],
-    affiliations: {
-      "1": "Tufts University, USA",
-      "2": "AIT Austrian Institute of Technology GmbH, Austria"
-    }
+    title: paper.title,
+    subtitle: paper.subtitle,
+    description: paper.description,
+    authors: paper.authors,
+    affiliations: paper.affiliations
   };
 
   return (

@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
 import ResponsiveChart from '../../components/ResponsiveChart';
+import SectionHeader from '../../components/SectionHeader';
+import SectionContainer from '../../components/SectionContainer';
+import ExperimentPhaseCards from '../../components/ExperimentPhaseCards';
+import ExperimentTable from '../../components/ExperimentTable';
 import dynamic from 'next/dynamic';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import { getChartColors, getBarChartOptions, getLineChartOptions } from '../../utils/chartUtils';
 import FigureWithCaption from '../../components/FigureWithCaption';
+import { getPaperById } from '../../data/papers';
 
 // Chart.jsコンポーネントの登録
 ChartJS.register(
@@ -30,6 +35,8 @@ const ClientSideScatterChart = dynamic(() =>
 );
 
 export default function Experiments() {
+  const paper = getPaperById('curiosity-driven-imagination');
+  
   // Tailwindカラーの変数を作成
   const [colors, setColors] = useState(getChartColors());
   const [isMounted, setIsMounted] = useState(false);
@@ -42,6 +49,35 @@ export default function Experiments() {
       setColors(getChartColors());
     }
   }, []);
+
+  // 実験フェーズのデータ
+  const experimentPhases = [
+    {
+      title: "初期段階",
+      changes: "基本的なブロック操作タスク",
+      challenges: "基本的な物体把持と配置を学習"
+    },
+    {
+      title: "新規性注入 1",
+      changes: "新しい形状のオブジェクトの導入",
+      challenges: "異なる把持戦略の必要性"
+    },
+    {
+      title: "新規性注入 2",
+      changes: "オブジェクトの物理特性変化（重さ、摩擦）",
+      challenges: "力制御と動作計画の調整"
+    },
+    {
+      title: "新規性注入 3",
+      changes: "障害物の追加と環境の制約",
+      challenges: "障害物回避と代替経路計画"
+    },
+    {
+      title: "新規性注入 4",
+      changes: "動的に変化するオブジェクトと相互作用",
+      challenges: "予測不可能な変化への対応"
+    }
+  ];
 
   // タスク達成率のデータ
   const taskCompletionData = {
@@ -131,18 +167,45 @@ export default function Experiments() {
     '適応能力'
   );
 
+  // 比較手法のデータ
+  const comparisonMethods = [
+    {
+      title: "従来のTAMPアプローチ",
+      colorClass: "from-primary-light to-secondary-light",
+      borderClass: "border-primary/20",
+      titleClass: "text-primary",
+      features: [
+        "記号的計画（Symbolic Planning）に基づく高レベル計画",
+        "事前定義されたオペレータセット",
+        "動作計画のためのサンプリングベース手法",
+        "内部モデルはあるが、想像空間での計画生成はなし"
+      ]
+    },
+    {
+      title: "標準的な強化学習アプローチ",
+      colorClass: "from-secondary-light to-primary-light",
+      borderClass: "border-secondary/20",
+      titleClass: "text-secondary",
+      features: [
+        "深層強化学習（Deep Reinforcement Learning, Deep RL）",
+        "内発的報酬を用いない標準的な手法",
+        "階層的強化学習（Hierarchical Reinforcement Learning, HRL）",
+        "モデルベース強化学習（Model-Based Reinforcement Learning）（但し想像空間なし）"
+      ]
+    }
+  ];
+
   return (
     <Layout title="実験と結果">
       <div className="space-y-8">
-        <header>
-          <h1 className="text-3xl font-bold mb-4 text-primary">4. 実験</h1>
-          <p className="text-lg text-primary">
-            Curiosity-Driven Imaginationの評価と検証
-          </p>
-        </header>
+        <SectionHeader
+          number="5"
+          title="Experiments"
+          subtitle="Curiosity-Driven Imaginationの評価と検証"
+        />
 
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary">4.1 実験設定</h2>
+        <SectionContainer>
+          <h2 className="text-2xl font-bold mb-4 text-primary">5.1 実験設定</h2>
           <div className="prose max-w-none">
             <p>
               提案手法の有効性を評価するために、以下の実験設定が用いられました。
@@ -150,7 +213,7 @@ export default function Experiments() {
             </p>
             
             <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">4.1.1 実験環境</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">5.1.1 実験環境</h3>
               
               <div className="flex flex-col md:grid md:grid-cols-2 gap-6 mb-6">
                 <div className="order-2 md:order-1">
@@ -180,152 +243,32 @@ export default function Experiments() {
                 </figure>
               </div>
               
-              <h3 className="text-xl font-semibold mb-3 text-primary">4.1.2 タスクと逐次的新規性注入</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">5.1.2 タスクと逐次的新規性注入</h3>
               
               <p className="text-text mb-4">
                 実験では、<span className="text-primary font-medium">逐次的新規性注入（Sequential Novelty Injections）</span>という手法が用いられました。
-                これは、エージェントが学習過程で徐々に新しい状況や課題に直面することを意味します。具体的には以下のようなシナリオが設定されました：
+                これは、エージェントが学習過程で徐々に新しい状況や課題に直面することを意味します。
               </p>
               
-              {/* デスクトップビュー用のテーブル */}
-              <div className="hidden md:block overflow-x-auto">
-                <table className="min-w-full border-collapse">
-                  <thead>
-                    <tr className="bg-primary-light">
-                      <th className="px-4 py-2 border border-primary/20 text-left text-primary">フェーズ</th>
-                      <th className="px-4 py-2 border border-primary/20 text-left text-primary">環境の変化</th>
-                      <th className="px-4 py-2 border border-primary/20 text-left text-primary">適応課題</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="bg-white">
-                      <td className="px-4 py-2 border border-primary/20 font-medium text-primary">初期段階</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">基本的なブロック操作タスク</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">基本的な物体把持と配置を学習</td>
-                    </tr>
-                    <tr className="bg-primary-light/30">
-                      <td className="px-4 py-2 border border-primary/20 font-medium text-primary">新規性注入 1</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">新しい形状のオブジェクトの導入</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">異なる把持戦略の必要性</td>
-                    </tr>
-                    <tr className="bg-white">
-                      <td className="px-4 py-2 border border-primary/20 font-medium text-primary">新規性注入 2</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">オブジェクトの物理特性変化（重さ、摩擦）</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">力制御と動作計画の調整</td>
-                    </tr>
-                    <tr className="bg-primary-light/30">
-                      <td className="px-4 py-2 border border-primary/20 font-medium text-primary">新規性注入 3</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">障害物の追加と環境の制約</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">障害物回避と代替経路計画</td>
-                    </tr>
-                    <tr className="bg-white">
-                      <td className="px-4 py-2 border border-primary/20 font-medium text-primary">新規性注入 4</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">動的に変化するオブジェクトと相互作用</td>
-                      <td className="px-4 py-2 border border-primary/20 text-text">予測不可能な変化への対応</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-              {/* モバイルビュー用のカードレイアウト */}
-              <div className="md:hidden space-y-4">
-                <div className="bg-white rounded-lg shadow-sm border border-primary/20 p-4">
-                  <h4 className="text-primary font-medium mb-2">初期段階</h4>
-                  <div className="grid grid-cols-1 gap-2">
-                    <div>
-                      <div className="text-xs text-primary font-medium">環境の変化</div>
-                      <div className="text-text">基本的なブロック操作タスク</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-primary font-medium">適応課題</div>
-                      <div className="text-text">基本的な物体把持と配置を学習</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-primary-light/30 rounded-lg shadow-sm border border-primary/20 p-4">
-                  <h4 className="text-primary font-medium mb-2">新規性注入 1</h4>
-                  <div className="grid grid-cols-1 gap-2">
-                    <div>
-                      <div className="text-xs text-primary font-medium">環境の変化</div>
-                      <div className="text-text">新しい形状のオブジェクトの導入</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-primary font-medium">適応課題</div>
-                      <div className="text-text">異なる把持戦略の必要性</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow-sm border border-primary/20 p-4">
-                  <h4 className="text-primary font-medium mb-2">新規性注入 2</h4>
-                  <div className="grid grid-cols-1 gap-2">
-                    <div>
-                      <div className="text-xs text-primary font-medium">環境の変化</div>
-                      <div className="text-text">オブジェクトの物理特性変化（重さ、摩擦）</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-primary font-medium">適応課題</div>
-                      <div className="text-text">力制御と動作計画の調整</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-primary-light/30 rounded-lg shadow-sm border border-primary/20 p-4">
-                  <h4 className="text-primary font-medium mb-2">新規性注入 3</h4>
-                  <div className="grid grid-cols-1 gap-2">
-                    <div>
-                      <div className="text-xs text-primary font-medium">環境の変化</div>
-                      <div className="text-text">障害物の追加と環境の制約</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-primary font-medium">適応課題</div>
-                      <div className="text-text">障害物回避と代替経路計画</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow-sm border border-primary/20 p-4">
-                  <h4 className="text-primary font-medium mb-2">新規性注入 4</h4>
-                  <div className="grid grid-cols-1 gap-2">
-                    <div>
-                      <div className="text-xs text-primary font-medium">環境の変化</div>
-                      <div className="text-text">動的に変化するオブジェクトと相互作用</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-primary font-medium">適応課題</div>
-                      <div className="text-text">予測不可能な変化への対応</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ExperimentPhaseCards phases={experimentPhases} />
             </div>
             
-            <h3 className="text-xl font-bold mb-3 text-primary">4.1.3 比較手法</h3>
+            <h3 className="text-xl font-bold mb-3 text-primary">5.1.3 比較手法</h3>
             <p>
               提案手法の効果を評価するために、以下の比較手法が実装されました：
             </p>
             
             <div className="grid md:grid-cols-2 gap-6 my-6">
-              <div className="bg-gradient-to-br from-primary-light to-secondary-light p-4 rounded-lg shadow-sm border border-primary/20">
-                <h4 className="text-lg font-medium mb-2 text-primary">従来のTAMPアプローチ</h4>
-                <ul className="list-disc pl-6 space-y-1 text-text">
-                  <li>記号的計画（Symbolic Planning）に基づく高レベル計画</li>
-                  <li>事前定義されたオペレータセット</li>
-                  <li>動作計画のためのサンプリングベース手法</li>
-                  <li>内部モデルはあるが、想像空間での計画生成はなし</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-secondary-light to-primary-light p-4 rounded-lg shadow-sm border border-secondary/20">
-                <h4 className="text-lg font-medium mb-2 text-secondary">標準的な強化学習アプローチ</h4>
-                <ul className="list-disc pl-6 space-y-1 text-text">
-                  <li>深層強化学習（Deep Reinforcement Learning, Deep RL）</li>
-                  <li>内発的報酬を用いない標準的な手法</li>
-                  <li>階層的強化学習（Hierarchical Reinforcement Learning, HRL）</li>
-                  <li>モデルベース強化学習（Model-Based Reinforcement Learning）（但し想像空間なし）</li>
-                </ul>
-              </div>
+              {comparisonMethods.map((method, index) => (
+                <div key={index} className={`bg-gradient-to-br ${method.colorClass} p-4 rounded-lg shadow-sm border ${method.borderClass}`}>
+                  <h4 className={`text-lg font-medium mb-2 ${method.titleClass}`}>{method.title}</h4>
+                  <ul className="list-disc pl-6 space-y-1 text-text">
+                    {method.features.map((feature, fIndex) => (
+                      <li key={fIndex}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
             
             <div className="bg-gradient-to-r from-accent-light to-primary-light p-4 rounded-lg shadow-sm border border-accent/20">
@@ -337,7 +280,7 @@ export default function Experiments() {
               </ul>
             </div>
             
-            <h3 className="text-xl font-bold mb-3 mt-6 text-primary">4.1.4 評価指標</h3>
+            <h3 className="text-xl font-bold mb-3 mt-6 text-primary">5.1.4 評価指標</h3>
             <p>
               以下の指標を用いて各手法の性能を評価しました：
             </p>
@@ -350,112 +293,109 @@ export default function Experiments() {
               <li><strong className="text-primary">ロバスト性</strong>：環境の変動に対するパフォーマンスの安定性</li>
             </ul>
           </div>
-        </section>
+        </SectionContainer>
         
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary">4.2 実験結果</h2>
-          <div className="bg-gradient-to-r from-secondary-light to-secondary-light/30 p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
-            <h3 className="text-xl font-semibold mb-3 text-secondary border-b border-secondary/20 pb-2">4.2 実験結果</h3>
-            <div className="prose max-w-none">
-              <p>
-                実験結果は、提案手法「Curiosity-Driven Imagination」が従来のアプローチと比較して、
-                オープンワールド環境での適応能力において優れていることを示しました。
-              </p>
-                
-              <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-                  <h3 className="text-xl font-semibold mb-3 text-primary">4.2.1 主要な実験結果</h3>
-                  
-                <div className="mb-6">
-                  <h4 className="text-lg font-medium mb-2 text-primary">タスク達成率</h4>
-                  
-                  <FigureWithCaption
-                    caption="各フェーズでのタスク達成率の比較"
-                    number="2"
-                    containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white"
-                  >
-                    <ClientSideBarChart 
-                      data={taskCompletionData} 
-                      options={taskCompletionOptions} 
-                    />
-                  </FigureWithCaption>
-                  
-                  <p className="text-text mt-4">
-                    提案手法は、新規性注入後の性能低下が比較手法より小さく、迅速に元のパフォーマンスレベルに回復しました。
-                    特に、3回目と4回目の新規性注入後も80%以上のタスク達成率を維持した一方、従来のアプローチは50%以下まで低下しました。
-                  </p>
-                </div>
-                  
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-primary">オペレータ発見能力</h4>
-                  
-                  <p className="text-text mb-4">
-                    新規性注入後、提案手法は以下のような新しいオペレータを自動的に発見し学習しました：
-                  </p>
-                    
-                  <ul className="list-disc pl-6 space-y-2 text-text">
-                    <li>
-                      <strong className="text-primary">異なる把持戦略</strong>：新しい形状のオブジェクトに対して、適切な把持位置と力の制御方法を発見
-                    </li>
-                    <li>
-                      <strong className="text-primary">障害物回避行動</strong>：障害物を検知し、最適な回避経路を生成するオペレータを学習
-                    </li>
-                    <li>
-                      <strong className="text-accent">複合行動</strong>：基本オペレータを組み合わせた効率的な行動シーケンスを発見
-                    </li>
-                    <li>
-                      <strong className="text-secondary">適応的制御</strong>：オブジェクトの物理特性に応じて動きの速度と力を調整するオペレータを学習
-                    </li>
-                  </ul>
-                    
-                  <p className="text-text mt-4">
-                    提案手法は平均して各新規性注入後に3〜5個の新しいオペレータを発見できた一方、
-                    従来のTAMPアプローチは事前定義されたオペレータのみを使用し、標準的な強化学習は明示的なオペレータを形成しませんでした。
-                  </p>
-                </div>
-              </div>
-                
-              <h3 className="text-xl font-bold mb-3 text-primary">4.2.2 コンポーネント分析</h3>
+        <SectionContainer>
+          <h2 className="text-2xl font-bold mb-4 text-primary">5.2 実験結果</h2>
+          <div className="prose max-w-none">
+            <p>
+              実験結果は、提案手法「Curiosity-Driven Imagination」が従来のアプローチと比較して、
+              オープンワールド環境での適応能力において優れていることを示しました。
+            </p>
               
-              <p>
-                提案手法の各コンポーネントの貢献を評価するために、異なる変種の比較実験が行われました：
-              </p>
+            <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-primary">5.2.1 主要な実験結果</h3>
                 
-              <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
+              <div className="mb-6">
+                <h4 className="text-lg font-medium mb-2 text-primary">タスク達成率</h4>
+                
                 <FigureWithCaption
-                  caption="各手法のサンプル効率と適応能力の比較"
-                  number="3"
+                  caption="各フェーズでのタスク達成率の比較"
+                  number="2"
                   containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white"
                 >
-                  <ClientSideScatterChart 
-                    data={componentAnalysisData} 
-                    options={componentAnalysisOptions} 
+                  <ClientSideBarChart 
+                    data={taskCompletionData} 
+                    options={taskCompletionOptions} 
                   />
                 </FigureWithCaption>
+                
+                <p className="text-text mt-4">
+                  提案手法は、新規性注入後の性能低下が比較手法より小さく、迅速に元のパフォーマンスレベルに回復しました。
+                  特に、3回目と4回目の新規性注入後も80%以上のタスク達成率を維持した一方、従来のアプローチは50%以下まで低下しました。
+                </p>
+              </div>
+                
+              <div>
+                <h4 className="text-lg font-medium mb-2 text-primary">オペレータ発見能力</h4>
+                
+                <p className="text-text mb-4">
+                  新規性注入後、提案手法は以下のような新しいオペレータを自動的に発見し学習しました：
+                </p>
                   
-                <div className="mt-4">
-                  <h4 className="text-lg font-medium mb-2 text-primary">分析結果</h4>
-                  <ul className="list-disc pl-6 space-y-2 text-text">
-                    <li>
-                      <strong className="text-primary">ICMの貢献</strong>：好奇心駆動型探索により、新規性の高い状況への積極的な探索が促進され、
-                      環境の変化に対する適応速度が向上しました。ICMのみの変種は標準RLより大幅に適応が速かったですが、
-                      フル提案手法には及びませんでした。
-                    </li>
-                    <li>
-                      <strong className="text-accent">想像空間の貢献</strong>：内部シミュレーションにより、実際の試行錯誤なしに多数の行動計画を評価でき、
-                      サンプル効率が大幅に向上しました。想像空間のみの変種はTAMPより効率的でしたが、
-                      好奇心駆動型探索がないため新規状況での効率は劣りました。
-                    </li>
-                    <li>
-                      <strong className="text-primary">統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
-                      高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
-                      想像空間でその状況を詳細に検討することで、効率的かつ効果的な学習が実現しました。
-                    </li>
-                  </ul>
-                </div>
+                <ul className="list-disc pl-6 space-y-2 text-text">
+                  <li>
+                    <strong className="text-primary">異なる把持戦略</strong>：新しい形状のオブジェクトに対して、適切な把持位置と力の制御方法を発見
+                  </li>
+                  <li>
+                    <strong className="text-primary">障害物回避行動</strong>：障害物を検知し、最適な回避経路を生成するオペレータを学習
+                  </li>
+                  <li>
+                    <strong className="text-accent">複合行動</strong>：基本オペレータを組み合わせた効率的な行動シーケンスを発見
+                  </li>
+                  <li>
+                    <strong className="text-secondary">適応的制御</strong>：オブジェクトの物理特性に応じて動きの速度と力を調整するオペレータを学習
+                  </li>
+                </ul>
+                  
+                <p className="text-text mt-4">
+                  提案手法は平均して各新規性注入後に3〜5個の新しいオペレータを発見できた一方、
+                  従来のTAMPアプローチは事前定義されたオペレータのみを使用し、標準的な強化学習は明示的なオペレータを形成しませんでした。
+                </p>
+              </div>
+            </div>
+              
+            <h3 className="text-xl font-bold mb-3 text-primary">5.2.2 コンポーネント分析</h3>
+            
+            <p>
+              提案手法の各コンポーネントの貢献を評価するために、異なる変種の比較実験が行われました：
+            </p>
+              
+            <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
+              <FigureWithCaption
+                caption="各手法のサンプル効率と適応能力の比較"
+                number="3"
+                containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white"
+              >
+                <ClientSideScatterChart 
+                  data={componentAnalysisData} 
+                  options={componentAnalysisOptions} 
+                />
+              </FigureWithCaption>
+                
+              <div className="mt-4">
+                <h4 className="text-lg font-medium mb-2 text-primary">分析結果</h4>
+                <ul className="list-disc pl-6 space-y-2 text-text">
+                  <li>
+                    <strong className="text-primary">ICMの貢献</strong>：好奇心駆動型探索により、新規性の高い状況への積極的な探索が促進され、
+                    環境の変化に対する適応速度が向上しました。ICMのみの変種は標準RLより大幅に適応が速かったですが、
+                    フル提案手法には及びませんでした。
+                  </li>
+                  <li>
+                    <strong className="text-accent">想像空間の貢献</strong>：内部シミュレーションにより、実際の試行錯誤なしに多数の行動計画を評価でき、
+                    サンプル効率が大幅に向上しました。想像空間のみの変種はTAMPより効率的でしたが、
+                    好奇心駆動型探索がないため新規状況での効率は劣りました。
+                  </li>
+                  <li>
+                    <strong className="text-primary">統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
+                    高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
+                    想像空間でその状況を詳細に検討することで、効率的かつ効果的な学習が実現しました。
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-        </section>
+        </SectionContainer>
         
         <Navigation 
           paperId="curiosity-driven-imagination"

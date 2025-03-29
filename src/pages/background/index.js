@@ -1,17 +1,22 @@
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
+import SectionHeader from '../../components/SectionHeader';
+import SectionContainer from '../../components/SectionContainer';
+import { getPaperById } from '../../data/papers';
 
 export default function Background() {
+  const paper = getPaperById('curiosity-driven-imagination');
+  
   return (
     <Layout title="背景">
       <div className="space-y-8">
-        <header>
-          <h1 className="text-3xl font-bold mb-4 text-primary">1. 背景</h1>
-          <p className="text-lg text-primary">
-            オープンワールド環境におけるロボット適応の課題と既存アプローチの限界
-          </p>
-        </header>
-        <section>
+        <SectionHeader 
+          number="1"
+          title="Background"
+          subtitle="オープンワールド環境におけるロボット適応の課題と既存アプローチの限界"
+        />
+        
+        <SectionContainer>
           <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">1.1 オープンワールド環境の課題</h2>
           <div className="prose max-w-none">
             <p>
@@ -54,8 +59,9 @@ export default function Background() {
               オープンワールド環境での効果的なロボット制御は困難です。環境への柔軟な適応と、未経験の状況への対応能力が不可欠となります。
             </p>
           </div>
-        </section>
-        <section>
+        </SectionContainer>
+        
+        <SectionContainer>
           <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">1.2 従来のアプローチとその限界</h2>
           <div className="prose max-w-none">
             <p>
@@ -124,9 +130,8 @@ export default function Background() {
               本研究の「Curiosity-Driven Imagination」はこれらの課題に対応するために提案されました。
             </p>
           </div>
-        </section>
+        </SectionContainer>
         
-        {/* ナビゲーションコンポーネントに置き換え */}
         <Navigation 
           paperId="curiosity-driven-imagination"
           currentSectionId="background" 

@@ -1,19 +1,23 @@
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
+import SectionHeader from '../../components/SectionHeader';
+import SectionContainer from '../../components/SectionContainer';
+import { getPaperById } from '../../data/papers';
 
 export default function Discussion() {
+  const paper = getPaperById('curiosity-driven-imagination');
+  
   return (
     <Layout title="議論と考察">
       <div className="space-y-8">
-        <header>
-          <h1 className="text-3xl font-bold mb-4 text-primary">6. 議論と考察</h1>
-          <p className="text-lg text-primary">
-            実験結果の分析と提案手法の意義
-          </p>
-        </header>
+        <SectionHeader
+          number="7"
+          title="Discussion and Future Work"
+          subtitle="実験結果の分析と提案手法の意義"
+        />
 
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary">6.1 適応能力の向上要因</h2>
+        <SectionContainer>
+          <h2 className="text-2xl font-bold mb-4 text-primary">7.1 適応能力の向上要因</h2>
           <div className="prose max-w-none">
             <p>
               実験結果から、Curiosity-Driven Imagination（CDI）フレームワークがオープンワールド環境での適応能力を
@@ -21,7 +25,7 @@ export default function Discussion() {
             </p>
             
             <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">6.1.1 探索と知識獲得の効率化</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">7.1.1 探索と知識獲得の効率化</h3>
               <p className="text-text mb-4">
                 CDIにおける好奇心駆動型探索は、単なるランダム探索や既存の探索戦略と比較して、
                 以下の点で優れた性能を示しました：
@@ -55,7 +59,7 @@ export default function Discussion() {
             </div>
             
             <div className="bg-gradient-to-r from-accent-light to-primary-light p-6 rounded-lg shadow-sm border border-accent/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">6.1.2 知識表現と転移の改善</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">7.1.2 知識表現と転移の改善</h3>
               <p className="text-text mb-4">
                 CDIの抽象的なオペレータ表現は、知識の再利用と転移において重要な役割を果たしました：
               </p>
@@ -86,17 +90,17 @@ export default function Discussion() {
               </div>
             </div>
           </div>
-        </section>
+        </SectionContainer>
         
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary">6.2 限界と課題</h2>
+        <SectionContainer>
+          <h2 className="text-2xl font-bold mb-4 text-primary">7.2 限界と課題</h2>
           <div className="prose max-w-none">
             <p>
               提案手法の優れた性能が示された一方で、いくつかの限界と今後の課題も明らかになりました。
             </p>
             
             <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-secondary">6.2.1 計算コストと複雑性</h3>
+              <h3 className="text-xl font-semibold mb-3 text-secondary">7.2.1 計算コストと複雑性</h3>
               <ul className="list-disc pl-6 space-y-3 text-text">
                 <li>
                   <strong className="text-secondary">モデル学習の複雑さ</strong>：内部モデルの学習には計算リソースを多く必要とし、特に高次元の状態空間では
@@ -114,7 +118,7 @@ export default function Discussion() {
             </div>
             
             <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">6.2.2 一般化能力の限界</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary">7.2.2 一般化能力の限界</h3>
               <ul className="list-disc pl-6 space-y-3 text-text">
                 <li>
                   <strong className="text-primary">極端な環境変化</strong>：物理法則が大きく異なるなど、既存の知識ベースから極端に逸脱した環境変化に対しては、
@@ -132,7 +136,7 @@ export default function Discussion() {
             </div>
             
             <div className="bg-gradient-to-r from-accent-light to-secondary-light p-6 rounded-lg shadow-sm border border-accent/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-accent">6.2.3 将来の研究方向</h3>
+              <h3 className="text-xl font-semibold mb-3 text-accent">7.2.3 将来の研究方向</h3>
               <ul className="list-disc pl-6 space-y-3 text-text">
                 <li>
                   <strong className="text-accent">階層的抽象化の自動獲得</strong>：異なる抽象化レベルを自動的に発見し、状況に応じて適切な抽象化レベルを
@@ -150,10 +154,10 @@ export default function Discussion() {
               </ul>
             </div>
           </div>
-        </section>
+        </SectionContainer>
         
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary">6.3 実世界応用の可能性</h2>
+        <SectionContainer>
+          <h2 className="text-2xl font-bold mb-4 text-primary">7.3 実世界応用の可能性</h2>
           <div className="prose max-w-none">
             <p>
               CDIフレームワークの特性は、特に以下のような実世界応用において大きな可能性を持っています：
@@ -208,7 +212,7 @@ export default function Discussion() {
               自律システムの開発において、本研究の成果は重要な貢献となる可能性があります。
             </div>
           </div>
-        </section>
+        </SectionContainer>
         
         <Navigation 
           paperId="curiosity-driven-imagination"

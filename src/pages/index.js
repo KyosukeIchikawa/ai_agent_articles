@@ -2,8 +2,30 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import PaperHeader from '../components/PaperHeader';
 import StartReadingButton from '../components/StartReadingButton';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  // 画面サイズの状態を管理
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 画面サイズの変更を監視
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // 初期値を設定
+    handleResize();
+    
+    // リサイズイベントのリスナーを追加
+    window.addEventListener('resize', handleResize);
+    
+    // クリーンアップ関数
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   // 論文情報の定義
   const paperInfo = {
     title: "Curiosity-Driven Imagination",
@@ -170,59 +192,85 @@ export default function Home() {
         <section className="mt-12 bg-gradient-to-br from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20">
           <h2 className="text-2xl font-bold mb-4 text-primary">概念図</h2>
           <div className="bg-white p-4 rounded-lg shadow-sm">
-            <div className="relative border-2 border-primary/20 rounded-lg p-4 bg-gradient-to-br from-white to-primary-light">
+            <div className="border-2 border-primary/20 rounded-lg p-4 bg-gradient-to-br from-white to-primary-light">
               {/* モジュール構成を表現するための図 */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-3 py-4 px-6 bg-gradient-to-r from-primary to-primary rounded-lg border border-primary text-center font-semibold shadow-sm text-white">
-                  Curiosity-Driven Imagination フレームワーク
+              <div className="flex flex-col space-y-4">
+                {/* タイトル */}
+                <div className="w-full py-3 px-4 md:py-4 md:px-6 bg-gradient-to-r from-primary to-primary rounded-lg border border-primary text-center font-semibold shadow-sm text-white">
+                  <div className="text-sm md:text-base">Curiosity-Driven Imagination フレームワーク</div>
                 </div>
                 
-                <div className="col-span-1 space-y-4">
-                  <div className="p-3 bg-gradient-to-br from-secondary-light to-secondary-light rounded-lg border border-secondary text-center shadow-sm">
-                    <div className="font-medium">内発的好奇心モジュール</div>
-                    <div className="text-xs mt-1 text-text">Intrinsic Curiosity Module</div>
+                {/* メインコンテンツ - モバイルでは縦並び、デスクトップでは横並び */}
+                <div className={`grid ${isMobile ? 'grid-cols-1 gap-3' : 'grid-cols-3 gap-4'}`}>
+                  {/* 左側のモジュール */}
+                  <div className="flex flex-col space-y-3 md:space-y-4">
+                    <div className="p-2 md:p-3 bg-gradient-to-br from-secondary-light to-secondary-light rounded-lg border border-secondary text-center shadow-sm">
+                      <div className="font-medium text-sm md:text-base">内発的好奇心モジュール</div>
+                      <div className="text-xs mt-1 text-text">Intrinsic Curiosity Module</div>
+                    </div>
+                    
+                    <div className="p-2 md:p-3 bg-gradient-to-br from-primary-light to-primary-light rounded-lg border border-primary text-center shadow-sm">
+                      <div className="font-medium text-sm md:text-base">状態遷移モデル</div>
+                      <div className="text-xs mt-1 text-text">State Transition Model</div>
+                    </div>
+                    
+                    {/* モバイル表示時の中央から右向き矢印 */}
+                    {isMobile && (
+                      <div className="flex justify-center py-1">
+                        <span className="text-primary text-xl">↓</span>
+                      </div>
+                    )}
                   </div>
                   
-                  <div className="p-3 bg-gradient-to-br from-primary-light to-primary-light rounded-lg border border-primary text-center shadow-sm">
-                    <div className="font-medium">状態遷移モデル</div>
-                    <div className="text-xs mt-1 text-text">State Transition Model</div>
-                  </div>
-                </div>
-                
-                <div className="col-span-1 space-y-4">
-                  <div className="p-3 bg-gradient-to-br from-accent-light to-accent-light rounded-lg border border-accent text-center shadow-sm">
-                    <div className="font-medium">想像空間</div>
-                    <div className="text-xs mt-1 text-text">Imagination Space</div>
-                  </div>
-                  
-                  <div className="p-3 bg-gradient-to-br from-accent-light to-accent-light rounded-lg border border-accent text-center shadow-sm">
-                    <div className="font-medium">報酬機械</div>
-                    <div className="text-xs mt-1 text-text">Reward Machine</div>
-                  </div>
-                </div>
-                
-                <div className="col-span-1 space-y-4">
-                  <div className="p-3 bg-gradient-to-br from-primary-light to-primary-light rounded-lg border border-primary text-center shadow-sm">
-                    <div className="font-medium">オペレータ発見</div>
-                    <div className="text-xs mt-1 text-text">Operator Discovery</div>
+                  {/* 中央のモジュール */}
+                  <div className="flex flex-col space-y-3 md:space-y-4">
+                    <div className="p-2 md:p-3 bg-gradient-to-br from-accent-light to-accent-light rounded-lg border border-accent text-center shadow-sm">
+                      <div className="font-medium text-sm md:text-base">想像空間</div>
+                      <div className="text-xs mt-1 text-text">Imagination Space</div>
+                    </div>
+                    
+                    <div className="p-2 md:p-3 bg-gradient-to-br from-accent-light to-accent-light rounded-lg border border-accent text-center shadow-sm">
+                      <div className="font-medium text-sm md:text-base">報酬機械</div>
+                      <div className="text-xs mt-1 text-text">Reward Machine</div>
+                    </div>
+                    
+                    {/* モバイル表示時の中央から右向き矢印 */}
+                    {isMobile && (
+                      <div className="flex justify-center py-1">
+                        <span className="text-primary text-xl">↓</span>
+                      </div>
+                    )}
                   </div>
                   
-                  <div className="p-3 bg-gradient-to-br from-secondary-light to-secondary-light rounded-lg border border-secondary text-center shadow-sm">
-                    <div className="font-medium">政策学習</div>
-                    <div className="text-xs mt-1 text-text">Policy Learning</div>
+                  {/* 右側のモジュール */}
+                  <div className="flex flex-col space-y-3 md:space-y-4">
+                    <div className="p-2 md:p-3 bg-gradient-to-br from-primary-light to-primary-light rounded-lg border border-primary text-center shadow-sm">
+                      <div className="font-medium text-sm md:text-base">オペレータ発見</div>
+                      <div className="text-xs mt-1 text-text">Operator Discovery</div>
+                    </div>
+                    
+                    <div className="p-2 md:p-3 bg-gradient-to-br from-secondary-light to-secondary-light rounded-lg border border-secondary text-center shadow-sm">
+                      <div className="font-medium text-sm md:text-base">政策学習</div>
+                      <div className="text-xs mt-1 text-text">Policy Learning</div>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="col-span-3 py-3 px-6 bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg border border-gray-300 text-center font-medium shadow-sm">
-                  環境とのインタラクション
+                {/* 非モバイル表示時の水平接続矢印 */}
+                {!isMobile && (
+                  <div className="relative h-0">
+                    <div className="absolute left-[calc(16.67%)] top-[-80px] transform -translate-x-1/2 text-primary text-xl">→</div>
+                    <div className="absolute left-[calc(83.33%)] top-[-80px] transform -translate-x-1/2 text-primary text-xl">←</div>
+                    <div className="absolute left-1/2 top-[-100px] transform -translate-x-1/2 text-primary text-xl">↔</div>
+                    <div className="absolute left-1/2 top-[-60px] transform -translate-x-1/2 text-primary text-xl">↔</div>
+                  </div>
+                )}
+                
+                {/* 環境とのインタラクション */}
+                <div className="w-full py-2 md:py-3 px-4 md:px-6 bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg border border-gray-300 text-center font-medium shadow-sm">
+                  <div className="text-sm md:text-base">環境とのインタラクション</div>
                 </div>
               </div>
-              
-              {/* 矢印などの関係性の表現 */}
-              <div className="absolute left-1/4 top-[45%] transform -translate-x-1/2 rotate-90 text-primary">{'->'}</div>
-              <div className="absolute left-3/4 top-[45%] transform -translate-x-1/2 rotate-90 text-primary">{'->'}</div>
-              <div className="absolute left-1/2 top-[40%] transform -translate-x-1/2 text-primary">{'<->'}</div>
-              <div className="absolute left-1/2 top-[60%] transform -translate-x-1/2 text-primary">{'<->'}</div>
             </div>
           </div>
           <p className="text-center text-sm text-text mt-2">

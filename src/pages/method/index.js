@@ -175,15 +175,15 @@ export default function Method() {
                   <div className="bg-white p-4 rounded shadow-sm">
                     <h5 className="font-medium text-primary">順モデル（Forward Model）</h5>
                     <p className="text-sm text-text">
-                      現在の状態$s_t$と行動$a_t$から次の状態$\hat{s}_{t+1}$を予測します。
-                      予測誤差$\|{\hat{s}_{t+1} - \tilde{s}_{t+1}}\|^2$が内発的報酬$\mathcal{R}_{intrinsic}$
+                      現在の状態s<sub>t</sub>と行動a<sub>t</sub>から次の状態ŝ<sub>t+1</sub>を予測します。
+                      予測誤差||ŝ<sub>t+1</sub> - s̃<sub>t+1</sub>||<sup>2</sup>が内発的報酬R<sub>intrinsic</sub>
                       として使用されます。
                     </p>
                   </div>
                   <div className="bg-white p-4 rounded shadow-sm">
                     <h5 className="font-medium text-primary">逆モデル（Inverse Model）</h5>
                     <p className="text-sm text-text">
-                      現在の状態$s_t$と次の状態$s_{t+1}$から、その遷移を引き起こした行動$\hat{a}_t$を予測します。
+                      現在の状態s<sub>t</sub>と次の状態s<sub>t+1</sub>から、その遷移を引き起こした行動â<sub>t</sub>を予測します。
                       このモデルにより、環境のダイナミクスに関連する特徴表現が学習されます。
                     </p>
                   </div>
@@ -230,7 +230,7 @@ export default function Method() {
                   </li>
                   <li>
                     <strong className="text-secondary">記号的オペレータの学習</strong>：
-                    新しい遷移$T_k$から記号的オペレータを学習し、想像的ドメイン$\sigma_{im}$とICMネットワークを更新します。
+                    新しい遷移T<sub>k</sub>から記号的オペレータを学習し、想像的ドメインσ<sub>im</sub>とICMネットワークを更新します。
                   </li>
                 </ol>
               </div>
@@ -243,13 +243,13 @@ export default function Method() {
                 <pre className="text-text">
 {`1. 初期状態から開始
 2. 収束するまで繰り返し：
-   a. 想像空間で計画$\\mathcal{P}_{im}$を生成
-   b. 計画からLTL報酬機械$\\mathcal{R}_m$を生成
+   a. 想像空間で計画P_im を生成
+   b. 計画からLTL報酬機械R_m を生成
    c. ICMを用いて環境を探索
-   d. 内発的報酬$\\mathcal{R}_{intrinsic}$と報酬機械$\\mathcal{R}_m$からの報酬を計算
+   d. 内発的報酬R_intrinsic と報酬機械R_m からの報酬を計算
    e. 方策を更新
    f. 新しい遷移から記号的オペレータを学習
-3. 収束したら発見したオペレータ$o_{discovery}$を返す`}
+3. 収束したら発見したオペレータo_discovery を返す`}
                 </pre>
               </div>
               

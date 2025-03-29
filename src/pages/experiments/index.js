@@ -273,7 +273,8 @@ export default function Experiments() {
                 これは、エージェントが学習過程で徐々に新しい状況や課題に直面することを意味します。具体的には以下のようなシナリオが設定されました：
               </p>
               
-              <div className="overflow-x-auto">
+              {/* デスクトップビュー用のテーブル */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="min-w-full border-collapse">
                   <thead>
                     <tr className="bg-primary-light">
@@ -310,6 +311,79 @@ export default function Experiments() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+              
+              {/* モバイルビュー用のカードレイアウト */}
+              <div className="md:hidden space-y-4">
+                <div className="bg-white rounded-lg shadow-sm border border-primary/20 p-4">
+                  <h4 className="text-primary font-medium mb-2">初期段階</h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div>
+                      <div className="text-xs text-primary font-medium">環境の変化</div>
+                      <div className="text-text">基本的なブロック操作タスク</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-primary font-medium">適応課題</div>
+                      <div className="text-text">基本的な物体把持と配置を学習</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-primary-light/30 rounded-lg shadow-sm border border-primary/20 p-4">
+                  <h4 className="text-primary font-medium mb-2">新規性注入 1</h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div>
+                      <div className="text-xs text-primary font-medium">環境の変化</div>
+                      <div className="text-text">新しい形状のオブジェクトの導入</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-primary font-medium">適応課題</div>
+                      <div className="text-text">異なる把持戦略の必要性</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow-sm border border-primary/20 p-4">
+                  <h4 className="text-primary font-medium mb-2">新規性注入 2</h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div>
+                      <div className="text-xs text-primary font-medium">環境の変化</div>
+                      <div className="text-text">オブジェクトの物理特性変化（重さ、摩擦）</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-primary font-medium">適応課題</div>
+                      <div className="text-text">力制御と動作計画の調整</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-primary-light/30 rounded-lg shadow-sm border border-primary/20 p-4">
+                  <h4 className="text-primary font-medium mb-2">新規性注入 3</h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div>
+                      <div className="text-xs text-primary font-medium">環境の変化</div>
+                      <div className="text-text">障害物の追加と環境の制約</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-primary font-medium">適応課題</div>
+                      <div className="text-text">障害物回避と代替経路計画</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow-sm border border-primary/20 p-4">
+                  <h4 className="text-primary font-medium mb-2">新規性注入 4</h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div>
+                      <div className="text-xs text-primary font-medium">環境の変化</div>
+                      <div className="text-text">動的に変化するオブジェクトと相互作用</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-primary font-medium">適応課題</div>
+                      <div className="text-text">予測不可能な変化への対応</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             

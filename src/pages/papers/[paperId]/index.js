@@ -26,7 +26,7 @@ export default function PaperDetail() {
             指定されたIDの論文は存在しないか、移動した可能性があります。
           </p>
           <Link href="/papers/">
-            <a className="text-blue-600 hover:underline">
+            <a className="text-primary hover:underline">
               論文一覧に戻る
             </a>
           </Link>
@@ -53,7 +53,7 @@ export default function PaperDetail() {
             {paper.categories.map(category => (
               <span 
                 key={category} 
-                className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
+                className="bg-primary-light text-primary text-xs px-2 py-1 rounded"
               >
                 {category}
               </span>

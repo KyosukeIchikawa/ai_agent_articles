@@ -69,9 +69,10 @@ export default function Results() {
   };
 
   const taskCompletionOptions = getBarChartOptions(
+    colors,
     '異なる難易度のタスクにおける各手法の達成率 (%)',
     '達成率 (%)',
-    colors
+    100
   );
 
   // 学習曲線のデータ
@@ -106,10 +107,10 @@ export default function Results() {
   };
 
   const learningCurveOptions = getLineChartOptions(
+    colors,
     '累積報酬に対するエピソード数の学習曲線',
     '累積報酬',
-    'エピソード数',
-    colors
+    'エピソード数'
   );
 
   // 環境変化後の回復時間データ
@@ -141,9 +142,9 @@ export default function Results() {
   };
 
   const recoveryTimeOptions = getBarChartOptions(
+    colors,
     '環境変化後のパフォーマンス回復時間（エピソード数）',
-    '回復エピソード数',
-    colors
+    '回復エピソード数'
   );
 
   return (

@@ -70,7 +70,12 @@ export default function Experiments() {
     ],
   };
 
-  const taskCompletionOptions = getBarChartOptions(colors, '各フェーズでのタスク達成率の比較', '達成率 (%)');
+  const taskCompletionOptions = getBarChartOptions(
+    colors,
+    '各フェーズでのタスク達成率の比較',
+    '達成率 (%)',
+    100
+  );
 
   // コンポーネント分析のデータ
   const componentAnalysisData = {
@@ -118,7 +123,12 @@ export default function Experiments() {
     ],
   };
 
-  const componentAnalysisOptions = getLineChartOptions(colors, '各手法のサンプル効率と適応能力の比較', 'サンプル効率', '適応能力');
+  const componentAnalysisOptions = getLineChartOptions(
+    colors,
+    '各手法のサンプル効率と適応能力の比較',
+    'サンプル効率',
+    '適応能力'
+  );
 
   return (
     <Layout title="実験と結果">

@@ -5,6 +5,7 @@ import { getAllPapers } from '../data/papers';
 /**
  * 論文記事内のページナビゲーションコンポーネント
  * 現在のページの前後のページへのリンクを自動的に生成します
+ * トップページへの戻るリンクも提供します
  * 
  * @param {Object} props コンポーネントのプロパティ
  * @param {string} [props.paperId] 論文ID（省略した場合はURLから自動取得）
@@ -78,24 +79,39 @@ export default function Navigation({ paperId, currentSectionId, customLabels = {
   const nextPath = getNextPath();
 
   return (
-    <div className="flex justify-between mt-10 pt-6 border-t border-primary/10">
-      <div>
+    <div className="flex justify-between items-center mt-10 pt-6 border-t border-primary/10">
+      <div className="w-1/3 flex justify-start">
         {prevPath && (
           <Link href={prevPath}>
             <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              {prevLabel}
+              <span className="hidden sm:inline">{prevLabel}</span>
+              <span className="sm:hidden">前へ</span>
             </a>
           </Link>
         )}
       </div>
-      <div>
+      
+      <div className="w-1/3 flex justify-center">
+        <Link href="/">
+          <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span className="hidden sm:inline">トップページ</span>
+            <span className="sm:hidden">ホーム</span>
+          </a>
+        </Link>
+      </div>
+      
+      <div className="w-1/3 flex justify-end">
         {nextPath && (
           <Link href={nextPath}>
             <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-              {nextLabel}
+              <span className="hidden sm:inline">{nextLabel}</span>
+              <span className="sm:hidden">次へ</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>

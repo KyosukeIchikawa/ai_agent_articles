@@ -108,6 +108,10 @@ export default function Results() {
   const taskCompletionOptions = {
     responsive: true,
     maintainAspectRatio: true,
+    animation: {
+      duration: 1000,
+      easing: 'easeOutQuad'
+    },
     plugins: {
       legend: {
         position: 'top',
@@ -245,6 +249,10 @@ export default function Results() {
   const recoveryTimeOptions = {
     responsive: true,
     maintainAspectRatio: true,
+    animation: {
+      duration: 1000,
+      easing: 'easeOutQuad'
+    },
     plugins: {
       legend: {
         position: 'top',
@@ -283,7 +291,7 @@ export default function Results() {
       <div className="space-y-8">
         <header>
           <h1 className="text-3xl font-bold mb-4 text-primary">5. 結果と分析</h1>
-          <p className="text-lg text-primary">
+          <p className="text-lg text-primary"></p>
             提案手法「Curiosity-Driven Imagination」の実験結果とその分析
           </p>
         </header>

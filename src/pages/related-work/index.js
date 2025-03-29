@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import Link from 'next/link';
+import Navigation from '../../components/Navigation';
 
 export default function RelatedWork() {
   return (
@@ -12,7 +12,6 @@ export default function RelatedWork() {
             Curiosity-Driven Imaginationに関連する既存研究の概要
           </p>
         </header>
-
         <section>
           <div className="prose max-w-none">
             <p>
@@ -110,29 +109,16 @@ export default function RelatedWork() {
             </p>
           </div>
         </section>
-
-        <div className="flex justify-between mt-10 pt-6 border-t border-primary/10">
-          <div>
-            <Link href="/background/">
-              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                背景
-              </a>
-            </Link>
-          </div>
-          <div>
-            <Link href="/method/">
-              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-                提案手法
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </Link>
-          </div>
-        </div>
+        
+        {/* ナビゲーションコンポーネントに置き換え */}
+        <Navigation 
+          paperId="curiosity-driven-imagination"
+          currentSectionId="related-work" 
+          customLabels={{
+            prev: "背景",
+            next: "提案手法"
+          }}
+        />
       </div>
     </Layout>
   );

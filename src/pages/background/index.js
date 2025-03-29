@@ -1,5 +1,5 @@
 import Layout from '../../components/Layout';
-import Link from 'next/link';
+import Navigation from '../../components/Navigation';
 
 export default function Background() {
   return (
@@ -11,7 +11,6 @@ export default function Background() {
             オープンワールド環境におけるロボット適応の課題と既存アプローチの限界
           </p>
         </header>
-
         <section>
           <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">1.1 オープンワールド環境の課題</h2>
           <div className="prose max-w-none">
@@ -56,7 +55,6 @@ export default function Background() {
             </p>
           </div>
         </section>
-
         <section>
           <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">1.2 従来のアプローチとその限界</h2>
           <div className="prose max-w-none">
@@ -128,28 +126,15 @@ export default function Background() {
           </div>
         </section>
         
-        <div className="flex justify-between mt-10 pt-6 border-t border-primary/10">
-          <div>
-            <Link href="/">
-              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                トップページ
-              </a>
-            </Link>
-          </div>
-          <div>
-            <Link href="/related-work/">
-              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-                関連研究
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </Link>
-          </div>
-        </div>
+        {/* ナビゲーションコンポーネントに置き換え */}
+        <Navigation 
+          paperId="curiosity-driven-imagination"
+          currentSectionId="background" 
+          customLabels={{
+            prev: "トップページ",
+            next: "関連研究"
+          }}
+        />
       </div>
     </Layout>
   );

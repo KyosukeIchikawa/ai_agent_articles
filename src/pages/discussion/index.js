@@ -1,5 +1,5 @@
 import Layout from '../../components/Layout';
-import Link from 'next/link';
+import Navigation from '../../components/Navigation';
 
 export default function Discussion() {
   return (
@@ -210,28 +210,14 @@ export default function Discussion() {
           </div>
         </section>
         
-        <div className="flex justify-between mt-10 pt-6 border-t border-primary/10">
-          <div>
-            <Link href="/results/">
-              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                実験と結果
-              </a>
-            </Link>
-          </div>
-          <div>
-            <Link href="/conclusion/">
-              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-                結論
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </Link>
-          </div>
-        </div>
+        <Navigation 
+          paperId="curiosity-driven-imagination"
+          currentSectionId="discussion" 
+          customLabels={{
+            prev: "結果と分析",
+            next: "結論"
+          }}
+        />
       </div>
     </Layout>
   );

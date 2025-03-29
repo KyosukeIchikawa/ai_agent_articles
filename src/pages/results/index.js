@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import Link from 'next/link';
+import Navigation from '../../components/Navigation';
 import { Bar, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -458,28 +458,14 @@ export default function Results() {
           </div>
         </section>
 
-        <div className="flex justify-between mt-10 pt-6 border-t border-primary/10">
-          <div>
-            <Link href="/experiments/">
-              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                実験
-              </a>
-            </Link>
-          </div>
-          <div>
-            <Link href="/discussion/">
-              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
-                議論と今後の展望
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </Link>
-          </div>
-        </div>
+        <Navigation 
+          paperId="curiosity-driven-imagination"
+          currentSectionId="results" 
+          customLabels={{
+            prev: "実験",
+            next: "議論と今後の展望"
+          }}
+        />
       </div>
     </Layout>
   );

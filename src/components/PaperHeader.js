@@ -18,7 +18,7 @@ const PaperHeader = ({
   affiliations = {} 
 }) => {
   return (
-    <header className="text-center mb-10 bg-gradient-to-r from-primary-light via-blue-50 to-primary-light py-10 rounded-xl shadow-sm">
+    <header className="text-center mb-10 bg-gradient-to-r from-primary-light via-primary-light to-primary-light py-10 rounded-xl shadow-sm">
       <h1 className="text-3xl md:text-4xl font-bold mb-6 text-text">
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary to-primary">
           {title}

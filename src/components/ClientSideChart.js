@@ -8,23 +8,73 @@ import { Bar, Scatter } from 'react-chartjs-2';
 export const ClientSideBarChart = ({ data, options }) => {
   // モバイル状態の検出
   const [chartOptions, setChartOptions] = useState(options);
+  const [isMobile, setIsMobile] = useState(false);
 
   // クライアントサイドでのみ実行される処理
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth < 768;
+      setIsMobile(isMobile);
+      
       setChartOptions({
         ...options,
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           ...options.plugins,
           legend: {
             ...options.plugins?.legend,
             position: isMobile ? 'bottom' : 'top',
+            align: 'center',
             labels: {
-              boxWidth: isMobile ? 10 : 12,
-              padding: isMobile ? 10 : 10,
+              boxWidth: isMobile ? 8 : 12,
+              padding: isMobile ? 8 : 10,
               font: {
-                size: isMobile ? 10 : 12
+                size: isMobile ? 9 : 12
+              }
+            }
+          },
+          title: {
+            ...options.plugins?.title,
+            font: {
+              ...(options.plugins?.title?.font || {}),
+              size: isMobile ? 11 : 14
+            }
+          }
+        },
+        scales: {
+          ...options.scales,
+          y: {
+            ...options.scales?.y,
+            ticks: {
+              ...(options.scales?.y?.ticks || {}),
+              font: {
+                size: isMobile ? 8 : 10
+              }
+            },
+            title: {
+              ...(options.scales?.y?.title || {}),
+              display: true,
+              font: {
+                size: isMobile ? 9 : 11
+              }
+            }
+          },
+          x: {
+            ...options.scales?.x,
+            ticks: {
+              ...(options.scales?.x?.ticks || {}),
+              font: {
+                size: isMobile ? 8 : 10
+              },
+              maxRotation: isMobile ? 45 : 0,
+              minRotation: isMobile ? 45 : 0
+            },
+            title: {
+              ...(options.scales?.x?.title || {}),
+              display: true,
+              font: {
+                size: isMobile ? 9 : 11
               }
             }
           }
@@ -44,7 +94,18 @@ export const ClientSideBarChart = ({ data, options }) => {
     };
   }, [options]);
 
-  return <Bar data={data} options={chartOptions} />;
+  return (
+    <div className="h-full w-full">
+      <Bar 
+        data={data} 
+        options={chartOptions} 
+        style={{ 
+          maxHeight: '100%', 
+          width: '100%'
+        }} 
+      />
+    </div>
+  );
 };
 
 /**
@@ -54,23 +115,71 @@ export const ClientSideBarChart = ({ data, options }) => {
 export const ClientSideScatterChart = ({ data, options }) => {
   // モバイル状態の検出
   const [chartOptions, setChartOptions] = useState(options);
+  const [isMobile, setIsMobile] = useState(false);
 
   // クライアントサイドでのみ実行される処理
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth < 768;
+      setIsMobile(isMobile);
+      
       setChartOptions({
         ...options,
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           ...options.plugins,
           legend: {
             ...options.plugins?.legend,
             position: isMobile ? 'bottom' : 'top',
+            align: 'center',
             labels: {
-              boxWidth: isMobile ? 10 : 12,
+              boxWidth: isMobile ? 8 : 12,
               padding: isMobile ? 8 : 10,
               font: {
-                size: isMobile ? 10 : 12
+                size: isMobile ? 9 : 12
+              }
+            }
+          },
+          title: {
+            ...options.plugins?.title,
+            font: {
+              ...(options.plugins?.title?.font || {}),
+              size: isMobile ? 11 : 14
+            }
+          }
+        },
+        scales: {
+          ...options.scales,
+          y: {
+            ...options.scales?.y,
+            ticks: {
+              ...(options.scales?.y?.ticks || {}),
+              font: {
+                size: isMobile ? 8 : 10
+              }
+            },
+            title: {
+              ...(options.scales?.y?.title || {}),
+              display: true,
+              font: {
+                size: isMobile ? 9 : 11
+              }
+            }
+          },
+          x: {
+            ...options.scales?.x,
+            ticks: {
+              ...(options.scales?.x?.ticks || {}),
+              font: {
+                size: isMobile ? 8 : 10
+              }
+            },
+            title: {
+              ...(options.scales?.x?.title || {}),
+              display: true,
+              font: {
+                size: isMobile ? 9 : 11
               }
             }
           }
@@ -90,5 +199,16 @@ export const ClientSideScatterChart = ({ data, options }) => {
     };
   }, [options]);
 
-  return <Scatter data={data} options={chartOptions} />;
+  return (
+    <div className="h-full w-full">
+      <Scatter 
+        data={data} 
+        options={chartOptions} 
+        style={{ 
+          maxHeight: '100%', 
+          width: '100%'
+        }} 
+      />
+    </div>
+  );
 };

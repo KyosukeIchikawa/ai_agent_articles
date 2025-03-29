@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 
 /**
  * レスポンシブなチャートを表示するコンポーネント
@@ -15,54 +16,63 @@ const ResponsiveChart = ({
   captionColor = "text-primary",
   bgGradient = "from-white to-primary-light"
 }) => {
-  // 画面サイズの状態
+  // サーバーサイドレンダリング中にwindowオブジェクトを参照しないようにする
   const [isMobile, setIsMobile] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
   
-  // マウント時とリサイズ時に画面サイズを検出
+  // マウント時とリサイズ時に画面サイズを検出（クライアントサイドのみ）
   useEffect(() => {
+    setHasMounted(true);
+    
     // 画面サイズの検出
     const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768); // 768px以下ならモバイル判定
+      if (typeof window !== 'undefined') {
+        setIsMobile(window.innerWidth < 768); // 768px以下ならモバイル判定
+      }
     };
     
     // 初回チェック
     checkIfMobile();
     
     // リサイズイベントのリスナーを追加
-    window.addEventListener('resize', checkIfMobile);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', checkIfMobile);
     
-    // クリーンアップ関数
-    return () => {
-      window.removeEventListener('resize', checkIfMobile);
-    };
+      // クリーンアップ関数
+      return () => {
+        window.removeEventListener('resize', checkIfMobile);
+      };
+    }
   }, []);
 
-  // chartがBooleanかどうかをチェック (エラー防止)
+  // chartが有効かどうかをチェック (エラー防止)
   const isValidChart = chart && typeof chart !== 'boolean';
 
   return (
     <div className="flex justify-center">
-      <div className="bg-white p-4 rounded-lg shadow-inner w-full">
+      <div className="bg-white p-3 sm:p-4 rounded-lg shadow-inner w-full">
         <div 
-          className={`w-full bg-gradient-to-b ${bgGradient}`} 
-          style={{ height: isMobile ? '250px' : '320px' }}
+          className={`w-full bg-gradient-to-b ${bgGradient} rounded overflow-hidden`} 
+          style={{ height: isMobile ? '280px' : '320px' }}
         >
-          {/* Chartが有効な場合のみレンダリング */}
-          {isValidChart && (
+          {/* マウント済みかつチャートが有効な場合のみレンダリング */}
+          {hasMounted && isValidChart && (
             <div className="h-full w-full">
               {chart}
             </div>
           )}
           
           {/* チャートが無効な場合のフォールバック表示 */}
-          {!isValidChart && (
+          {(!isValidChart || !hasMounted) && (
             <div className="h-full w-full flex items-center justify-center">
-              <p className="text-primary">グラフを読み込めませんでした</p>
+              <p className="text-primary">
+                {!hasMounted ? "グラフを読み込み中..." : "グラフを読み込めませんでした"}
+              </p>
             </div>
           )}
         </div>
         {caption && (
-          <p className={`text-sm ${captionColor} mt-2 text-center`}>
+          <p className={`text-xs sm:text-sm ${captionColor} mt-2 text-center`}>
             {caption}
           </p>
         )}
@@ -71,4 +81,5 @@ const ResponsiveChart = ({
   );
 };
 
+// サーバーサイドレンダリング時に実行されないようにクライアントサイドのみでコンポーネントをロード
 export default ResponsiveChart;

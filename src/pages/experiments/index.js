@@ -1,7 +1,222 @@
+import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
+import ResponsiveChart from '../../components/ResponsiveChart';
+import { Bar, Scatter } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
+
+// Chart.jsコンポーネントの登録
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function Experiments() {
+  // Tailwindカラーの変数を作成
+  const [colors, setColors] = useState({
+    primary: { main: 'rgba(52, 152, 219, 0.7)', border: 'rgba(52, 152, 219, 1)', light: 'rgba(52, 152, 219, 0.2)' },
+    secondary: { main: 'rgba(46, 204, 113, 0.7)', border: 'rgba(46, 204, 113, 1)', light: 'rgba(46, 204, 113, 0.2)' },
+    accent: { main: 'rgba(231, 76, 60, 0.7)', border: 'rgba(231, 76, 60, 1)', light: 'rgba(231, 76, 60, 0.2)' },
+  });
+
+  // マウント時にTailwindのカスタムカラーを取得
+  useEffect(() => {
+    // カラー取得関数
+    const getColorWithOpacity = (colorName, opacity = 1) => {
+      const el = document.createElement('div');
+      el.classList.add(`text-${colorName}`);
+      document.body.appendChild(el);
+      const color = window.getComputedStyle(el).color;
+      document.body.removeChild(el);
+
+      // RGB値を抽出してRGBA形式に変換
+      const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+      if (rgbMatch) {
+        return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${opacity})`;
+      }
+
+      return color;
+    };
+
+    setColors({
+      primary: {
+        main: getColorWithOpacity('primary', 0.7),
+        border: getColorWithOpacity('primary', 1),
+        light: getColorWithOpacity('primary', 0.2),
+      },
+      secondary: {
+        main: getColorWithOpacity('secondary', 0.7),
+        border: getColorWithOpacity('secondary', 1),
+        light: getColorWithOpacity('secondary', 0.2),
+      },
+      accent: {
+        main: getColorWithOpacity('accent', 0.7),
+        border: getColorWithOpacity('accent', 1),
+        light: getColorWithOpacity('accent', 0.2),
+      },
+    });
+  }, []);
+
+  // タスク達成率のデータ
+  const taskCompletionData = {
+    labels: ['初期段階', '新規性注入1', '新規性注入2', '新規性注入3', '新規性注入4'],
+    datasets: [
+      {
+        label: '提案手法',
+        data: [95, 90, 85, 82, 80],
+        backgroundColor: colors.primary.main,
+        borderColor: colors.primary.border,
+        borderWidth: 2,
+      },
+      {
+        label: 'TAMP',
+        data: [92, 65, 55, 50, 48],
+        backgroundColor: colors.secondary.main,
+        borderColor: colors.secondary.border,
+        borderWidth: 2,
+      },
+      {
+        label: '標準RL',
+        data: [85, 55, 45, 40, 38],
+        backgroundColor: colors.accent.main,
+        borderColor: colors.accent.border,
+        borderWidth: 2,
+      }
+    ],
+  };
+
+  const taskCompletionOptions = {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '各フェーズでのタスク達成率の比較',
+        color: colors.primary.border,
+        font: {
+          weight: 'bold'
+        }
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        title: {
+          display: true,
+          text: '達成率 (%)',
+          color: colors.primary.border,
+        },
+        ticks: {
+          color: colors.primary.main,
+        }
+      },
+      x: {
+        ticks: {
+          color: colors.primary.main,
+        }
+      }
+    }
+  };
+
+  // コンポーネント分析のデータ
+  const componentAnalysisData = {
+    datasets: [
+      {
+        label: 'フル提案手法',
+        data: [{ x: 85, y: 92 }],
+        backgroundColor: colors.primary.border,
+        borderColor: colors.primary.border,
+        borderWidth: 2,
+        pointRadius: 8,
+      },
+      {
+        label: 'ICMのみ',
+        data: [{ x: 65, y: 78 }],
+        backgroundColor: colors.primary.main,
+        borderColor: colors.primary.border,
+        borderWidth: 2,
+        pointRadius: 8,
+      },
+      {
+        label: '想像空間のみ',
+        data: [{ x: 72, y: 70 }],
+        backgroundColor: colors.accent.main,
+        borderColor: colors.accent.border,
+        borderWidth: 2,
+        pointRadius: 8,
+      },
+      {
+        label: '標準RL',
+        data: [{ x: 45, y: 58 }],
+        backgroundColor: colors.secondary.main,
+        borderColor: colors.secondary.border,
+        borderWidth: 2,
+        pointRadius: 8,
+      },
+      {
+        label: 'TAMP',
+        data: [{ x: 60, y: 65 }],
+        backgroundColor: colors.primary.light,
+        borderColor: colors.primary.border,
+        borderWidth: 2,
+        pointRadius: 8,
+      }
+    ],
+  };
+
+  const componentAnalysisOptions = {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '各手法のサンプル効率と適応能力の比較',
+        color: colors.primary.border,
+        font: {
+          weight: 'bold'
+        }
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        title: {
+          display: true,
+          text: 'サンプル効率',
+          color: colors.primary.border,
+        },
+        ticks: {
+          color: colors.primary.main,
+        }
+      },
+      x: {
+        beginAtZero: true,
+        max: 100,
+        title: {
+          display: true,
+          text: '適応能力',
+          color: colors.primary.border,
+        },
+        ticks: {
+          color: colors.primary.main,
+        }
+      }
+    }
+  };
+
   return (
     <Layout title="実験と結果">
       <div className="space-y-8">
@@ -163,116 +378,16 @@ export default function Experiments() {
               <div className="mb-6">
                 <h4 className="text-lg font-medium mb-2 text-primary">タスク達成率</h4>
                 
-                <figure className="text-center">
-                  <div className="bg-white p-4 rounded-lg mb-2 shadow-inner">
-                    {/* タスク達成率のグラフ（簡略化した表現） */}
-                    <div className="h-64 w-full bg-gradient-to-b from-white to-primary-light rounded-lg relative">
-                      {/* Y軸 */}
-                      <div className="absolute h-full w-px bg-gray-400 left-16"></div>
-                      <div className="absolute left-6 top-0 text-xs text-primary">100%</div>
-                      <div className="absolute left-6 top-1/4 text-xs text-primary">75%</div>
-                      <div className="absolute left-6 top-1/2 text-xs text-primary">50%</div>
-                      <div className="absolute left-6 top-3/4 text-xs text-primary">25%</div>
-                      <div className="absolute left-6 bottom-0 text-xs text-primary">0%</div>
-                      
-                      {/* X軸 */}
-                      <div className="absolute w-full h-px bg-gray-400 bottom-8 left-16"></div>
-                      <div className="absolute bottom-2 left-16 text-xs text-primary">初期</div>
-                      <div className="absolute bottom-2 left-1/3 text-xs text-primary">注入1</div>
-                      <div className="absolute bottom-2 left-1/2 text-xs text-primary">注入2</div>
-                      <div className="absolute bottom-2 left-2/3 text-xs text-primary">注入3</div>
-                      <div className="absolute bottom-2 right-8 text-xs text-primary">注入4</div>
-                      
-                      {/* 提案手法の線 */}
-                      <div className="absolute left-16 top-12 w-4/5 h-px bg-primary" style={{ transform: 'rotate(-5deg)' }}></div>
-                      <div className="absolute left-[calc(16px+20%)] top-16 w-[20%] h-px bg-primary" style={{ transform: 'rotate(-25deg)' }}></div>
-                      <div className="absolute left-[calc(16px+40%)] top-24 w-[20%] h-px bg-primary" style={{ transform: 'rotate(-15deg)' }}></div>
-                      <div className="absolute left-[calc(16px+60%)] top-28 w-[20%] h-px bg-primary" style={{ transform: 'rotate(-10deg)' }}></div>
-                      
-                      {/* 比較手法の線 */}
-                      <div className="absolute left-16 top-12 w-[20%] h-px bg-secondary" style={{ transform: 'rotate(-5deg)' }}></div>
-                      <div className="absolute left-[calc(16px+20%)] top-16 w-[20%] h-px bg-secondary" style={{ transform: 'rotate(-45deg)' }}></div>
-                      <div className="absolute left-[calc(16px+40%)] top-48 w-[20%] h-px bg-secondary" style={{ transform: 'rotate(-10deg)' }}></div>
-                      <div className="absolute left-[calc(16px+60%)] top-52 w-[20%] h-px bg-secondary" style={{ transform: 'rotate(-5deg)' }}></div>
-                      
-                      {/* 凡例 */}
-                      <div className="absolute top-2 right-2 flex items-center">
-                        <div className="w-4 h-px bg-primary mr-1"></div>
-                        <span className="text-xs text-primary">提案手法</span>
-                      </div>
-                      <div className="absolute top-6 right-2 flex items-center">
-                        <div className="w-4 h-px bg-secondary mr-1"></div>
-                        <span className="text-xs text-secondary">比較手法</span>
-                      </div>
-                    </div>
-                  </div>
-                  <figcaption className="text-sm text-primary">図2: 各フェーズでのタスク達成率の比較</figcaption>
-                </figure>
+                <ResponsiveChart
+                  chart={<Bar data={taskCompletionData} options={taskCompletionOptions} />}
+                  caption="図2: 各フェーズでのタスク達成率の比較"
+                  captionColor="text-primary"
+                  bgGradient="from-white to-primary-light"
+                />
                 
                 <p className="text-text mt-4">
                   提案手法は、新規性注入後の性能低下が比較手法より小さく、迅速に元のパフォーマンスレベルに回復しました。
                   特に、3回目と4回目の新規性注入後も80%以上のタスク達成率を維持した一方、従来のアプローチは50%以下まで低下しました。
-                </p>
-              </div>
-              
-              <div className="mb-6">
-                <h4 className="text-lg font-medium mb-2 text-primary">適応時間</h4>
-                
-                <div className="overflow-x-auto">
-                  <table className="min-w-full border-collapse">
-                    <thead>
-                      <tr className="bg-primary-light">
-                        <th className="px-4 py-2 border border-primary/20 text-left text-primary">手法</th>
-                        <th className="px-4 py-2 border border-primary/20 text-center text-primary">注入1</th>
-                        <th className="px-4 py-2 border border-primary/20 text-center text-primary">注入2</th>
-                        <th className="px-4 py-2 border border-primary/20 text-center text-primary">注入3</th>
-                        <th className="px-4 py-2 border border-primary/20 text-center text-primary">注入4</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-white">
-                        <td className="px-4 py-2 border border-primary/20 font-medium text-primary">提案手法</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">12エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">18エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">25エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">30エピソード</td>
-                      </tr>
-                      <tr className="bg-primary-light/30">
-                        <td className="px-4 py-2 border border-primary/20 font-medium text-primary">TAMP</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">35エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">60エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">90エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">120+エピソード</td>
-                      </tr>
-                      <tr className="bg-white">
-                        <td className="px-4 py-2 border border-primary/20 font-medium text-secondary">標準RL</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-secondary">45エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-secondary">80エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-secondary">100+エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-secondary">120+エピソード</td>
-                      </tr>
-                      <tr className="bg-primary-light/30">
-                        <td className="px-4 py-2 border border-primary/20 font-medium text-primary">ICMのみ</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">20エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">35エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">50エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-primary">65エピソード</td>
-                      </tr>
-                      <tr className="bg-white">
-                        <td className="px-4 py-2 border border-primary/20 font-medium text-accent">想像空間のみ</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-accent">25エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-accent">40エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-accent">55エピソード</td>
-                        <td className="px-4 py-2 border border-primary/20 text-center text-accent">70エピソード</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                
-                <p className="text-text mt-4">
-                  適応時間（元のパフォーマンスレベルに回復するまでに要したエピソード数）において、
-                  提案手法は従来のアプローチと比較して3〜4倍の速さで適応できました。
-                  特に複雑な状況（注入3、4）での適応速度の差が顕著でした。
                 </p>
               </div>
               
@@ -298,7 +413,7 @@ export default function Experiments() {
                   </li>
                 </ul>
                 
-                <p className="text-text mt-4">
+                <p className="text-text mt-4"></p>
                   提案手法は平均して各新規性注入後に3〜5個の新しいオペレータを発見できた一方、
                   従来のTAMPアプローチは事前定義されたオペレータのみを使用し、標準的な強化学習は明示的なオペレータを形成しませんでした。
                 </p>
@@ -312,54 +427,14 @@ export default function Experiments() {
             </p>
             
             <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
-              <figure className="text-center">
-                <div className="bg-white p-4 rounded-lg mb-2 shadow-inner">
-                  {/* コンポーネント分析のグラフ（簡略化した表現） */}
-                  <div className="h-64 w-full bg-gradient-to-b from-white to-primary-light rounded-lg relative">
-                    {/* Y軸 - サンプル効率 */}
-                    <div className="absolute h-full w-px bg-gray-400 left-16"></div>
-                    <div className="absolute left-2 top-1/2 transform -rotate-90 origin-left text-xs text-primary">サンプル効率</div>
-                    
-                    {/* X軸 - 適応能力 */}
-                    <div className="absolute w-full h-px bg-gray-400 bottom-8 left-16"></div>
-                    <div className="absolute bottom-2 left-1/2 text-xs text-primary">適応能力</div>
-                    
-                    {/* 各手法のプロット */}
-                    <div className="absolute left-24 bottom-16 w-4 h-4 rounded-full bg-primary"></div>
-                    <div className="absolute left-40 bottom-24 w-4 h-4 rounded-full bg-primary"></div>
-                    <div className="absolute left-56 bottom-32 w-4 h-4 rounded-full bg-accent"></div>
-                    <div className="absolute left-72 bottom-48 w-4 h-4 rounded-full bg-secondary"></div>
-                    <div className="absolute left-96 bottom-40 w-4 h-4 rounded-full bg-primary"></div>
-                    
-                    {/* 凡例 */}
-                    <div className="absolute top-2 right-2 space-y-1 text-xs">
-                      <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-primary mr-1"></div>
-                        <span className="text-primary">フル提案手法</span>
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-primary mr-1"></div>
-                        <span className="text-primary">ICMのみ</span>
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-accent mr-1"></div>
-                        <span className="text-accent">想像空間のみ</span>
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-secondary mr-1"></div>
-                        <span className="text-secondary">標準RL</span>
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-primary mr-1"></div>
-                        <span className="text-primary">TAMP</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <figcaption className="text-sm text-primary">図3: 各手法のサンプル効率と適応能力の比較</figcaption>
-              </figure>
+              <ResponsiveChart
+                chart={<Scatter data={componentAnalysisData} options={componentAnalysisOptions} />}
+                caption="図3: 各手法のサンプル効率と適応能力の比較"
+                captionColor="text-primary"
+                bgGradient="from-white to-secondary-light"
+              />
               
-              <div className="mt-4">
+              <div className="mt-4"></div>
                 <h4 className="text-lg font-medium mb-2 text-primary">分析結果</h4>
                 <ul className="list-disc pl-6 space-y-2 text-text">
                   <li>

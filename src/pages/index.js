@@ -289,7 +289,7 @@ export default function Home() {
         </section>
         
         {/* 論文を読み始めるボタン */}
-        <StartReadingButton href="/background/" text="論文を読み始める" />
+        <StartReadingButton href="/background/" />
       </div>
     </Layout>
   );

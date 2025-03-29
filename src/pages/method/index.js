@@ -84,20 +84,20 @@ export default function Method() {
               <div className="mt-4 space-y-3">
                 <h4 className="font-semibold text-secondary">記号的計画の概要</h4>
                 <p className="text-text">
-                  記号的計画は、PDDL（Planning Domain Description Language）などの形式言語を用いて記述されるドメイン<span className="text-sm">（論文中の$\sigma$）</span>
+                  記号的計画は、PDDL（Planning Domain Description Language）などの形式言語を用いて記述されるドメイン<span className="text-sm">（論文中のσ）</span>
                   に基づいています。各状態は述語論理で表現され、オペレータ（行動）は前提条件と効果によって定義されます。
                 </p>
                 
                 <h4 className="font-semibold text-secondary mt-3">想像的計画生成プロセス</h4>
                 <ol className="list-decimal pl-6 space-y-2 text-text">
                   <li>
-                    記号的遷移<span className="text-sm">（論文中の$T_k$）</span>から抽象的なオペレータを学習
+                    記号的遷移<span className="text-sm">（論文中のT<sub>k</sub>）</span>から抽象的なオペレータを学習
                   </li>
                   <li>
-                    学習したオペレータを用いて想像的ドメイン<span className="text-sm">（論文中の$\sigma_{im}$）</span>を構築
+                    学習したオペレータを用いて想像的ドメイン<span className="text-sm">（論文中のσ<sub>im</sub>）</span>を構築
                   </li>
                   <li>
-                    想像的ドメイン上で計画を生成<span className="text-sm">（論文中の$\mathcal{P}_{im}$）</span>
+                    想像的ドメイン上で計画を生成<span className="text-sm">（論文中のP<sub>im</sub>）</span>
                   </li>
                   <li>
                     生成された計画を報酬機械として変換し、実際の環境での学習に活用
@@ -128,14 +128,14 @@ export default function Method() {
                 
                 <div className="bg-white p-4 rounded my-3">
                   <p className="font-mono text-sm text-text">
-                    報酬機械 $\mathcal{R}_m$は、エージェントが想像的計画$\mathcal{P}_{im}$内のチェックポイントに到達したときに
+                    報酬機械 R<sub>m</sub>は、エージェントが想像的計画P<sub>im</sub>内のチェックポイントに到達したときに
                     報酬を提供し、環境内での進捗を導きます。
                   </p>
                 </div>
                 
                 <h4 className="font-semibold text-accent mt-4">LTL式への変換</h4>
                 <p className="text-text">
-                  想像的計画$\mathcal{P}_{im}$は、次のようにLTL式に変換されます：
+                  想像的計画P<sub>im</sub>は、次のようにLTL式に変換されます：
                 </p>
                 
                 <div className="bg-white p-4 rounded my-3">

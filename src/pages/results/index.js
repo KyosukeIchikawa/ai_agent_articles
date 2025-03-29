@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Navigation from '../../components/Navigation';
+import ResponsiveChart from '../../components/ResponsiveChart';
 import { Bar, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -24,10 +25,7 @@ export default function Results() {
     accent: { main: 'rgba(231, 76, 60, 0.7)', border: 'rgba(231, 76, 60, 1)', light: 'rgba(231, 76, 60, 0.2)' },
   });
 
-  // 画面サイズの状態を追加
-  const [isMobile, setIsMobile] = useState(false);
-
-  // マウント時にTailwindのカスタムカラーを取得とウィンドウサイズの検出
+  // マウント時にTailwindのカスタムカラーを取得
   useEffect(() => {
     // カラー取得関数
     const getColorWithOpacity = (colorName, opacity = 1) => {
@@ -63,88 +61,7 @@ export default function Results() {
         light: getColorWithOpacity('accent', 0.2),
       },
     });
-
-    // 画面サイズの検出
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768); // 768px以下ならモバイル判定
-    };
-
-    // 初回チェック
-    checkIfMobile();
-
-    // リサイズイベントのリスナーを追加
-    window.addEventListener('resize', checkIfMobile);
-
-    // クリーンアップ関数
-    return () => {
-      window.removeEventListener('resize', checkIfMobile);
-    };
   }, []);
-
-  // モバイル向けのチャートオプション調整
-  const getResponsiveChartOptions = (baseOptions) => {
-    if (isMobile) {
-      return {
-        ...baseOptions,
-        maintainAspectRatio: false,
-        plugins: {
-          ...baseOptions.plugins,
-          legend: {
-            ...baseOptions.plugins.legend,
-            position: 'bottom',
-            labels: {
-              boxWidth: 10,
-              padding: 10,
-              font: {
-                size: 10
-              }
-            }
-          },
-          title: {
-            ...baseOptions.plugins.title,
-            font: {
-              ...baseOptions.plugins.title.font,
-              size: 12
-            }
-          }
-        },
-        scales: {
-          ...baseOptions.scales,
-          y: {
-            ...baseOptions.scales.y,
-            ticks: {
-              ...baseOptions.scales.y.ticks,
-              font: {
-                size: 9
-              }
-            },
-            title: {
-              ...baseOptions.scales.y.title,
-              font: {
-                size: 10
-              }
-            }
-          },
-          x: {
-            ...baseOptions.scales.x,
-            ticks: {
-              ...baseOptions.scales.x.ticks,
-              font: {
-                size: 9
-              }
-            },
-            title: {
-              ...(baseOptions.scales.x.title || {}),
-              font: {
-                size: 10
-              }
-            }
-          }
-        }
-      };
-    }
-    return baseOptions;
-  };
 
   // タスク達成率のデータ
   const taskCompletionData = {
@@ -174,7 +91,7 @@ export default function Results() {
     ],
   };
 
-  const baseTaskCompletionOptions = {
+  const taskCompletionOptions = {
     responsive: true,
     maintainAspectRatio: true,
     plugins: {
@@ -211,8 +128,6 @@ export default function Results() {
     }
   };
 
-  const taskCompletionOptions = getResponsiveChartOptions(baseTaskCompletionOptions);
-
   // 学習曲線のデータ
   const learningCurveData = {
     labels: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
@@ -244,7 +159,7 @@ export default function Results() {
     ],
   };
 
-  const baseLearningCurveOptions = {
+  const learningCurveOptions = {
     responsive: true,
     maintainAspectRatio: true,
     plugins: {
@@ -285,8 +200,6 @@ export default function Results() {
     }
   };
 
-  const learningCurveOptions = getResponsiveChartOptions(baseLearningCurveOptions);
-
   // 環境変化後の回復時間データ
   const recoveryTimeData = {
     labels: ['軽微な変化', '中程度の変化', '大きな変化'],
@@ -315,7 +228,7 @@ export default function Results() {
     ],
   };
 
-  const baseRecoveryTimeOptions = {
+  const recoveryTimeOptions = {
     responsive: true,
     maintainAspectRatio: true,
     plugins: {
@@ -351,8 +264,6 @@ export default function Results() {
     }
   };
 
-  const recoveryTimeOptions = getResponsiveChartOptions(baseRecoveryTimeOptions);
-
   return (
     <Layout title="結果と分析">
       <div className="space-y-8">
@@ -374,16 +285,13 @@ export default function Results() {
               <h3 className="text-xl font-semibold mb-3 text-primary">5.1 タスク達成率の比較</h3>
               
               <div className="mb-6">
-                <div className="flex justify-center">
-                  <div className="bg-white p-4 rounded-lg shadow-inner w-full">
-                    <div className="w-full" style={{ height: isMobile ? '250px' : '320px' }}>
-                      <Bar data={taskCompletionData} options={taskCompletionOptions} />
-                    </div>
-                    <p className="text-sm text-primary mt-2 text-center">
-                      図1: 異なる難易度のタスクにおける各手法の達成率
-                    </p>
-                  </div>
-                </div>
+                <ResponsiveChart
+                  chart={<Bar data={taskCompletionData} />}
+                  baseOptions={taskCompletionOptions}
+                  caption="図1: 異なる難易度のタスクにおける各手法の達成率"
+                  captionColor="text-primary"
+                  bgGradient="from-white to-primary-light"
+                />
               </div>
               
               <p className="text-text mb-4">
@@ -411,16 +319,13 @@ export default function Results() {
               <h3 className="text-xl font-semibold mb-3 text-primary">5.2 学習効率と収束速度</h3>
               
               <div className="mb-6">
-                <div className="flex justify-center">
-                  <div className="bg-white p-4 rounded-lg shadow-inner w-full">
-                    <div className="w-full" style={{ height: isMobile ? '250px' : '320px' }}>
-                      <Line data={learningCurveData} options={learningCurveOptions} />
-                    </div>
-                    <p className="text-sm text-primary mt-2 text-center">
-                      図2: 累積報酬に対するエピソード数の学習曲線
-                    </p>
-                  </div>
-                </div>
+                <ResponsiveChart
+                  chart={<Line data={learningCurveData} />}
+                  baseOptions={learningCurveOptions}
+                  caption="図2: 累積報酬に対するエピソード数の学習曲線"
+                  captionColor="text-primary"
+                  bgGradient="from-white to-secondary-light"
+                />
               </div>
               
               <p className="text-text mb-4">
@@ -446,16 +351,13 @@ export default function Results() {
               <h3 className="text-xl font-semibold mb-3 text-primary">5.3 環境変化への適応能力</h3>
               
               <div className="mb-6">
-                <div className="flex justify-center">
-                  <div className="bg-white p-4 rounded-lg shadow-inner w-full">
-                    <div className="w-full" style={{ height: isMobile ? '250px' : '320px' }}>
-                      <Bar data={recoveryTimeData} options={recoveryTimeOptions} />
-                    </div>
-                    <p className="text-sm text-accent mt-2 text-center">
-                      図3: 環境変化後のパフォーマンス回復時間
-                    </p>
-                  </div>
-                </div>
+                <ResponsiveChart
+                  chart={<Bar data={recoveryTimeData} />}
+                  baseOptions={recoveryTimeOptions}
+                  caption="図3: 環境変化後のパフォーマンス回復時間"
+                  captionColor="text-accent"
+                  bgGradient="from-white to-accent-light"
+                />
               </div>
               
               <p className="text-text mb-4">

@@ -238,8 +238,8 @@ export default function Experiments() {
             <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
               <h3 className="text-xl font-semibold mb-3 text-primary">4.1.1 実験環境</h3>
               
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div>
+              <div className="flex flex-col md:grid md:grid-cols-2 gap-6 mb-6">
+                <div className="order-2 md:order-1">
                   <h4 className="text-lg font-medium mb-2 text-primary">ロボット操作ドメイン</h4>
                   <p className="text-text">
                     物理シミュレーション環境内のロボットアームが、様々なオブジェクトを操作するタスクを行います。
@@ -247,10 +247,10 @@ export default function Experiments() {
                   </p>
                 </div>
                 
-                <figure className="text-center">
+                <figure className="text-center mx-auto mb-4 md:mb-0 order-1 md:order-2 w-full max-w-xs md:max-w-full">
                   <div className="bg-white p-4 rounded-lg mb-2 shadow-inner">
                     {/* ロボット操作環境の図（簡略化した表現） */}
-                    <div className="aspect-w-16 aspect-h-9 bg-gradient-to-b from-primary-light to-primary-light rounded-lg relative">
+                    <div className="aspect-w-16 aspect-h-12 bg-gradient-to-b from-primary-light to-primary-light rounded-lg relative min-h-[160px]">
                       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-2 bg-gray-300 rounded"></div>
                       <div className="absolute bottom-4 left-1/4 w-2 h-20 bg-primary rounded"></div>
                       <div className="absolute bottom-24 left-1/4 w-24 h-2 bg-primary rounded-l"></div>
@@ -413,7 +413,7 @@ export default function Experiments() {
                   </li>
                 </ul>
                 
-                <p className="text-text mt-4"></p>
+                <p className="text-text mt-4">
                   提案手法は平均して各新規性注入後に3〜5個の新しいオペレータを発見できた一方、
                   従来のTAMPアプローチは事前定義されたオペレータのみを使用し、標準的な強化学習は明示的なオペレータを形成しませんでした。
                 </p>

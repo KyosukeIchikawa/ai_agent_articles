@@ -6,7 +6,9 @@ import Link from 'next/link';
  * 
  * @param {string} title - 論文タイトル
  * @param {string} subtitle - 論文サブタイトル（オプション）
- * @param {string} authors - 著者名（オプション）
+ * @param {Array|string} authors - 著者名（オプション）- 文字列または{name, affiliations}の配列
+ * @param {Object} affiliations - 所属機関の辞書（オプション）
+ * @param {string} description - 論文の説明（オプション）
  * @param {string} venue - 発表場所（オプション）
  * @param {string} date - 発表日（オプション）
  * @param {string} paperUrl - 論文URL（オプション）
@@ -15,10 +17,59 @@ export default function PaperHeader({
   title, 
   subtitle, 
   authors, 
+  affiliations,
+  description,
   venue, 
   date, 
   paperUrl 
 }) {
+  // 著者情報のフォーマット
+  const formatAuthors = () => {
+    if (!authors) return null;
+    
+    // 著者が文字列の場合はそのまま使用
+    if (typeof authors === 'string') {
+      return authors;
+    }
+    
+    // 著者が配列の場合は、名前と所属を適切にフォーマット
+    if (Array.isArray(authors)) {
+      return authors.map((author, index) => (
+        <span key={`author-${index}`}>
+          {author.name}
+          {author.affiliations && author.affiliations.length > 0 && (
+            <sup>
+              {author.affiliations.map((affId, idx) => (
+                <span key={`aff-${index}-${idx}`}>
+                  {idx > 0 && ', '}
+                  {affId}
+                </span>
+              ))}
+            </sup>
+          )}
+          {index < authors.length - 1 && ', '}
+        </span>
+      ));
+    }
+    
+    return null;
+  };
+
+  // 所属情報のフォーマット
+  const renderAffiliations = () => {
+    if (!affiliations) return null;
+    
+    return (
+      <div className="text-sm mt-2 text-text">
+        {Object.entries(affiliations).map(([id, affiliation]) => (
+          <div key={`affiliation-${id}`}>
+            <sup>{id}</sup> {affiliation}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <header className="mb-8 text-center">
       <h1 className="text-3xl md:text-4xl font-bold mb-3 text-primary">
@@ -33,7 +84,15 @@ export default function PaperHeader({
       
       {authors && (
         <p className="text-lg mb-2 text-text">
-          {authors}
+          {formatAuthors()}
+        </p>
+      )}
+      
+      {affiliations && renderAffiliations()}
+      
+      {description && (
+        <p className="mt-4 text-md text-text max-w-3xl mx-auto">
+          {description}
         </p>
       )}
       

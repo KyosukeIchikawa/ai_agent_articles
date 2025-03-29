@@ -4,6 +4,7 @@ import Navigation from '../../components/Navigation';
 import ResponsiveChart from '../../components/ResponsiveChart';
 import dynamic from 'next/dynamic';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
+import { getChartColors, getBarChartOptions, getLineChartOptions } from '../../utils/chartUtils';
 
 // Chart.jsコンポーネントの登録
 ChartJS.register(
@@ -28,53 +29,15 @@ const ClientSideLineChart = dynamic(() =>
   { ssr: false }
 );
 
-// デフォルトカラー（サーバーサイドレンダリング用）
-const defaultColors = {
-  primary: { main: 'rgba(52, 152, 219, 0.7)', border: 'rgba(52, 152, 219, 1)', light: 'rgba(52, 152, 219, 0.2)' },
-  secondary: { main: 'rgba(46, 204, 113, 0.7)', border: 'rgba(46, 204, 113, 1)', light: 'rgba(46, 204, 113, 0.2)' },
-  accent: { main: 'rgba(231, 76, 60, 0.7)', border: 'rgba(231, 76, 60, 1)', light: 'rgba(231, 76, 60, 0.2)' },
-};
-
 export default function Results() {
   // Tailwindカラーの変数を作成
-  const [colors, setColors] = useState(defaultColors);
+  const [colors, setColors] = useState(getChartColors());
 
   // マウント時にTailwindのカスタムカラーを取得
   useEffect(() => {
-    // カラー取得関数
-    const getColorWithOpacity = (colorName, opacity = 1) => {
-      const el = document.createElement('div');
-      el.classList.add(`text-${colorName}`);
-      document.body.appendChild(el);
-      const color = window.getComputedStyle(el).color;
-      document.body.removeChild(el);
-
-      // RGB値を抽出してRGBA形式に変換
-      const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-      if (rgbMatch) {
-        return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${opacity})`;
-      }
-
-      return color;
-    };
-
-    setColors({
-      primary: {
-        main: getColorWithOpacity('primary', 0.7),
-        border: getColorWithOpacity('primary', 1),
-        light: getColorWithOpacity('primary', 0.2),
-      },
-      secondary: {
-        main: getColorWithOpacity('secondary', 0.7),
-        border: getColorWithOpacity('secondary', 1),
-        light: getColorWithOpacity('secondary', 0.2),
-      },
-      accent: {
-        main: getColorWithOpacity('accent', 0.7),
-        border: getColorWithOpacity('accent', 1),
-        light: getColorWithOpacity('accent', 0.2),
-      },
-    });
+    if (typeof window !== 'undefined') {
+      setColors(getChartColors());
+    }
   }, []);
 
   // タスク達成率のデータ
@@ -105,46 +68,11 @@ export default function Results() {
     ],
   };
 
-  const taskCompletionOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    animation: {
-      duration: 1000,
-      easing: 'easeOutQuad'
-    },
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: '異なる難易度のタスクにおける各手法の達成率 (%)',
-        color: colors.primary.border,
-        font: {
-          weight: 'bold'
-        }
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-        title: {
-          display: true,
-          text: '達成率 (%)',
-          color: colors.primary.border,
-        },
-        ticks: {
-          color: colors.primary.main,
-        }
-      },
-      x: {
-        ticks: {
-          color: colors.primary.main,
-        }
-      }
-    }
-  };
+  const taskCompletionOptions = getBarChartOptions(
+    '異なる難易度のタスクにおける各手法の達成率 (%)',
+    '達成率 (%)',
+    colors
+  );
 
   // 学習曲線のデータ
   const learningCurveData = {
@@ -177,46 +105,12 @@ export default function Results() {
     ],
   };
 
-  const learningCurveOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: '累積報酬に対するエピソード数の学習曲線',
-        color: colors.primary.border,
-        font: {
-          weight: 'bold'
-        }
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: '累積報酬',
-          color: colors.primary.border,
-        },
-        ticks: {
-          color: colors.primary.main,
-        }
-      },
-      x: {
-        title: {
-          display: true,
-          text: 'エピソード数',
-          color: colors.primary.border,
-        },
-        ticks: {
-          color: colors.primary.main,
-        }
-      }
-    }
-  };
+  const learningCurveOptions = getLineChartOptions(
+    '累積報酬に対するエピソード数の学習曲線',
+    '累積報酬',
+    'エピソード数',
+    colors
+  );
 
   // 環境変化後の回復時間データ
   const recoveryTimeData = {
@@ -246,52 +140,18 @@ export default function Results() {
     ],
   };
 
-  const recoveryTimeOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    animation: {
-      duration: 1000,
-      easing: 'easeOutQuad'
-    },
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: '環境変化後のパフォーマンス回復時間（エピソード数）',
-        color: colors.primary.border,
-        font: {
-          weight: 'bold'
-        }
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: '回復エピソード数',
-          color: colors.primary.border,
-        },
-        ticks: {
-          color: colors.primary.main,
-        }
-      },
-      x: {
-        ticks: {
-          color: colors.primary.main,
-        }
-      }
-    }
-  };
+  const recoveryTimeOptions = getBarChartOptions(
+    '環境変化後のパフォーマンス回復時間（エピソード数）',
+    '回復エピソード数',
+    colors
+  );
 
   return (
     <Layout title="結果と分析">
       <div className="space-y-8">
         <header>
           <h1 className="text-3xl font-bold mb-4 text-primary">5. 結果と分析</h1>
-          <p className="text-lg text-primary"></p>
+          <p className="text-lg text-primary">
             提案手法「Curiosity-Driven Imagination」の実験結果とその分析
           </p>
         </header>

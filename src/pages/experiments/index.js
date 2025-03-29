@@ -4,6 +4,7 @@ import Navigation from '../../components/Navigation';
 import ResponsiveChart from '../../components/ResponsiveChart';
 import dynamic from 'next/dynamic';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
+import { getChartColors, getBarChartOptions, getLineChartOptions } from '../../utils/chartUtils';
 
 // Chart.jsコンポーネントの登録
 ChartJS.register(
@@ -27,71 +28,17 @@ const ClientSideScatterChart = dynamic(() =>
   { ssr: false }
 );
 
-// デフォルトカラー（サーバーサイドレンダリング用）
-const defaultColors = {
-  primary: { main: 'rgba(52, 152, 219, 0.7)', border: 'rgba(52, 152, 219, 1)', light: 'rgba(52, 152, 219, 0.2)' },
-  secondary: { main: 'rgba(46, 204, 113, 0.7)', border: 'rgba(46, 204, 113, 1)', light: 'rgba(46, 204, 113, 0.2)' },
-  accent: { main: 'rgba(231, 76, 60, 0.7)', border: 'rgba(231, 76, 60, 1)', light: 'rgba(231, 76, 60, 0.2)' },
-};
-
 export default function Experiments() {
   // Tailwindカラーの変数を作成
-  const [colors, setColors] = useState(defaultColors);
+  const [colors, setColors] = useState(getChartColors());
   const [isMounted, setIsMounted] = useState(false);
 
   // クライアントサイドでのみ実行されるカラー設定
   useEffect(() => {
     setIsMounted(true);
     
-    // カラー取得関数
-    const getColorWithOpacity = (colorName, opacity = 1) => {
-      try {
-        const el = document.createElement('div');
-        el.classList.add(`text-${colorName}`);
-        document.body.appendChild(el);
-        const color = window.getComputedStyle(el).color;
-        document.body.removeChild(el);
-        
-        // RGB値を抽出してRGBA形式に変換
-        const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-        if (rgbMatch) {
-          return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${opacity})`;
-        }
-        return color;
-      } catch (e) {
-        // エラーが発生した場合、デフォルト値を返す
-        console.warn('Error getting color:', e);
-        if (colorName === 'primary') {
-          return opacity === 1 ? 'rgba(52, 152, 219, 1)' : 
-                opacity === 0.2 ? 'rgba(52, 152, 219, 0.2)' : 'rgba(52, 152, 219, 0.7)';
-        } else if (colorName === 'secondary') {
-          return opacity === 1 ? 'rgba(46, 204, 113, 1)' : 
-                opacity === 0.2 ? 'rgba(46, 204, 113, 0.2)' : 'rgba(46, 204, 113, 0.7)';
-        } else {
-          return opacity === 1 ? 'rgba(231, 76, 60, 1)' : 
-                opacity === 0.2 ? 'rgba(231, 76, 60, 0.2)' : 'rgba(231, 76, 60, 0.7)';
-        }
-      }
-    };
-
     if (typeof window !== 'undefined') {
-      setColors({
-        primary: {
-          main: getColorWithOpacity('primary', 0.7),
-          border: getColorWithOpacity('primary', 1),
-          light: getColorWithOpacity('primary', 0.2),
-        },
-        secondary: {
-          main: getColorWithOpacity('secondary', 0.7),
-          border: getColorWithOpacity('secondary', 1),
-          light: getColorWithOpacity('secondary', 0.2),
-        },
-        accent: {
-          main: getColorWithOpacity('accent', 0.7),
-          border: getColorWithOpacity('accent', 1),
-          light: getColorWithOpacity('accent', 0.2),
-        },
-      });
+      setColors(getChartColors());
     }
   }, []);
 
@@ -123,42 +70,7 @@ export default function Experiments() {
     ],
   };
 
-  const taskCompletionOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: '各フェーズでのタスク達成率の比較',
-        color: colors.primary.border,
-        font: {
-          weight: 'bold'
-        }
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-        title: {
-          display: true,
-          text: '達成率 (%)',
-          color: colors.primary.border,
-        },
-        ticks: {
-          color: colors.primary.main,
-        }
-      },
-      x: {
-        ticks: {
-          color: colors.primary.main,
-        }
-      }
-    }
-  };
+  const taskCompletionOptions = getBarChartOptions(colors, '各フェーズでのタスク達成率の比較', '達成率 (%)');
 
   // コンポーネント分析のデータ
   const componentAnalysisData = {
@@ -206,49 +118,7 @@ export default function Experiments() {
     ],
   };
 
-  const componentAnalysisOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: '各手法のサンプル効率と適応能力の比較',
-        color: colors.primary.border,
-        font: {
-          weight: 'bold'
-        }
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-        title: {
-          display: true,
-          text: 'サンプル効率',
-          color: colors.primary.border,
-        },
-        ticks: {
-          color: colors.primary.main,
-        }
-      },
-      x: {
-        beginAtZero: true,
-        max: 100,
-        title: {
-          display: true,
-          text: '適応能力',
-          color: colors.primary.border,
-        },
-        ticks: {
-          color: colors.primary.main,
-        }
-      }
-    }
-  };
+  const componentAnalysisOptions = getLineChartOptions(colors, '各手法のサンプル効率と適応能力の比較', 'サンプル効率', '適応能力');
 
   return (
     <Layout title="実験と結果">

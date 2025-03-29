@@ -1,3 +1,4 @@
+import React from 'react';
 import Layout from '../../components/Layout';
 import Link from 'next/link';
 
@@ -7,253 +8,278 @@ export default function Method() {
       <div className="space-y-8">
         <header>
           <h1 className="text-3xl font-bold mb-4 text-primary">4. 提案手法</h1>
-          <p className="text-lg text-primary/80">
-            好奇心駆動型の想像力を用いた計画演算子の発見と関連政策の学習
+          <p className="text-lg text-primary">
+            Curiosity-Driven Imaginationの手法詳細
           </p>
         </header>
-
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">4.1 アプローチ概要: Bi-Model アーキテクチャ</h2>
           <div className="prose max-w-none">
             <p>
-              本研究では、オープンワールド環境における適応能力を高めるために、<span className="term font-semibold text-primary">Bi-Model（バイモデル）</span>と呼ばれる
-              ハイブリッドな二層モデル駆動型学習アプローチを提案します。このアプローチは、記号的計画と強化学習の強みを組み合わせることで、
-              未知の状況に効率的に適応する能力を実現します。
+              本研究では、オープンワールド環境における未知の状況に適応するエージェントを開発するため、
+              記号的計画と強化学習を統合したハイブリッドアプローチを提案しています。提案手法である
+              Curiosity-Driven Imagination（好奇心駆動型想像力）は、内発的好奇心による探索と
+              想像空間での計画を組み合わせることで、新しい操作（オペレータ）を効率的に発見し、
+              対応する方策を学習します。
             </p>
-
-            <div className="bg-gradient-to-r from-primary/5 to-blue-50 p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">Bi-Model アーキテクチャの構成要素</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-primary/80">1. 内発的好奇心モジュール (ICM)</h4>
-                  <p className="text-gray-700">
-                    <span className="term font-semibold text-primary/80">Intrinsic Curiosity Module</span>は、エージェントの探索を
-                    駆動する好奇心ベースのメカニズムです。予測誤差を内部報酬として利用し、未知の状態空間の効率的な探索を促進します。
+            
+            <div className="my-8">
+              <div className="bg-primary-light p-4 rounded-lg border border-primary/20">
+                <h3 className="text-xl font-semibold text-primary">本手法の主な特徴</h3>
+                <ul className="list-disc pl-6 space-y-2 mt-3 text-text">
+                  <li>
+                    <strong className="text-primary">Numerical Planning Operator Learner</strong>（数値計画オペレータ学習機）：
+                    記号的遷移から抽象的なオペレータを学習し、LTL（Linear Temporal Logic）報酬機械を生成
+                  </li>
+                  <li>
+                    <strong className="text-primary">ICM（Intrinsic Curiosity Module）駆動型探索</strong>：
+                    新規な記号的遷移に向けてエージェントを導く内発的好奇心メカニズム
+                  </li>
+                  <li>
+                    <strong className="text-primary">Bi-Level Model（二層モデル）</strong>：
+                    連続的（ニューラルネットワーク）と記号的（計画ドメイン）の二層からなる環境モデル
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-r from-primary-light to-blue-50 p-6 rounded-lg shadow-sm border border-primary/20 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-primary border-b border-primary/20 pb-2">4.1 Bi-Level Curiosityアルゴリズム</h3>
+              <p className="text-text">
+                提案するBi-Level Curiosityアルゴリズムは、連続的（低レベル）と記号的（高レベル）の二つの層で環境を理解するアプローチです。
+                このアルゴリズムは次のように機能します：
+              </p>
+              
+              <div className="mt-4 space-y-4">
+                <div className="bg-white p-4 rounded shadow-sm">
+                  <h4 className="font-semibold text-primary">連続的層（ニューラルネットワーク）</h4>
+                  <p className="text-text">
+                    ICM（Intrinsic Curiosity Module）を用いて内発的好奇心を生成し、エージェントを未知の状態へと導きます。
+                    この層は低レベルの状態表現と行動を扱い、環境との直接的なインタラクションを担当します。
                   </p>
                 </div>
-                <div>
-                  <h4 className="text-lg font-medium mb-2 text-primary/80">2. 計画報酬機械 (PRM)</h4>
-                  <p className="text-gray-700">
-                    <span className="term font-semibold text-primary/80">Planning Reward Machine</span>は、高レベルの計画目標を
-                    低レベルの報酬信号に変換するメカニズムです。これにより、計画の各ステップに対する報酬が生成され、学習が誘導されます。
+                
+                <div className="bg-white p-4 rounded shadow-sm">
+                  <h4 className="font-semibold text-primary">記号的層（計画ドメイン）</h4>
+                  <p className="text-text">
+                    連続的層から抽象化された記号的遷移を使って、想像空間（imaginary space）での計画を生成します。
+                    この想像空間では、エージェントは様々な行動シーケンスをシミュレーションし、最も効果的な計画を見つけ出します。
                   </p>
                 </div>
               </div>
+              
+              <p className="mt-4 text-text">
+                この二層アプローチの利点は、ICMによる効率的な探索と記号的計画による構造化された行動生成を組み合わせることで、
+                新しい環境への適応を加速できる点にあります。エージェントは好奇心に導かれて新しい状態を探索しながら、
+                同時に記号的知識を活用して目標達成のための効率的な計画を構築します。
+              </p>
             </div>
-
-            <p className="mt-4">
-              このアーキテクチャの核心は、<span className="font-semibold text-accent">新規性発見</span>と<span className="font-semibold text-accent">適応学習</span>の
-              二つのプロセスを統合する点にあります。新しい環境特性に遭遇すると、システムは以下のプロセスを実行します：
-            </p>
-
-            <div className="bg-gradient-to-r from-accent/5 to-accent/10 p-6 rounded-lg shadow-sm border border-accent/20 my-6">
-              <ol className="list-decimal pl-6 space-y-3 text-gray-700">
-                <li>
-                  <strong className="text-accent">計画段階</strong>: 既知のオペレータを用いてタスク達成のための計画を生成します。
-                </li>
-                <li>
-                  <strong className="text-accent">実行とモニタリング</strong>: 計画を実行し、予期しない結果や失敗を検出します。
-                </li>
-                <li>
-                  <strong className="text-accent">好奇心駆動探索</strong>: 計画の失敗点から、ICMを用いて新しい状態や遷移を探索します。
-                </li>
-                <li>
-                  <strong className="text-accent">適応学習</strong>: 新しい遷移に対する政策をPRMの報酬シグナルを用いて学習します。
-                </li>
-                <li>
-                  <strong className="text-accent">演算子抽出</strong>: 学習した政策から新しい記号的演算子を抽象化します。
-                </li>
-              </ol>
+            
+            <div className="bg-gradient-to-r from-secondary-light to-green-50 p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-secondary border-b border-secondary/20 pb-2">4.2 想像空間での計画生成</h3>
+              <p className="text-text">
+                本手法における重要な要素の一つが、「想像空間」（Imaginary Space）での計画生成です。
+                エージェントは記号的知識を用いて仮想的な計画を生成し、実際の環境で試行する前に評価します。
+              </p>
+              
+              <div className="mt-4 space-y-3">
+                <h4 className="font-semibold text-secondary">記号的計画の概要</h4>
+                <p className="text-text">
+                  記号的計画は、PDDL（Planning Domain Description Language）などの形式言語を用いて記述されるドメイン<span className="text-sm">（論文中の$\sigma$）</span>
+                  に基づいています。各状態は述語論理で表現され、オペレータ（行動）は前提条件と効果によって定義されます。
+                </p>
+                
+                <h4 className="font-semibold text-secondary mt-3">想像的計画生成プロセス</h4>
+                <ol className="list-decimal pl-6 space-y-2 text-text">
+                  <li>
+                    記号的遷移<span className="text-sm">（論文中の$T_k$）</span>から抽象的なオペレータを学習
+                  </li>
+                  <li>
+                    学習したオペレータを用いて想像的ドメイン<span className="text-sm">（論文中の$\sigma_{im}$）</span>を構築
+                  </li>
+                  <li>
+                    想像的ドメイン上で計画を生成<span className="text-sm">（論文中の$\mathcal{P}_{im}$）</span>
+                  </li>
+                  <li>
+                    生成された計画を報酬機械として変換し、実際の環境での学習に活用
+                  </li>
+                </ol>
+                
+                <p className="bg-secondary-light p-3 rounded mt-3 text-text">
+                  想像空間での計画生成の主な利点は、実際に試行錯誤せずとも様々な行動シーケンスを評価できる点です。
+                  これにより、探索空間を大幅に削減し、効率的な学習を実現しています。
+                </p>
+              </div>
             </div>
-
-            <p className="bg-gradient-to-r from-primary/10 to-blue-100 border-l-4 border-primary p-4 rounded">
-              Bi-Modelアプローチの特徴は、記号的知識と連続的制御の両方を同時に学習・更新できる点にあります。
-              これにより、サンプル効率と適応能力のトレードオフを効果的に解決しています。
-            </p>
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">4.2 ハイブリッド計画・学習アルゴリズム</h2>
-          <div className="prose max-w-none">
-            <p>
-              システムの全体的なワークフローは、<span className="term font-semibold text-primary">Hybrid Planning & Learning</span>
-              アルゴリズムとして実装されています。このアルゴリズムは、計画と学習のサイクルを以下のステップで実行します：
-            </p>
-
-            <div className="bg-gradient-to-r from-blue-50 to-primary/5 p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">Algorithm 1: Hybrid Planning & Learning</h3>
-              <div className="bg-gray-50 p-4 rounded-md font-mono text-sm">
-                <p><span className="text-blue-600">Input:</span> Planning Task 𝒯</p>
-                <p><span className="text-blue-600">Output:</span> Updated Planning Task</p>
-                <ol className="list-decimal pl-6 space-y-1">
-                  <li>𝒫 ← Plan(𝑇) <span className="text-gray-500">// 𝒫 = ⟨𝑜₁, 𝑜₂, …, 𝑜|𝒫|⟩</span></li>
-                  <li><span className="text-primary">for</span> 𝑜ᵢ ∈ 𝒫 <span className="text-primary">do</span></li>
-                  <li>  success ← Execute(𝑜ᵢ)</li>
-                  <li>  <span className="text-primary">if</span> ¬success <span className="text-primary">then</span></li>
-                  <li>    𝒯~, 𝑜ₑ, 𝑠ₑ ← UpdateProblem(𝒯) <span className="text-gray-500">// Stretch IPT</span></li>
-                  <li>    𝑜ₙₑw ← Curiosity-Driven Imagination(𝒯~, 𝑜ₑ, 𝑠ₑ)</li>
-                  <li>    <span className="text-primary">return</span> Hybrid Planning & Learning(𝒯~)</li>
-                  <li>  <span className="text-primary">end if</span></li>
-                  <li><span className="text-primary">end for</span></li>
-                  <li><span className="text-primary">return</span> 𝒯</li>
+            
+            <div className="bg-gradient-to-r from-accent-light to-red-50 p-6 rounded-lg shadow-sm border border-accent/20 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-accent border-b border-accent/20 pb-2">4.3 報酬機械（Reward Machine）の生成</h3>
+              <p className="text-text">
+                報酬機械（Reward Machine）は、時間的に拡張された報酬関数を形式的に表現するためのフレームワークです。
+                本研究では、想像空間で生成された計画を線形時相論理（LTL: Linear Temporal Logic）の式に変換し、
+                これを報酬機械として使用しています。
+              </p>
+              
+              <div className="mt-4">
+                <h4 className="font-semibold text-accent">報酬機械の構造</h4>
+                <p className="text-text">
+                  報酬機械は有限状態オートマトンとして表現され、
+                  環境の状態遷移に応じて異なる報酬を提供します。論文中では以下のように定義されています：
+                </p>
+                
+                <div className="bg-white p-4 rounded my-3">
+                  <p className="font-mono text-sm text-text">
+                    報酬機械 $\mathcal{R}_m$は、エージェントが想像的計画$\mathcal{P}_{im}$内のチェックポイントに到達したときに
+                    報酬を提供し、環境内での進捗を導きます。
+                  </p>
+                </div>
+                
+                <h4 className="font-semibold text-accent mt-4">LTL式への変換</h4>
+                <p className="text-text">
+                  想像的計画$\mathcal{P}_{im}$は、次のようにLTL式に変換されます：
+                </p>
+                
+                <div className="bg-white p-4 rounded my-3">
+                  <p className="font-mono text-sm text-text">
+                    計画内の各ステップを述語の連続として表現し、これらが順序通りに満たされるべきことを
+                    時相演算子（Eventually, Next）を用いて指定します。
+                  </p>
+                </div>
+                
+                <p className="mt-3 text-text">
+                  この報酬機械には2つの重要な役割があります：
+                </p>
+                <ol className="list-decimal pl-6 space-y-2 mt-2 text-text">
+                  <li>
+                    <strong className="text-accent">進捗ガイド</strong>：想像的計画内のチェックポイントに到達するたびに報酬を提供し、
+                    エージェントをゴールへと導く
+                  </li>
+                  <li>
+                    <strong className="text-accent">探索促進</strong>：ICMからの内発的報酬と組み合わせることで、
+                    未知の状態への探索と目標達成のバランスを取る
+                  </li>
                 </ol>
               </div>
             </div>
-
-            <p>
-              このアルゴリズムの重要なポイントは、計画の実行中に失敗が検出された場合、
-              <span className="font-semibold text-accent">Curiosity-Driven Imagination</span>プロセスを呼び出して
-              新しい演算子を発見・学習する点です。これにより、従来のアプローチでは対応できなかった
-              未知の状況に適応する能力を獲得します。
-            </p>
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">4.3 好奇心駆動型想像アルゴリズム</h2>
-          <div className="prose max-w-none">
-            <p>
-              <span className="term font-semibold text-primary">Curiosity-Driven Imagination</span>アルゴリズムは、
-              未知の遷移を探索し、その遷移を実現する政策を学習するプロセスを実装しています。
-              このアルゴリズムは、「想像力」という概念を計算的に実現するものであり、
-              未知の可能性を探索し、学習することを可能にします。
-            </p>
-
-            <div className="bg-gradient-to-r from-secondary/5 to-green-50 p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-secondary">Algorithm 2: Curiosity-Driven Imagination</h3>
-              <div className="bg-gray-50 p-4 rounded-md font-mono text-sm">
-                <p><span className="text-blue-600">Input:</span> Modified Task 𝒯~, Failed Operator 𝑜ₑ, Target State 𝑠ₑ</p>
-                <p><span className="text-blue-600">Output:</span> New Operator 𝑜ₙₑw</p>
-                <ol className="list-decimal pl-6 space-y-1">
-                  <li>Domain σᵢₘ populated with ℰ and ℱ</li>
-                  <li>Planning Task 𝑇 = ⟨ℰ, ℱ, 𝒪, 𝑠₀, 𝑔⟩</li>
-                  <li><span className="text-secondary">while</span> !done <span className="text-secondary">do</span></li>
-                  <li>  𝑠~ ← current state</li>
-                  <li>  𝑎 ← ICM.Select(π, 𝑠~, β)</li>
-                  <li>  𝑠~′, 𝑟, done ← Step(𝑠~, 𝑎)</li>
-                  <li>  UpdateICM(𝑠~, 𝑎, 𝑠~′)</li>
-                  <li>  UpdatePRM(𝑠~, 𝑎, 𝑠~′, 𝑇)</li>
-                  <li>  π ← π.Update(𝑠~, 𝑎, 𝑠~′, 𝑟)</li>
-                  <li>  <span className="text-secondary">if</span> max steps reached <span className="text-secondary">then</span></li>
-                  <li>    done ← true</li>
-                  <li>  <span className="text-secondary">end if</span></li>
-                  <li>  𝑠~ ← 𝑠~′</li>
-                  <li><span className="text-secondary">end while</span></li>
-                  <li><span className="text-secondary">if</span> success(π, 𝒯~) > η <span className="text-secondary">then</span></li>
-                  <li>  𝑥ₐₚₚₗᵧᵢₙg ← ⟨𝐼, π, β⟩</li>
-                  <li>  𝑜ₙₑw ← Abstract(𝑥ₐₚₚₗᵧᵢₙg)</li>
-                  <li>  <span className="text-secondary">return</span> 𝑜ₙₑw</li>
-                  <li><span className="text-secondary">end if</span></li>
-                  <li>UpdateCost(⟨𝑜₁, 𝑜₂, …, 𝑜|𝒫|⟩)</li>
-                  <li>UpdateICM</li>
+            
+            <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-primary border-b border-primary/20 pb-2">4.4 Intrinsic Curiosity Module (ICM)</h3>
+              <p className="text-text">
+                本研究では、効率的な探索を実現するために Pathak らによって提案された
+                Intrinsic Curiosity Module（ICM: 内発的好奇心モジュール）を採用しています。
+                ICMは、エージェントの行動の結果を予測する能力に基づいて内発的報酬を生成します。
+              </p>
+              
+              <div className="mt-4 space-y-3">
+                <h4 className="font-semibold text-primary">ICMの構成要素</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white p-4 rounded shadow-sm">
+                    <h5 className="font-medium text-primary">順モデル（Forward Model）</h5>
+                    <p className="text-sm text-text">
+                      現在の状態$s_t$と行動$a_t$から次の状態$\hat{s}_{t+1}$を予測します。
+                      予測誤差$\|{\hat{s}_{t+1} - \tilde{s}_{t+1}}\|^2$が内発的報酬$\mathcal{R}_{intrinsic}$
+                      として使用されます。
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded shadow-sm">
+                    <h5 className="font-medium text-primary">逆モデル（Inverse Model）</h5>
+                    <p className="text-sm text-text">
+                      現在の状態$s_t$と次の状態$s_{t+1}$から、その遷移を引き起こした行動$\hat{a}_t$を予測します。
+                      このモデルにより、環境のダイナミクスに関連する特徴表現が学習されます。
+                    </p>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-primary mt-4">ICMの利点</h4>
+                <ul className="list-disc pl-6 space-y-2 text-text">
+                  <li>
+                    <strong className="text-primary">希少報酬問題の解決</strong>：外部報酬が少ない環境でも効率的な探索が可能
+                  </li>
+                  <li>
+                    <strong className="text-primary">新規状態への誘導</strong>：未知の状態ほど予測誤差が大きくなるため、
+                    エージェントは自然と新しい状態を探索するよう動機づけられる
+                  </li>
+                  <li>
+                    <strong className="text-primary">ノイズへの頑健性</strong>：逆モデルを通じて環境のダイナミクスに無関係な特徴を除外
+                  </li>
+                </ul>
+                
+                <p className="bg-primary-light p-3 rounded mt-3 text-text">
+                  ICMによる内発的報酬と、報酬機械による外部報酬を組み合わせることで、
+                  エージェントは新しい環境への適応と目標達成の両方を効率的に行うことができます。
+                  特に、未知のオペレータの発見において、この組み合わせは大きな効果を発揮します。
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-secondary border-b border-secondary/20 pb-2">4.5 アルゴリズムの詳細</h3>
+              <p className="text-text">
+                論文で提案されている Curiosity-Driven Imagination のアルゴリズムは大きく分けて3つのフェーズで構成されています：
+              </p>
+              
+              <div className="bg-white p-4 rounded my-4 shadow-sm">
+                <h4 className="font-semibold text-secondary">アルゴリズムの主要フェーズ</h4>
+                <ol className="list-decimal pl-6 space-y-2 mt-2 text-text">
+                  <li>
+                    <strong className="text-secondary">想像空間での計画と報酬機械生成</strong>：
+                    記号的知識を用いて想像空間で計画を生成し、それをLTL形式の報酬機械に変換します。
+                  </li>
+                  <li>
+                    <strong className="text-secondary">環境探索とICM報酬計算</strong>：
+                    実際の環境で行動し、ICMからの好奇心報酬を計算して方策を更新します。
+                  </li>
+                  <li>
+                    <strong className="text-secondary">記号的オペレータの学習</strong>：
+                    新しい遷移$T_k$から記号的オペレータを学習し、想像的ドメイン$\sigma_{im}$とICMネットワークを更新します。
+                  </li>
                 </ol>
               </div>
-            </div>
-
-            <p>
-              このアルゴリズムの核心的な部分は以下の要素で構成されています：
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 my-6">
-              <div className="bg-gradient-to-br from-secondary/5 to-green-50 p-6 rounded-lg shadow-sm border border-secondary/20">
-                <h4 className="text-lg font-semibold mb-2 text-secondary">内発的好奇心による探索</h4>
-                <p className="text-gray-700">
-                  ICMは、現在の状態と政策に基づいて行動を選択します。好奇心パラメータβにより、
-                  探索（high β）と活用（low β）のバランスを調整します。環境の予測誤差が大きい状態ほど、
-                  高い内部報酬が与えられ、未知の状態への探索が促進されます。
-                </p>
+              
+              <p className="text-text">
+                アルゴリズムの大まかな流れは次のとおりです：
+              </p>
+              
+              <div className="bg-white p-4 rounded font-mono text-sm my-4 overflow-x-auto border border-secondary/10">
+                <pre className="text-text">
+{`1. 初期状態から開始
+2. 収束するまで繰り返し：
+   a. 想像空間で計画$\\mathcal{P}_{im}$を生成
+   b. 計画からLTL報酬機械$\\mathcal{R}_m$を生成
+   c. ICMを用いて環境を探索
+   d. 内発的報酬$\\mathcal{R}_{intrinsic}$と報酬機械$\\mathcal{R}_m$からの報酬を計算
+   e. 方策を更新
+   f. 新しい遷移から記号的オペレータを学習
+3. 収束したら発見したオペレータ$o_{discovery}$を返す`}
+                </pre>
               </div>
               
-              <div className="bg-gradient-to-br from-green-50 to-secondary/5 p-6 rounded-lg shadow-sm border border-secondary/20">
-                <h4 className="text-lg font-semibold mb-2 text-secondary">計画報酬機械による誘導</h4>
-                <p className="text-gray-700">
-                  PRMは、目標状態への接近度に基づいて報酬信号を生成します。これにより、
-                  単なるランダム探索ではなく、目標指向の探索が実現され、効率的に新しい遷移を
-                  発見することが可能になります。
-                </p>
-              </div>
+              <p className="text-text">
+                このアルゴリズムの特筆すべき点は、好奇心駆動型探索と記号的計画の統合により、
+                環境内の新しいオペレータを効率的に発見できる点です。特に、環境の変化によって
+                既存の計画が実行不可能になった場合、このアプローチは新しい解決策を
+                素早く見つけ出す能力を発揮します。
+              </p>
             </div>
-
-            <p className="bg-gradient-to-r from-secondary/10 to-green-100 border-l-4 border-secondary p-4 rounded">
-              好奇心駆動型想像アルゴリズムの重要な特性は、探索（curiosity）と目標指向（imagination）の
-              バランスを取りながら学習を進める点です。これにより、効率的なサンプル収集と
-              目標達成のための適応的な政策学習が同時に実現されています。
-            </p>
+            
+            <div className="bg-gradient-to-r from-primary-light to-accent-light p-6 rounded-lg shadow-sm my-8 border border-primary/20">
+              <h3 className="text-xl font-semibold mb-3 text-primary border-b border-primary/20 pb-2">4.6 まとめ</h3>
+              <p className="text-text">
+                Curiosity-Driven Imagination手法の核心は、内発的好奇心による効率的な探索と
+                想像空間での計画生成を組み合わせることで、未知の環境における新しいオペレータの
+                発見と学習を加速させる点にあります。Bi-Levelモデル、報酬機械、ICMの
+                それぞれが相補的に機能することで、記号的知識と連続的制御の橋渡しを実現し、
+                オープンワールド環境における適応性を大幅に向上させています。
+              </p>
+              <p className="mt-3 text-text">
+                次のセクションでは、この手法の有効性を検証するための実験設定と評価方法について説明します。
+              </p>
+            </div>
           </div>
         </section>
-
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-primary border-b-2 border-primary/20 pb-2">4.4 演算子抽象化とドメイン拡張</h2>
-          <div className="prose max-w-none">
-            <p>
-              学習した政策から新しい記号的演算子を抽出するプロセスは、連続的な行動空間と
-              記号的計画空間をブリッジする重要な要素です。このプロセスは以下のステップで構成されています：
-            </p>
-
-            <div className="bg-gradient-to-r from-accent/5 to-accent/10 p-6 rounded-lg shadow-sm border border-accent/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-accent">演算子抽象化プロセス</h3>
-              <ol className="list-decimal pl-6 space-y-2 text-gray-700">
-                <li>
-                  <strong className="text-accent">遷移サンプリング</strong>:
-                  学習した政策を用いて、開始状態から目標状態への遷移を複数回サンプリングします。
-                </li>
-                <li>
-                  <strong className="text-accent">前提条件の識別</strong>:
-                  成功した遷移の開始状態から共通の述語（Boolean または数値的）を抽出し、これを演算子の前提条件として定義します。
-                </li>
-                <li>
-                  <strong className="text-accent">効果の識別</strong>:
-                  遷移前後の状態変化から、演算子の効果を抽出します。これは、値が変化した述語の集合として定義されます。
-                </li>
-                <li>
-                  <strong className="text-accent">コスト計算</strong>:
-                  演算子の実行コストは、遷移を達成するために必要なステップ数の平均値として計算されます。
-                </li>
-                <li>
-                  <strong className="text-accent">演算子の統合</strong>:
-                  類似の効果を持つ演算子は、前提条件の一貫性を保ちながら統合され、最も低コストの演算子が選択されます。
-                </li>
-              </ol>
-            </div>
-
-            <p>
-              この抽象化プロセスにより、連続的な制御政策を記号的な計画演算子として表現することが可能になります。
-              これにより、以下の利点が得られます：
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 my-6">
-              <div className="bg-gradient-to-br from-primary/5 to-blue-50 p-6 rounded-lg shadow-sm border border-primary/20">
-                <h4 className="text-lg font-semibold mb-2 text-primary">知識の再利用</h4>
-                <p className="text-gray-700">
-                  抽象化された演算子は、将来の類似タスクに再利用できます。これにより、
-                  すでに学習した知識を新しい状況に転用することが可能になり、
-                  学習効率が向上します。
-                </p>
-              </div>
-              
-              <div className="bg-gradient-to-br from-blue-50 to-primary/5 p-6 rounded-lg shadow-sm border border-primary/20">
-                <h4 className="text-lg font-semibold mb-2 text-primary">プランニングの拡張</h4>
-                <p className="text-gray-700">
-                  新しく抽象化された演算子を計画ドメインに追加することで、
-                  エージェントの行動能力が拡張されます。これにより、
-                  以前は解決できなかった問題に対しても計画を生成できるようになります。
-                </p>
-              </div>
-            </div>
-
-            <p className="bg-gradient-to-r from-primary/10 to-blue-100 border-l-4 border-primary p-4 rounded">
-              演算子抽象化プロセスは、「想像力」の概念を計算的に実現する鍵となる要素です。
-              学習した経験を記号的知識として抽象化し、それを将来の計画に活用することで、
-              エージェントは経験から学び、適応する能力を獲得します。
-            </p>
-          </div>
-        </section>
-
         <div className="flex justify-between mt-10 pt-6 border-t border-primary/10">
           <div>
             <Link href="/related-work/">
-              <a className="text-primary hover:text-primary/70 hover:underline flex items-center">
+              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
@@ -263,7 +289,7 @@ export default function Method() {
           </div>
           <div>
             <Link href="/experiments/">
-              <a className="text-primary hover:text-primary/70 hover:underline flex items-center">
+              <a className="text-primary hover:text-primary-800 hover:underline flex items-center">
                 実験
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

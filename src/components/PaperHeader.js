@@ -34,22 +34,34 @@ export default function PaperHeader({
     
     // 著者が配列の場合は、名前と所属を適切にフォーマット
     if (Array.isArray(authors)) {
-      return authors.map((author, index) => (
-        <span key={`author-${index}`}>
-          {author.name}
-          {author.affiliations && author.affiliations.length > 0 && (
-            <sup>
-              {author.affiliations.map((affId, idx) => (
-                <span key={`aff-${index}-${idx}`}>
-                  {idx > 0 && ', '}
-                  {affId}
-                </span>
-              ))}
-            </sup>
-          )}
-          {index < authors.length - 1 && ', '}
-        </span>
-      ));
+      return authors.map((author, index) => {
+        // authorが文字列かオブジェクトかをチェック
+        if (typeof author === 'string') {
+          return (
+            <span key={`author-${index}`}>
+              {author}
+              {index < authors.length - 1 && ', '}
+            </span>
+          );
+        }
+        
+        return (
+          <span key={`author-${index}`}>
+            {author.name}
+            {author.affiliations && author.affiliations.length > 0 && (
+              <sup>
+                {author.affiliations.map((affId, idx) => (
+                  <span key={`aff-${index}-${idx}`}>
+                    {idx > 0 && ', '}
+                    {affId}
+                  </span>
+                ))}
+              </sup>
+            )}
+            {index < authors.length - 1 && ', '}
+          </span>
+        );
+      });
     }
     
     return null;
@@ -106,9 +118,9 @@ export default function PaperHeader({
         <div className="mt-4">
           <Link 
             href={paperUrl}
+            className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 

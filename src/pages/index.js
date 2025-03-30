@@ -116,70 +116,58 @@ export default function Home() {
         <section className="mt-12">
           <h2 className="text-2xl font-bold mb-6 text-primary border-b-2 border-primary/20 pb-2">論文セクション</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <Link href="/background/">
-              <a className="no-underline">
-                <div className="bg-gradient-to-br from-white to-primary-light p-5 rounded-lg shadow-sm border border-primary/20 hover:shadow-md transition-shadow duration-300 h-full">
-                  <h3 className="text-xl font-semibold mb-2 text-primary">I. 背景</h3>
-                  <p className="text-text">
-                    オープンワールド環境におけるロボット適応の課題と従来アプローチの限界について解説します。
-                  </p>
-                </div>
-              </a>
+            <Link href="/background/" className="no-underline">
+              <div className="bg-gradient-to-br from-white to-primary-light p-5 rounded-lg shadow-sm border border-primary/20 hover:shadow-md transition-shadow duration-300 h-full">
+                <h3 className="text-xl font-semibold mb-2 text-primary">I. 背景</h3>
+                <p className="text-text">
+                  オープンワールド環境におけるロボット適応の課題と従来アプローチの限界について解説します。
+                </p>
+              </div>
             </Link>
             
-            <Link href="/related-work/">
-              <a className="no-underline">
-                <div className="bg-gradient-to-br from-white to-primary-light p-5 rounded-lg shadow-sm border border-primary/20 hover:shadow-md transition-shadow duration-300 h-full">
-                  <h3 className="text-xl font-semibold mb-2 text-primary">II. 関連研究</h3>
-                  <p className="text-text">
-                    内発的好奇心、想像力ベースの計画、ハイブリッドアプローチなど、関連する研究分野を紹介します。
-                  </p>
-                </div>
-              </a>
+            <Link href="/related-work/" className="no-underline">
+              <div className="bg-gradient-to-br from-white to-primary-light p-5 rounded-lg shadow-sm border border-primary/20 hover:shadow-md transition-shadow duration-300 h-full">
+                <h3 className="text-xl font-semibold mb-2 text-primary">II. 関連研究</h3>
+                <p className="text-text">
+                  内発的好奇心、想像力ベースの計画、ハイブリッドアプローチなど、関連する研究分野を紹介します。
+                </p>
+              </div>
             </Link>
             
-            <Link href="/method/">
-              <a className="no-underline">
-                <div className="bg-gradient-to-br from-white to-accent-light p-5 rounded-lg shadow-sm border border-accent/20 hover:shadow-md transition-shadow duration-300 h-full">
-                  <h3 className="text-xl font-semibold mb-2 text-accent">IV. 提案手法</h3>
-                  <p className="text-text">
-                    Curiosity-Driven Imaginationフレームワークのアーキテクチャとコンポーネントについて詳述します。
-                  </p>
-                </div>
-              </a>
+            <Link href="/method/" className="no-underline">
+              <div className="bg-gradient-to-br from-white to-accent-light p-5 rounded-lg shadow-sm border border-accent/20 hover:shadow-md transition-shadow duration-300 h-full">
+                <h3 className="text-xl font-semibold mb-2 text-accent">IV. 提案手法</h3>
+                <p className="text-text">
+                  Curiosity-Driven Imaginationフレームワークのアーキテクチャとコンポーネントについて詳述します。
+                </p>
+              </div>
             </Link>
             
-            <Link href="/experiments/">
-              <a className="no-underline">
-                <div className="bg-gradient-to-br from-white to-secondary-light p-5 rounded-lg shadow-sm border border-secondary/20 hover:shadow-md transition-shadow duration-300 h-full">
-                  <h3 className="text-xl font-semibold mb-2 text-secondary">V. 実験</h3>
-                  <p className="text-text">
-                    提案手法を評価するためのタスク環境設計と実験条件について説明します。
-                  </p>
-                </div>
-              </a>
+            <Link href="/experiments/" className="no-underline">
+              <div className="bg-gradient-to-br from-white to-secondary-light p-5 rounded-lg shadow-sm border border-secondary/20 hover:shadow-md transition-shadow duration-300 h-full">
+                <h3 className="text-xl font-semibold mb-2 text-secondary">V. 実験</h3>
+                <p className="text-text">
+                  提案手法を評価するためのタスク環境設計と実験条件について説明します。
+                </p>
+              </div>
             </Link>
             
-            <Link href="/results/">
-              <a className="no-underline">
-                <div className="bg-gradient-to-br from-white to-secondary-light p-5 rounded-lg shadow-sm border border-secondary/20 hover:shadow-md transition-shadow duration-300 h-full">
-                  <h3 className="text-xl font-semibold mb-2 text-secondary">VI. 実験結果</h3>
-                  <p className="text-text">
-                    性能評価の結果と比較手法に対する優位性の分析を提示します。
-                  </p>
-                </div>
-              </a>
+            <Link href="/results/" className="no-underline">
+              <div className="bg-gradient-to-br from-white to-secondary-light p-5 rounded-lg shadow-sm border border-secondary/20 hover:shadow-md transition-shadow duration-300 h-full">
+                <h3 className="text-xl font-semibold mb-2 text-secondary">VI. 実験結果</h3>
+                <p className="text-text">
+                  性能評価の結果と比較手法に対する優位性の分析を提示します。
+                </p>
+              </div>
             </Link>
             
-            <Link href="/discussion/">
-              <a className="no-underline">
-                <div className="bg-gradient-to-br from-white to-accent-light p-5 rounded-lg shadow-sm border border-accent/20 hover:shadow-md transition-shadow duration-300 h-full">
-                  <h3 className="text-xl font-semibold mb-2 text-accent">VII. 考察</h3>
-                  <p className="text-text">
-                    実験結果からの知見と、提案手法の長所・限界についての議論を展開します。
-                  </p>
-                </div>
-              </a>
+            <Link href="/discussion/" className="no-underline">
+              <div className="bg-gradient-to-br from-white to-accent-light p-5 rounded-lg shadow-sm border border-accent/20 hover:shadow-md transition-shadow duration-300 h-full">
+                <h3 className="text-xl font-semibold mb-2 text-accent">VII. 考察</h3>
+                <p className="text-text">
+                  実験結果からの知見と、提案手法の長所・限界についての議論を展開します。
+                </p>
+              </div>
             </Link>
           </div>
         </section>

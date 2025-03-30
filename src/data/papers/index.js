@@ -10,7 +10,7 @@
  */
 
 // 論文データのインポート
-import curiosityDrivenImagination from './papers/curiosity-driven-imagination.js';
+import { paperData as curiosityDrivenImagination } from './curiosity-driven-imagination.js';
 
 /**
  * @typedef {import('./types').Paper} Paper

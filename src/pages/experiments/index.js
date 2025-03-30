@@ -314,12 +314,14 @@ export default function Experiments() {
                 <FigureWithCaption
                   caption="各フェーズでのタスク達成率の比較"
                   number="2"
-                  containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white"
+                  containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white p-2"
                 >
-                  <ClientSideBarChart 
-                    data={taskCompletionData} 
-                    options={taskCompletionOptions} 
-                  />
+                  <div className="w-full h-[300px] md:h-[400px]"> {/* 固定高さを設定 */}
+                    <ClientSideBarChart 
+                      data={taskCompletionData} 
+                      options={taskCompletionOptions} 
+                    />
+                  </div>
                 </FigureWithCaption>
                 
                 <p className="text-text mt-4">
@@ -369,12 +371,14 @@ export default function Experiments() {
               <FigureWithCaption
                 caption="各手法のサンプル効率と適応能力の比較"
                 number="3"
-                containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white"
+                containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white p-2"
               >
-                <ClientSideScatterChart 
-                  data={componentAnalysisData} 
-                  options={componentAnalysisOptions} 
-                />
+                <div className="w-full h-[300px] md:h-[400px]"> {/* 固定高さを設定 */}
+                  <ClientSideScatterChart 
+                    data={componentAnalysisData} 
+                    options={componentAnalysisOptions} 
+                  />
+                </div>
               </FigureWithCaption>
                 
               <div className="mt-4">

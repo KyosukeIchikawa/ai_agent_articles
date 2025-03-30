@@ -26,18 +26,29 @@ export const getColorWithOpacity = (colorName, opacity = 1) => {
       return getDefaultColor(colorName, opacity);
     }
 
-    const el = document.createElement('div');
-    el.classList.add(`text-${colorName}`);
-    document.body.appendChild(el);
+    // すでに作成済みの要素を再利用するか確認
+    let el = document.getElementById(`color-helper-${colorName}`);
+    
+    // 要素が存在しない場合は新しく作成
+    if (!el) {
+      el = document.createElement('div');
+      el.id = `color-helper-${colorName}`;
+      el.classList.add(`text-${colorName}`);
+      el.style.visibility = 'hidden';
+      el.style.position = 'absolute';
+      el.style.pointerEvents = 'none';
+      document.body.appendChild(el);
+    }
+    
+    // スタイルを計算
     const color = window.getComputedStyle(el).color;
-    document.body.removeChild(el);
-
+    
     // RGB値を抽出してRGBA形式に変換
     const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
     if (rgbMatch) {
       return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${opacity})`;
     }
-
+    
     return color;
   } catch (e) {
     console.warn('Error getting color:', e);
@@ -71,28 +82,33 @@ export const getDefaultColor = (colorName, opacity = 1) => {
  * @returns {Object} Chart.jsで使用するカラーオブジェクト
  */
 export const getChartColors = () => {
-  // SSRの場合はデフォルトカラーを返す
-  if (typeof window === 'undefined') {
+  try {
+    // SSRの場合はデフォルトカラーを返す
+    if (typeof window === 'undefined') {
+      return defaultColors;
+    }
+
+    return {
+      primary: {
+        main: getColorWithOpacity('primary', 0.7),
+        border: getColorWithOpacity('primary', 1),
+        light: getColorWithOpacity('primary', 0.2),
+      },
+      secondary: {
+        main: getColorWithOpacity('secondary', 0.7),
+        border: getColorWithOpacity('secondary', 1),
+        light: getColorWithOpacity('secondary', 0.2),
+      },
+      accent: {
+        main: getColorWithOpacity('accent', 0.7),
+        border: getColorWithOpacity('accent', 1),
+        light: getColorWithOpacity('accent', 0.2),
+      },
+    };
+  } catch (e) {
+    console.warn('Error in getChartColors:', e);
     return defaultColors;
   }
-
-  return {
-    primary: {
-      main: getColorWithOpacity('primary', 0.7),
-      border: getColorWithOpacity('primary', 1),
-      light: getColorWithOpacity('primary', 0.2),
-    },
-    secondary: {
-      main: getColorWithOpacity('secondary', 0.7),
-      border: getColorWithOpacity('secondary', 1),
-      light: getColorWithOpacity('secondary', 0.2),
-    },
-    accent: {
-      main: getColorWithOpacity('accent', 0.7),
-      border: getColorWithOpacity('accent', 1),
-      light: getColorWithOpacity('accent', 0.2),
-    },
-  };
 };
 
 /**

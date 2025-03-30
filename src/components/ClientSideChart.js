@@ -9,9 +9,12 @@ export const ClientSideBarChart = ({ data, options }) => {
   // モバイル状態の検出
   const [chartOptions, setChartOptions] = useState(options);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   // クライアントサイドでのみ実行される処理
   useEffect(() => {
+    setHasMounted(true);
+    
     const handleResize = () => {
       const isMobile = window.innerWidth < 768;
       setIsMobile(isMobile);
@@ -99,6 +102,12 @@ export const ClientSideBarChart = ({ data, options }) => {
     };
   }, [options]);
 
+  if (!hasMounted) {
+    return <div className="h-full w-full flex items-center justify-center">
+      <p className="text-primary">グラフを読み込み中...</p>
+    </div>;
+  }
+
   return (
     <div className="h-full w-full">
       <Bar 
@@ -131,9 +140,12 @@ export const ClientSideScatterChart = ({ data, options }) => {
   // モバイル状態の検出
   const [chartOptions, setChartOptions] = useState(options);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   // クライアントサイドでのみ実行される処理
   useEffect(() => {
+    setHasMounted(true);
+    
     const handleResize = () => {
       const isMobile = window.innerWidth < 768;
       setIsMobile(isMobile);
@@ -214,6 +226,12 @@ export const ClientSideScatterChart = ({ data, options }) => {
     };
   }, [options]);
 
+  if (!hasMounted) {
+    return <div className="h-full w-full flex items-center justify-center">
+      <p className="text-primary">グラフを読み込み中...</p>
+    </div>;
+  }
+
   return (
     <div className="h-full w-full">
       <Scatter 
@@ -236,9 +254,12 @@ export const ClientSideLineChart = ({ data, options }) => {
   // モバイル状態の検出
   const [chartOptions, setChartOptions] = useState(options);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   // クライアントサイドでのみ実行される処理
   useEffect(() => {
+    setHasMounted(true);
+    
     const handleResize = () => {
       const isMobile = window.innerWidth < 768;
       setIsMobile(isMobile);
@@ -318,6 +339,12 @@ export const ClientSideLineChart = ({ data, options }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, [options]);
+
+  if (!hasMounted) {
+    return <div className="h-full w-full flex items-center justify-center">
+      <p className="text-primary">グラフを読み込み中...</p>
+    </div>;
+  }
 
   return (
     <div className="h-full w-full">

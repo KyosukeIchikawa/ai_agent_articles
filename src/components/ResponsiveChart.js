@@ -19,29 +19,36 @@ const ResponsiveChart = ({
   // サーバーサイドレンダリング中にwindowオブジェクトを参照しないようにする
   const [isMobile, setIsMobile] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+  const [error, setError] = useState(false);
   
   // マウント時とリサイズ時に画面サイズを検出（クライアントサイドのみ）
   useEffect(() => {
+    // コンポーネントがマウントされたことを記録
     setHasMounted(true);
     
-    // 画面サイズの検出
-    const checkIfMobile = () => {
-      if (typeof window !== 'undefined') {
-        setIsMobile(window.innerWidth < 768); // 768px以下ならモバイル判定
-      }
-    };
-    
-    // 初回チェック
-    checkIfMobile();
-    
-    // リサイズイベントのリスナーを追加
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', checkIfMobile);
-    
-      // クリーンアップ関数
-      return () => {
-        window.removeEventListener('resize', checkIfMobile);
+    try {
+      // 画面サイズの検出
+      const checkIfMobile = () => {
+        if (typeof window !== 'undefined') {
+          setIsMobile(window.innerWidth < 768); // 768px以下ならモバイル判定
+        }
       };
+      
+      // 初回チェック
+      checkIfMobile();
+      
+      // リサイズイベントのリスナーを追加
+      if (typeof window !== 'undefined') {
+        window.addEventListener('resize', checkIfMobile);
+      
+        // クリーンアップ関数
+        return () => {
+          window.removeEventListener('resize', checkIfMobile);
+        };
+      }
+    } catch (e) {
+      console.error("ResponsiveChart error:", e);
+      setError(true);
     }
   }, []);
 
@@ -55,15 +62,22 @@ const ResponsiveChart = ({
           className={`w-full bg-gradient-to-b ${bgGradient} rounded overflow-hidden`} 
           style={{ height: isMobile ? '280px' : '320px' }}
         >
-          {/* マウント済みかつチャートが有効な場合のみレンダリング */}
-          {hasMounted && isValidChart && (
+          {/* エラーが発生した場合 */}
+          {error && (
+            <div className="h-full w-full flex items-center justify-center">
+              <p className="text-accent">グラフの読み込みに失敗しました</p>
+            </div>
+          )}
+          
+          {/* マウント済みかつチャートが有効、かつエラーなしの場合のみレンダリング */}
+          {hasMounted && isValidChart && !error && (
             <div className="h-full w-full">
               {chart}
             </div>
           )}
           
-          {/* チャートが無効な場合のフォールバック表示 */}
-          {(!isValidChart || !hasMounted) && (
+          {/* チャートが無効または未マウントの場合のフォールバック表示 */}
+          {((!isValidChart || !hasMounted) && !error) && (
             <div className="h-full w-full flex items-center justify-center">
               <p className="text-primary">
                 {!hasMounted ? "グラフを読み込み中..." : "グラフを読み込めませんでした"}

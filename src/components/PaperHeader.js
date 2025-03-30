@@ -9,9 +9,6 @@ import Link from 'next/link';
  * @param {Array|string} authors - 著者名（オプション）- 文字列または{name, affiliations}の配列
  * @param {Object} affiliations - 所属機関の辞書（オプション）
  * @param {Array} authorsWithAffiliations - 所属情報付き著者（オプション）- {name, affiliations}の配列
- * @param {string} description - 論文の説明（オプション）
- * @param {string} venue - 発表場所（オプション）
- * @param {string} date - 発表日（オプション）
  * @param {string} paperUrl - 論文URL（オプション）
  */
 export default function PaperHeader({ 
@@ -21,9 +18,6 @@ export default function PaperHeader({
   authors, 
   affiliations,
   authorsWithAffiliations,
-  description,
-  venue, 
-  date, 
   paperUrl 
 }) {
   // 著者情報のフォーマット
@@ -107,9 +101,20 @@ export default function PaperHeader({
   return (
     <header className="mb-10 mt-4 text-center">
       <div className="max-w-4xl mx-auto px-4 py-8 border-b-2 border-primary/10">
-        {/* 英語タイトル - より大きく、太字で強調 */}
+        {/* 英語タイトル - リンク付きに変更 */}
         <h1 className="text-3xl md:text-5xl font-bold mb-4 text-primary leading-tight tracking-tight">
-          {title}
+          {paperUrl ? (
+            <Link 
+              href={paperUrl}
+              className="hover:text-primary-dark transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {title}
+            </Link>
+          ) : (
+            title
+          )}
         </h1>
         
         {/* 日本語タイトル - 英語タイトルよりも小さいが、十分に目立つサイズ */}
@@ -126,50 +131,8 @@ export default function PaperHeader({
           </p>
         )}
         
-        {/* 所属情報 - ここで定義したrenderAffiliationsメソッドを使用 */}
+        {/* 所属情報 */}
         {renderAffiliations()}
-        
-        {/* 会議・日付情報 */}
-        {(venue || date) && (
-          <p className="text-md mt-4 mb-4 text-text font-medium border-t border-gray-200 pt-4 inline-block">
-            {venue}{venue && date && ', '}{date}
-          </p>
-        )}
-        
-        {/* 論文説明 */}
-        {description && (
-          <p className="mt-4 text-md text-text max-w-3xl mx-auto">
-            {description}
-          </p>
-        )}
-        
-        {/* 論文URL */}
-        {paperUrl && (
-          <div className="mt-6">
-            <Link 
-              href={paperUrl}
-              className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="h-5 w-5 mr-2" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
-                />
-              </svg>
-              原論文を読む
-            </Link>
-          </div>
-        )}
       </div>
     </header>
   );

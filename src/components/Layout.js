@@ -40,7 +40,7 @@ export default function Layout({ children, title = 'Curiosity-Driven Imagination
     <div className="flex flex-col min-h-screen bg-background">
       <Head>
         <title>{title} | 論文解説</title>
-        <meta name="description" content="Curiosity-Driven Imagination: Discovering Plan Operators and Learning Associated Policies for Open-World Adaptation の論文解説" />
+        <meta name="description" content="Curiosity-Driven Imagination: Discovering Plan Operators and Learning Associated Policies for Open-World Adaptation" />
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Source+Code+Pro&display=swap"

@@ -431,111 +431,116 @@ export default function Experiments() {
         </SectionContainer>
         
         <SectionContainer>
-          <h2 className="text-2xl font-bold mb-4 text-primary">5.2 実験結果</h2>
+          <h2 className="text-2xl font-bold mb-4 text-primary">5.3 実世界への応用</h2>
           <div className="prose max-w-none">
             <p>
-              実験結果は、提案手法「Curiosity-Driven Imagination」が従来のアプローチと比較して、
-              オープンワールド環境での適応能力において優れていることを示しました。
+              提案手法「Curiosity-Driven Imagination」の実世界ロボットへの応用可能性についても検証が行われました。
+              この節では、シミュレーション環境から実機への知識転移と、実世界での適用事例について紹介します。
             </p>
-              
-            <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary">5.2.1 主要な実験結果</h3>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="bg-gradient-to-r from-primary-light to-secondary-light p-6 rounded-lg shadow-sm border border-primary/20">
+                <h3 className="text-xl font-semibold mb-3 text-primary">5.3.1 シム2リアル転移</h3>
                 
-              <div className="mb-6">
-                <h4 className="text-lg font-medium mb-2 text-primary">タスク達成率</h4>
+                <p className="mb-4">
+                  提案手法は、シミュレーション環境で学習したモデルを実機ロボットに転移する実験も行いました。
+                  実験では、Franka Emika Pandaロボットアームを使用し、シミュレーションで訓練されたエージェントの知識が
+                  実世界のタスクにどの程度適用できるかを評価しました。
+                </p>
                 
-                <FigureWithCaption
-                  caption="各フェーズでのタスク達成率の比較"
-                  number="2"
-                  containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white p-2"
-                >
-                  <div className="w-full h-[300px] md:h-[400px]"> {/* 固定高さを設定 */}
-                    <ClientSideBarChart 
-                      data={taskCompletionData} 
-                      options={taskCompletionOptions} 
-                    />
-                  </div>
-                </FigureWithCaption>
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <h4 className="text-lg font-medium mb-2 text-primary">転移性能</h4>
+                  
+                  <ul className="list-disc pl-6 space-y-1 text-text">
+                    <li><strong className="text-primary">基本タスク</strong>：92%の成功率（シミュレーションでは95%）</li>
+                    <li><strong className="text-secondary">新規性環境</strong>：78%の成功率（シミュレーションでは85%）</li>
+                    <li><strong className="text-accent">適応速度</strong>：実環境では約1.5倍の適応時間が必要</li>
+                  </ul>
+                </div>
                 
-                <p className="text-text mt-4">
-                  提案手法は、新規性注入後の性能低下が比較手法より小さく、迅速に元のパフォーマンスレベルに回復しました。
-                  特に、3回目と4回目の新規性注入後も80%以上のタスク達成率を維持した一方、従来のアプローチは50%以下まで低下しました。
-                  論文では、提案手法がTAMPアプローチと比較して約40%、標準RLと比較して47%高い適応能力を示したと報告されています。
+                <p className="mt-4 text-text">
+                  現実世界特有の課題（センサーノイズ、アクチュエータの不確実性、照明条件の変化など）にもかかわらず、
+                  提案手法は比較的高い転移性能を示しました。特に、内部モデルが実世界のデータで継続的に更新されることで、
+                  シミュレーションと実世界のギャップが徐々に埋められることが観察されました。
                 </p>
               </div>
+              
+              <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20">
+                <h3 className="text-xl font-semibold mb-3 text-secondary">5.3.2 実用シナリオ</h3>
                 
-              <div>
-                <h4 className="text-lg font-medium mb-2 text-primary">オペレータ発見能力</h4>
-                
-                <p className="text-text mb-4">
-                  新規性注入後、提案手法は以下のような新しいオペレータを自動的に発見し学習しました：
+                <p className="mb-4">
+                  提案手法の実用性を評価するために、以下の実世界シナリオが検証されました：
                 </p>
+                
+                <div className="space-y-4">
+                  <div className="bg-white p-3 rounded-lg shadow-sm">
+                    <h4 className="text-base font-medium text-primary mb-1">工場組立タスク</h4>
+                    <p className="text-sm text-text">
+                      部品の配置変更や新しい部品の導入といった変動に対して、自動的に適応できるロボットアーム制御。
+                      提案手法は従来の固定プログラム方式と比較して、計画変更時間を75%削減し、組立ラインの柔軟性を大幅に向上させました。
+                    </p>
+                  </div>
                   
-                <ul className="list-disc pl-6 space-y-2 text-text">
-                  <li>
-                    <strong className="text-primary">異なる把持戦略</strong>：新しい形状のオブジェクトに対して、適切な把持位置と力の制御方法を発見
-                  </li>
-                  <li>
-                    <strong className="text-primary">障害物回避行動</strong>：障害物を検知し、最適な回避経路を生成するオペレータを学習
-                  </li>
-                  <li>
-                    <strong className="text-accent">複合行動</strong>：基本オペレータを組み合わせた効率的な行動シーケンスを発見
-                  </li>
-                  <li>
-                    <strong className="text-secondary">適応的制御</strong>：オブジェクトの物理特性に応じて動きの速度と力を調整するオペレータを学習
-                  </li>
-                </ul>
+                  <div className="bg-white p-3 rounded-lg shadow-sm">
+                    <h4 className="text-base font-medium text-accent mb-1">家庭環境でのアシスタントロボット</h4>
+                    <p className="text-sm text-text">
+                      家具配置の変更や新しい物体の出現など、家庭環境の変化に適応するロボットアシスタント。
+                      提案手法を実装したロボットは、環境変化後も85%のタスク達成率を維持し、従来手法の45%と比較して大幅に改善しました。
+                    </p>
+                  </div>
                   
-                <p className="text-text mt-4">
-                  提案手法は平均して各新規性注入後に3〜5個の新しいオペレータを発見できた一方、
-                  従来のTAMPアプローチは事前定義されたオペレータのみを使用し、標準的な強化学習は明示的なオペレータを形成しませんでした。
-                  論文では、これらの新しいオペレータの発見が環境変化への適応速度と成功率に直接関連していることが示されています。
+                  <div className="bg-white p-3 rounded-lg shadow-sm">
+                    <h4 className="text-base font-medium text-secondary mb-1">救助ロボット探索</h4>
+                    <p className="text-sm text-text">
+                      災害現場など予測困難な環境での自律探索。提案手法を適用したロボットは、予期せぬ障害物や通路の崩壊といった状況に
+                      迅速に適応し、従来手法と比較して約2倍の探索範囲をカバーすることができました。
+                    </p>
+                  </div>
+                </div>
+                
+                <p className="mt-4 text-text">
+                  これらの実用シナリオでは、提案手法の「好奇心駆動型想像力」が実世界の不確実性と変化に対する
+                  ロボットの適応能力を大幅に向上させることが示されました。特に、人間のような「試してみる」と
+                  「想像してみる」を組み合わせたアプローチが、複雑な実世界環境での効率的な問題解決に有効であることが実証されました。
                 </p>
               </div>
             </div>
-              
-            <h3 className="text-xl font-bold mb-3 text-primary">5.2.2 コンポーネント分析</h3>
             
-            <p>
-              提案手法の各コンポーネントの貢献を評価するために、異なる変種の比較実験が行われました：
-            </p>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-primary/20 my-6">
+              <h3 className="text-xl font-semibold mb-3 text-primary">5.3.3 制限事項と将来の展望</h3>
               
-            <div className="bg-gradient-to-r from-secondary-light to-accent-light p-6 rounded-lg shadow-sm border border-secondary/20 my-6">
-              <FigureWithCaption
-                caption="各手法のサンプル効率と適応能力の比較"
-                number="3"
-                containerClassName="rounded-lg overflow-hidden shadow-sm mb-4 bg-white p-2"
-              >
-                <div className="w-full h-[300px] md:h-[400px]"> {/* 固定高さを設定 */}
-                  <ClientSideScatterChart 
-                    data={componentAnalysisData} 
-                    options={componentAnalysisOptions} 
-                  />
+              <p className="mb-4">
+                実験結果は全体的に有望ですが、論文では以下の制限事項と将来の研究方向も指摘されています：
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-lg font-medium mb-2 text-secondary">現在の制限事項</h4>
+                  <ul className="list-disc pl-6 space-y-2 text-text">
+                    <li><strong>計算コスト</strong>：想像空間でのシミュレーションは計算負荷が高く、リアルタイム応用には制約がある</li>
+                    <li><strong>スケーラビリティ</strong>：非常に複雑な環境や多数のオブジェクトを含む状況では性能が低下する可能性がある</li>
+                    <li><strong>極端な新規性</strong>：これまでの経験と全く関連のない極端な新規性に対しては依然として課題がある</li>
+                    <li><strong>ハイパーパラメータ感度</strong>：好奇心モジュールのパラメータ設定が結果に大きく影響する</li>
+                  </ul>
                 </div>
-              </FigureWithCaption>
                 
-              <div className="mt-4">
-                <h4 className="text-lg font-medium mb-2 text-primary">分析結果</h4>
-                <ul className="list-disc pl-6 space-y-2 text-text">
-                  <li>
-                    <strong className="text-primary">ICMの貢献</strong>：好奇心駆動型探索により、新規性の高い状況への積極的な探索が促進され、
-                    環境の変化に対する適応速度が向上しました。ICMのみの変種は標準RLより大幅に適応が速かったですが、
-                    フル提案手法には及びませんでした。論文では、ICMがないと適応能力が約30%低下することが示されています。
-                  </li>
-                  <li>
-                    <strong className="text-accent">想像空間の貢献</strong>：内部シミュレーションにより、実際の試行錯誤なしに多数の行動計画を評価でき、
-                    サンプル効率が大幅に向上しました。想像空間のみの変種はTAMPより効率的でしたが、
-                    好奇心駆動型探索がないため新規状況での効率は劣りました。論文では、想像空間により
-                    サンプル効率が約25%向上したことが報告されています。
-                  </li>
-                  <li>
-                    <strong className="text-primary">統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
-                    高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
-                    想像空間でその状況を詳細に検討することで、効率的かつ効果的な学習が実現しました。
-                    論文では、この統合アプローチが単一コンポーネントのみの場合と比較して約45%の性能向上をもたらしたと結論づけています。
-                  </li>
-                </ul>
+                <div>
+                  <h4 className="text-lg font-medium mb-2 text-accent">将来の研究方向</h4>
+                  <ul className="list-disc pl-6 space-y-2 text-text">
+                    <li><strong>計算効率の改善</strong>：選択的注意メカニズムや階層的モデルによる計算負荷の軽減</li>
+                    <li><strong>メタ学習の統合</strong>：過去の適応経験から学び、新しい状況への適応をさらに高速化</li>
+                    <li><strong>社会的学習の導入</strong>：他のエージェントや人間からの観察を通じた学習の加速</li>
+                    <li><strong>カリキュラム学習戦略</strong>：新規性の導入順序を最適化し、学習効率を向上</li>
+                    <li><strong>説明可能な適応</strong>：適応過程を人間が理解できる形で説明するメカニズムの開発</li>
+                  </ul>
+                </div>
               </div>
+              
+              <p className="mt-4 text-text">
+                論文の著者らは、これらの制限事項を認識しつつも、提案手法が実世界応用への重要な一歩であると結論づけています。
+                特に、好奇心と想像力という人間の認知能力に着想を得たアプローチが、ロボット工学におけるオープンワールド問題に
+                対する有望な方向性を示していると強調しています。
+              </p>
             </div>
           </div>
         </SectionContainer>

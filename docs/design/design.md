@@ -12,16 +12,9 @@
 - **個別論文ページ** (`/papers/[paperId]/`): 特定の論文の概要ページ
 
 #### 2. 論文コンテンツ構成
-各論文のセクションごとに解説ページが分かれています
-Curiosity-Driven Imaginationの例：
-- **背景** (`/background/`): 研究背景と問題定義（セクション1-2）
-- **関連研究** (`/related-work/`): 関連する先行研究（セクション3）
-- **提案手法** (`/method/`): 提案するアプローチの詳細（セクション4）
-- **実験** (`/experiments/`): 評価方法と実験設定（セクション5）
-- **結果と分析** (`/results/`): 実験結果と考察（セクション6）
-- **議論** (`/discussion/`): 手法の限界と将来の方向性（セクション7）
-- **結論** (`/conclusion/`): 研究のまとめと結論（セクション8）
-- **参考文献** (`/references/`): 参照した文献一覧（セクション9）
+各論文のトップページと解説ページ
+- 各論文のトップページは, その論文の全体の概要と重要ポイントをまとめた導入ページとする（論文のabstractに対応）
+- 論文のセクションごとに解説ページを設ける（複数のサブセクションは1ページにまとめる）
 
 #### 3. データフロー
 - 論文データは `/src/data/papers/` ディレクトリに JSON/JS モジュール形式で保存
@@ -42,14 +35,22 @@ Curiosity-Driven Imaginationの例：
 ```
 /components
 ├── Layout.js (共通レイアウト)
-├── Header.js (ヘッダーナビゲーション)
-├── Footer.js (フッター)
-├── Sidebar.js (サイドバーナビゲーション)
-├── MathRenderer.js (数式レンダリング)
-├── Figure.js (図表コンポーネント)
-├── Citation.js (引用コンポーネント)
-├── GlossaryTerm.js (用語集ポップアップ)
-└── InteractiveDemo.js (インタラクティブデモ)
+├── Navigation.js (ナビゲーション)
+├── PaperHeader.js (論文ヘッダー情報)
+├── SectionContainer.js (セクションコンテナ)
+├── SectionHeader.js (セクションヘッダー)
+├── MathEquation.js (数式レンダリング)
+├── FigureWithCaption.js (図表コンポーネント)
+├── ResponsiveChart.js (レスポンシブ対応チャート)
+├── ClientSideChart.js (クライアントサイドレンダリングチャート)
+├── AlgorithmBlock.js (アルゴリズム表示ブロック)
+├── ExperimentTable.js (実験結果表示テーブル)
+├── ExperimentPhaseCards.js (実験フェーズ表示カード)
+├── ComparisonCard.js (比較結果表示カード)
+├── ReferenceItem.js (参考文献アイテム)
+├── ReferenceSection.js (参考文献セクション)
+├── ScrollToTop.js (トップへ戻るボタン)
+└── StartReadingButton.js (読み始めるボタン)
 ```
 
 ## UI/UX設計
@@ -76,8 +77,11 @@ Curiosity-Driven Imaginationの例：
 
 ### カラースキーム
 - プライマリカラー: #3498db (青系) - ロボティクス・AIを表現
+  - プライマリライト: #e8f4fd - プライマリカラーの軽量版、背景やハイライトに使用
 - セカンダリカラー: #2ecc71 (緑系) - 好奇心・探索を表現
+  - セカンダリライト: #e8f8f1 - セカンダリカラーの軽量版、セクション背景などに使用
 - アクセントカラー: #e74c3c (赤系) - 重要概念の強調に使用
+  - アクセントライト: #fceae8 - アクセントカラーの軽量版、警告や重要ポイントの背景に使用
 - 背景色: #f5f5f5 (明るいグレー) - 読みやすさを確保
 - テキスト色: #333333 (濃いグレー) - コントラストを確保
 
@@ -85,16 +89,29 @@ Curiosity-Driven Imaginationの例：
 - 見出し: Roboto (sans-serif)
 - 本文: Noto Sans JP (日本語対応フォント)
 - コード: Source Code Pro (monospace)
-- 数式: MathJax標準フォント
+- 数式: KaTeX標準フォント
 
 ## 機能設計
 
 ### コンテンツ表示機能
 - セクション別ページ表示
 - 数式の動的レンダリング (KaTeX使用)
+  - インライン数式と独立した数式ブロックの両方をサポート
+  - 数式番号の自動生成と参照機能
+  - 複雑な数式も美しく表示するための最適化
 - インタラクティブな図表表示
+  - 静的な画像とインタラクティブなチャートの併用
+  - データに基づく動的グラフ生成
+  - ズーム・パン・ハイライト機能の実装
+- アルゴリズム表示
+  - 疑似コードの構造化表示
+  - ステップごとの解説付き表示
 - コードスニペット表示
-- 用語集ポップアップ（専門用語にマウスオーバーで説明表示）
+  - シンタックスハイライト
+  - コピー機能
+- 固有名詞の表示
+  - 英語表記をデフォルトとし、初出時に日本語訳を括弧書きで表示（日本の中学生レベルの英語であれば日本語訳を付けない）
+  - 専門用語へのポップアップ解説（用語集連携）
 
 ### ナビゲーション機能
 - スムーズスクロール
@@ -102,10 +119,13 @@ Curiosity-Driven Imaginationの例：
 - パンくずリスト
 - 前後のセクションへのナビゲーション
 - サイドバー目次の自動更新（現在位置を表示）
+- トップへ戻るボタン（スクロール位置に応じて表示/非表示）
 
 ### インタラクティブ機能
-- 図表のズーム表示
+- 図表のズーム表示と詳細解説
+- 実験結果の比較表示
 - アルゴリズム実行の簡易デモ
+- 論文参照のポップアップ表示
 
 ## 技術実装詳細
 
@@ -117,27 +137,48 @@ Curiosity-Driven Imaginationの例：
 │   ├── images/ (画像ファイル)
 │   ├── fonts/ (フォントファイル)
 │   └── favicon.ico
-├── pages/ (ページコンポーネント)
-│   ├── index.js
-│   ├── background/index.js
-│   ├── related-work/index.js
-│   └── ...
-├── components/ (再利用可能コンポーネント)
-│   ├── Layout.js
-│   ├── Header.js
-│   └── ...
-├── styles/ (スタイル定義)
-│   ├── globals.css
-│   ├── Home.module.css
-│   └── ...
-├── lib/ (ユーティリティ関数)
-│   ├── mathUtils.js
-│   └── dataFetcher.js
-├── data/ (コンテンツデータ)
-│   ├── glossary.js (用語集データ)
-│   ├── citations.js (引用データ)
-│   └── figures.js (図表データ)
-└── next.config.js
+├── src/
+│   ├── pages/ (ページコンポーネント)
+│   │   ├── _app.js
+│   │   ├── index.js
+│   │   └── papers/
+│   │       ├── index.js
+│   │       └── [paperId]/
+│   │           ├── index.js
+│   │           └── [section].js
+│   ├── components/ (再利用可能コンポーネント)
+│   │   ├── Layout.js
+│   │   ├── Navigation.js
+│   │   └── ...（上記コンポーネント一覧参照）
+│   ├── styles/ (スタイル定義)
+│   │   ├── globals.css
+│   │   └── ...
+│   ├── utils/ (ユーティリティ関数)
+│   │   ├── chartUtils.js
+│   │   └── ...
+│   ├── data/ (コンテンツデータ)
+│   │   ├── papers/
+│   │   │   ├── index.js
+│   │   │   ├── types.js
+│   │   │   └── papers/
+│   │   │       └── ...（各論文データ）
+│   │   ├── glossary.js (用語集データ)
+│   │   └── ...
+│   └── scripts/ (ユーティリティスクリプト)
+│       ├── check-links.js
+│       ├── convert_a_to_link.js
+│       ├── remove-dark-mode.js
+│       └── ...
+├── docs/ (ドキュメント)
+│   ├── design/
+│   │   └── design.md
+│   └── requirements/
+│       └── requirements.md
+└── 設定ファイル
+    ├── next.config.js
+    ├── tailwind.config.js
+    ├── postcss.config.js
+    └── package.json
 ```
 
 ### パッケージ依存関係
@@ -156,8 +197,40 @@ Curiosity-Driven Imaginationの例：
 - コンテンツ: Markdownファイルとして管理し、next-mdxを使用して変換
 - 用語集: JSON形式で用語と説明を管理
 - 図表: SVGとCanvasを組み合わせて実装
+- 数式: KaTeXを使用したクライアントサイドレンダリング
+
+### コンポーネント詳細設計
+#### MathEquation
+- 目的: 数式を美しく表示する
+- 技術: KaTeX
+- 特徴:
+  - インライン/ブロック数式の両方をサポート
+  - 数式番号の自動付与
+  - レスポンシブ対応（スクロール可能な横長数式）
+
+#### FigureWithCaption
+- 目的: 図表とキャプションをセットで表示
+- 特徴:
+  - 画像の拡大表示機能
+  - レスポンシブ対応（小画面での適切なサイズ調整）
+  - 画像の遅延読み込み
+
+#### ResponsiveChart / ClientSideChart
+- 目的: インタラクティブなデータ可視化
+- 技術: Chart.js, D3.js
+- 特徴:
+  - クライアントサイドでのレンダリング
+  - ウィンドウサイズに応じた自動リサイズ
+  - タッチデバイス対応のインタラクション
+
+#### AlgorithmBlock
+- 目的: アルゴリズムを構造化して表示
+- 特徴:
+  - 行番号表示
+  - 構文ハイライト
+  - ステップごとの解説ポップアップ
 
 ### デプロイ設定
 - GitHub Actionsを使用した自動デプロイ
-- GitHub Pagesへのホスティング
+- GitHub Pagesまたはvercelへのホスティング
 - カスタムドメイン設定（必要に応じて）

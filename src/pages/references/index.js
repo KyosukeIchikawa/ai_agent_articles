@@ -4,8 +4,11 @@ import Navigation from '../../components/Navigation';
 import ReferenceSection from '../../components/ReferenceSection';
 import SectionHeader from '../../components/SectionHeader';
 import SectionContainer from '../../components/SectionContainer';
+import { getPaperById } from '../../data/papers';
 
 export default function References() {
+  const paper = getPaperById('curiosity-driven-imagination');
+  
   // 参考文献データを新しい形式に変換
   const referenceSections = [
     {
@@ -130,11 +133,12 @@ export default function References() {
     <Layout title="参考文献">
       <div className="space-y-8">
         <SectionHeader 
-          title="参考文献"
+          number="9"
+          title="References"
           subtitle="Curiosity-Driven Imaginationの研究に関連する文献リスト"
         />
 
-        <section>
+        <SectionContainer>
           <div className="prose max-w-none">
             <p>
               本研究と関連する重要な先行研究と参考文献を以下にまとめています。
@@ -164,7 +168,7 @@ export default function References() {
               </p>
             </SectionContainer>
           </div>
-        </section>
+        </SectionContainer>
         
         <Navigation 
           paperId="curiosity-driven-imagination"

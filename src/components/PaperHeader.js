@@ -94,9 +94,9 @@ export default function PaperHeader({
     if (!affiliations) return null;
     
     return (
-      <div className="text-sm mt-2 text-text">
+      <div className="text-sm mb-4 text-text italic max-w-2xl mx-auto">
         {Object.entries(affiliations).map(([id, affiliation]) => (
-          <div key={`affiliation-${id}`}>
+          <div key={`affiliation-${id}`} className="inline-block mx-2">
             <sup>{id}</sup> {affiliation}
           </div>
         ))}
@@ -126,16 +126,8 @@ export default function PaperHeader({
           </p>
         )}
         
-        {/* 所属情報 */}
-        {affiliations && (
-          <div className="text-sm mb-4 text-text italic max-w-2xl mx-auto">
-            {Object.entries(affiliations).map(([id, affiliation]) => (
-              <div key={`affiliation-${id}`} className="inline-block mx-2">
-                <sup>{id}</sup> {affiliation}
-              </div>
-            ))}
-          </div>
-        )}
+        {/* 所属情報 - ここで定義したrenderAffiliationsメソッドを使用 */}
+        {renderAffiliations()}
         
         {/* 会議・日付情報 */}
         {(venue || date) && (

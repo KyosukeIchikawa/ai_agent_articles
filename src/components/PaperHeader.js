@@ -105,70 +105,80 @@ export default function PaperHeader({
   };
 
   return (
-    <header className="mb-10 text-center">
-      {/* 英語タイトル - より大きく、太字で強調 */}
-      <h1 className="text-3xl md:text-5xl font-bold mb-3 text-primary leading-tight">
-        {title}
-      </h1>
-      
-      {/* 日本語タイトル - 英語タイトルよりも小さいが、十分に目立つサイズ */}
-      {jaTitle && (
-        <h2 className="text-xl md:text-2xl mb-6 text-primary-dark font-medium">
-          {jaTitle}
-        </h2>
-      )}
-      
-      {/* 著者情報 */}
-      {(authorsWithAffiliations || authors) && (
-        <p className="text-lg mb-2 text-text">
-          {formatAuthors()}
-        </p>
-      )}
-      
-      {/* 所属情報 */}
-      {affiliations && renderAffiliations()}
-      
-      {/* 会議・日付情報 */}
-      {(venue || date) && (
-        <p className="text-md mt-2 mb-4 text-text font-medium">
-          {venue}{venue && date && ', '}{date}
-        </p>
-      )}
-      
-      {/* 論文説明 */}
-      {description && (
-        <p className="mt-4 text-md text-text max-w-3xl mx-auto">
-          {description}
-        </p>
-      )}
-      
-      {/* 論文URL */}
-      {paperUrl && (
-        <div className="mt-6">
-          <Link 
-            href={paperUrl}
-            className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              className="h-5 w-5 mr-2" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
+    <header className="mb-10 mt-4 text-center">
+      <div className="max-w-4xl mx-auto px-4 py-8 border-b-2 border-primary/10">
+        {/* 英語タイトル - より大きく、太字で強調 */}
+        <h1 className="text-3xl md:text-5xl font-bold mb-4 text-primary leading-tight tracking-tight">
+          {title}
+        </h1>
+        
+        {/* 日本語タイトル - 英語タイトルよりも小さいが、十分に目立つサイズ */}
+        {jaTitle && (
+          <h2 className="text-xl md:text-2xl mb-8 text-primary-dark font-medium">
+            {jaTitle}
+          </h2>
+        )}
+        
+        {/* 著者情報 */}
+        {(authorsWithAffiliations || authors) && (
+          <p className="text-lg mb-2 text-text font-medium">
+            {formatAuthors()}
+          </p>
+        )}
+        
+        {/* 所属情報 */}
+        {affiliations && (
+          <div className="text-sm mb-4 text-text italic max-w-2xl mx-auto">
+            {Object.entries(affiliations).map(([id, affiliation]) => (
+              <div key={`affiliation-${id}`} className="inline-block mx-2">
+                <sup>{id}</sup> {affiliation}
+              </div>
+            ))}
+          </div>
+        )}
+        
+        {/* 会議・日付情報 */}
+        {(venue || date) && (
+          <p className="text-md mt-4 mb-4 text-text font-medium border-t border-gray-200 pt-4 inline-block">
+            {venue}{venue && date && ', '}{date}
+          </p>
+        )}
+        
+        {/* 論文説明 */}
+        {description && (
+          <p className="mt-4 text-md text-text max-w-3xl mx-auto">
+            {description}
+          </p>
+        )}
+        
+        {/* 論文URL */}
+        {paperUrl && (
+          <div className="mt-6">
+            <Link 
+              href={paperUrl}
+              className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
-              />
-            </svg>
-            原論文を読む
-          </Link>
-        </div>
-      )}
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="h-5 w-5 mr-2" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
+                />
+              </svg>
+              原論文を読む
+            </Link>
+          </div>
+        )}
+      </div>
     </header>
   );
 }

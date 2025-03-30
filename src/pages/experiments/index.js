@@ -251,8 +251,141 @@ export default function Experiments() {
                 これは、エージェントが学習過程で徐々に新しい状況や課題に直面することを意味します。本研究の実験では、
                 エージェントが適応能力を示すために乗り越える必要のある一連の課題が設計されました。
               </p>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <h4 className="text-lg font-medium mb-2 text-primary">基本タスク設定</h4>
+                  <p className="text-text mb-3">
+                    実験の基盤として、<span className="text-accent font-medium">RoboSuite</span>の「Pick and Place Can」タスクが採用されました。
+                    このタスクでは、ロボットアームが缶を持ち上げて指定の容器に配置する必要があります。
+                    一見単純なこのタスクでも、ロボット制御の複雑さから強化学習エージェントには難しい課題となります。
+                  </p>
+                  <p className="text-text">
+                    <strong className="text-secondary">観測空間</strong>：ロボットの関節状態、オブジェクトの位置・姿勢情報<br/>
+                    <strong className="text-secondary">行動空間</strong>：エンドエフェクタの3次元変位とグリッパーの開閉動作
+                  </p>
+                </div>
+                
+                <figure className="bg-white p-4 rounded-lg shadow-sm border border-primary/10">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="aspect-square bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg p-2 relative">
+                      <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-gray-300"></div>
+                      <div className="absolute bottom-1 left-1/4 w-1 h-16 bg-primary"></div>
+                      <div className="absolute bottom-[4.1rem] left-1/4 w-12 h-1 bg-primary"></div>
+                      <div className="absolute bottom-[4.1rem] left-[calc(25%+3rem)] w-4 h-6 bg-primary"></div>
+                      <div className="absolute right-4 bottom-2 w-8 h-4 bg-secondary rounded-t-lg"></div>
+                      <div className="absolute left-1/2 bottom-6 w-4 h-4 bg-accent rounded-full transform -translate-x-1/2"></div>
+                      <div className="text-xs text-center absolute top-2 left-0 right-0 text-primary font-medium">
+                        基本Pick&Placeタスク
+                      </div>
+                    </div>
+                    <div className="aspect-square bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg p-2 relative">
+                      <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-gray-300"></div>
+                      <div className="absolute bottom-1 left-1/4 w-1 h-16 bg-primary"></div>
+                      <div className="absolute bottom-[4.1rem] left-1/4 w-12 h-1 bg-primary"></div>
+                      <div className="absolute bottom-[4.1rem] left-[calc(25%+3rem)] w-4 h-6 bg-primary"></div>
+                      <div className="absolute right-4 bottom-2 w-8 h-4 bg-secondary rounded-t-lg"></div>
+                      <div className="absolute right-8 top-4 bottom-8 w-1 bg-primary rounded-full"></div>
+                      <div className="absolute right-4 top-6 w-3 h-3 bg-blue-400 rounded-full"></div>
+                      <div className="absolute left-1/2 bottom-6 w-4 h-4 bg-accent rounded-full transform -translate-x-1/2"></div>
+                      <div className="absolute right-1/4 top-10 w-3 h-3 bg-red-400 rounded-full"></div>
+                      <div className="text-xs text-center absolute top-2 left-0 right-0 text-primary font-medium">
+                        ロックドア新規性
+                      </div>
+                    </div>
+                  </div>
+                  <figcaption className="text-sm text-center mt-2 text-text">
+                    図: 左）基本的なPick&Placeタスク、右）ロックドア新規性が導入されたタスク環境。
+                    青いボールは近接センサーで、赤いボールはライトスイッチの位置を示します。
+                  </figcaption>
+                </figure>
+              </div>
               
-              <ExperimentPhaseCards phases={experimentPhases} />
+              <div className="mb-6">
+                <h4 className="text-lg font-medium mb-2 text-primary">新規性のカテゴリ</h4>
+                <p className="text-text mb-3">
+                  実験では、主に以下2種類の新規性カテゴリが導入されました：
+                </p>
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm border border-primary/10">
+                    <h5 className="font-medium text-primary mb-1">シフト（Shift）型新規性</h5>
+                    <p className="text-sm text-text">
+                      オブジェクトの位置や配置が変更されるものの、すべてのオブジェクトは依然として検出可能な状態を維持します。
+                      エージェントは既存の知識を部分的に転用できますが、空間的認識と動作計画の調整が必要です。
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm border border-secondary/10">
+                    <h5 className="font-medium text-secondary mb-1">障害（Disruption）型新規性</h5>
+                    <p className="text-sm text-text">
+                      タスク完了を阻害する二値的なブロック機構（ドアや障壁など）が導入されます。
+                      エージェントは新しい中間ゴールを認識し、それを達成するための新しいオペレータを発見する必要があります。
+                    </p>
+                  </div>
+                </div>
+                <p className="text-text text-sm">
+                  <strong className="text-accent">注</strong>: これらの新規性は順次導入され、重複はしません。また各新規性の間にエージェントは
+                  基本タスクでの成功率が約100%に回復した状態にリセットされるため、導入順序は結果に影響しません。
+                </p>
+              </div>
+              
+              <div className="mt-4 mb-6">
+                <h4 className="text-lg font-medium mb-3 text-primary">実験フェーズ</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {experimentPhases.map((phase, index) => (
+                    <div key={index} className="bg-white shadow-sm rounded-lg border border-primary/10 overflow-hidden">
+                      <div className="bg-gradient-to-r from-primary-light to-secondary-light p-3">
+                        <h5 className="font-semibold text-primary">{phase.title}</h5>
+                      </div>
+                      <div className="p-4">
+                        <p className="text-sm font-medium text-secondary mb-1">変更点:</p>
+                        <p className="text-sm mb-3">{phase.changes}</p>
+                        <p className="text-sm font-medium text-accent mb-1">課題:</p>
+                        <p className="text-sm">{phase.challenges}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-accent/20 my-4">
+                <h4 className="text-lg font-medium mb-2 text-primary">タスク設計の特徴</h4>
+                <ul className="list-disc pl-6 space-y-2 text-text">
+                  <li><strong className="text-primary">漸進的複雑性</strong>: タスクは単純な環境から始まり、徐々に複雑な状況を導入</li>
+                  <li><strong className="text-accent">多様な課題</strong>: 物体の形状変化、物理特性の変更、動的障害物など様々な種類の新規性</li>
+                  <li><strong className="text-secondary">測定可能な評価</strong>: 各フェーズで明確な成功基準を設け、適応性を客観的に評価</li>
+                  <li><strong className="text-primary">現実世界との関連性</strong>: 実世界のロボット操作で発生する可能性のある状況を模倣</li>
+                </ul>
+              </div>
+              
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-primary/20 my-4">
+                <h4 className="text-lg font-medium mb-2 text-primary">実験パラメータ</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h5 className="text-base font-medium text-secondary mb-1">学習設定</h5>
+                    <ul className="list-disc pl-6 space-y-1 text-sm text-text">
+                      <li>最大環境インタラクション数: <strong>500,000ステップ</strong></li>
+                      <li>各エージェントあたりのシード数: <strong>10</strong></li>
+                      <li>評価頻度: <strong>20,000ステップごと</strong></li>
+                      <li>評価エピソード数: <strong>20</strong></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="text-base font-medium text-secondary mb-1">提案手法のパラメータ</h5>
+                    <ul className="list-disc pl-6 space-y-1 text-sm text-text">
+                      <li>仮想トレーニングパラメータ <strong>T<sub>e</sub> = 5</strong></li>
+                      <li>許容閾値 <strong>θ = 1.05</strong></li>
+                      <li>主要評価指標: <strong>T<sub>adapt</sub></strong> (適応時間) と <strong>SR<sub>post-training</sub></strong> (収束後成功率)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-text mt-4">
+                この逐次的新規性注入アプローチにより、エージェントの継続的学習能力と予期せぬ変化への適応能力を評価することが可能になりました。
+                特に、提案手法の「好奇心駆動型想像力」が新しい状況に遭遇した際に、どのように内部モデルを更新し、探索戦略を調整するかを分析することができました。
+                純粋な強化学習手法は、再計画を伴う場合でも500,000ステップ内ですべての新規性に対して成功率ゼロを示し、
+                ノベルティの多い環境でのハイブリッドアプローチの重要性が実証されました。
+              </p>
             </div>
             
             <h3 className="text-xl font-bold mb-3 text-primary">5.1.3 比較手法</h3>

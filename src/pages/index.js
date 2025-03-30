@@ -31,10 +31,12 @@ export default function Home() {
   const paper = getPaperById('curiosity-driven-imagination');
   const paperInfo = {
     title: paper.fullTitle, // フルタイトルを使用
+    jaTitle: paper.jaTitle, // 日本語タイトルを追加
     subtitle: paper.subtitle,
     description: paper.description,
     authors: paper.authors,
     affiliations: paper.affiliations,
+    authorsWithAffiliations: paper.authorsWithAffiliations, // 所属情報付き著者を追加
     conference: paper.conference,
     publicationDate: paper.publicationDate
   };
@@ -45,10 +47,12 @@ export default function Home() {
         {/* 論文ヘッダー */}
         <PaperHeader 
           title={paperInfo.title}
+          jaTitle={paperInfo.jaTitle}
           subtitle={paperInfo.subtitle}
           description={paperInfo.description}
           authors={paperInfo.authors}
           affiliations={paperInfo.affiliations}
+          authorsWithAffiliations={paperInfo.authorsWithAffiliations}
           venue={paperInfo.conference}
           date={paperInfo.publicationDate}
           paperUrl={paper.arxivLink}

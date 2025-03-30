@@ -2,7 +2,16 @@ export const paperData = {
   id: 'curiosity-driven-imagination',
   title: 'Curiosity-Driven Imagination',
   fullTitle: 'Curiosity-Driven Imagination: Discovering Plan Operators and Learning Associated Policies for Open-World Adaptation',
+  jaTitle: '好奇心駆動型想像力：オープンワールド適応のための計画オペレータ発見と関連政策学習',
   authors: ['Pierrick Lorang', 'Hong Lu', 'Matthias Scheutz'],
+  affiliations: {
+    '1': 'Human-Robot Interaction Laboratory, Tufts University, USA'
+  },
+  authorsWithAffiliations: [
+    { name: 'Pierrick Lorang', affiliations: ['1'] },
+    { name: 'Hong Lu', affiliations: ['1'] },
+    { name: 'Matthias Scheutz', affiliations: ['1'] }
+  ],
   conference: 'ICRA 2025',
   publicationDate: '2025',
   arxivLink: 'https://arxiv.org/abs/2503.04931v1',

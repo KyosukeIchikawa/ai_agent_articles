@@ -11,9 +11,9 @@ export default function Method() {
     <Layout title="提案手法">
       <div className="space-y-8">
         <SectionHeader
-          title="提案手法"
+          number="4"
+          title="Proposed Method"
           subtitle="Curiosity-Driven Imaginationの手法詳細"
-          sectionNumber="3"
         />
         <section>
           <div className="prose max-w-none">
@@ -39,14 +39,14 @@ export default function Method() {
                   </li>
                   <li>
                     <strong className="text-primary">Bi-Level Model（二層モデル）</strong>：
-                    連続的（ニューラルネットワーク）と記号的（計画ドメイン）の二層からなる環境モデル
+                    低レベルのニューラルネットワークモデル（確率的遷移を学習）と高レベルの記号的計画モデル（抽象的遷移をオペレータとして捉える）の二層からなる環境モデル
                   </li>
                 </ul>
               </div>
             </div>
             
             <div className="bg-gradient-to-r from-primary-light to-primary-light/30 p-6 rounded-lg shadow-sm border border-primary/20 my-6">
-              <h3 className="text-xl font-semibold mb-3 text-primary border-b border-primary/20 pb-2">4.1 Bi-Level Curiosityアルゴリズム</h3>
+              <h3 className="text-xl font-semibold mb-3 text-primary border-b border-primary/20 pb-2">4.1 Bi-Level Curiosity Algorithm</h3>
               <p className="text-text">
                 提案するBi-Level Curiosityアルゴリズムは、連続的（低レベル）と記号的（高レベル）の二つの層で環境を理解するアプローチです。
                 このアルゴリズムは次のように機能します：
@@ -58,6 +58,7 @@ export default function Method() {
                   <p className="text-text">
                     ICM（Intrinsic Curiosity Module）を用いて内発的好奇心を生成し、エージェントを未知の状態へと導きます。
                     この層は低レベルの状態表現と行動を扱い、環境との直接的なインタラクションを担当します。
+                    特に確率的な遷移を学習することで、不確実な環境でのロバスト性を高めています。
                   </p>
                 </div>
                 
@@ -66,6 +67,7 @@ export default function Method() {
                   <p className="text-text">
                     連続的層から抽象化された記号的遷移を使って、想像空間（imaginary space）での計画を生成します。
                     この想像空間では、エージェントは様々な行動シーケンスをシミュレーションし、最も効果的な計画を見つけ出します。
+                    抽象的なオペレータを活用することで、未経験の状況にも対応可能な一般化能力を実現しています。
                   </p>
                 </div>
               </div>

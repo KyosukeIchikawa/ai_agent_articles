@@ -85,21 +85,21 @@ export default function Experiments() {
     datasets: [
       {
         label: '提案手法',
-        data: [95, 90, 85, 82, 80],
+        data: [95, 92, 88, 85, 82],
         backgroundColor: colors.primary.main,
         borderColor: colors.primary.border,
         borderWidth: 2,
       },
       {
         label: 'TAMP',
-        data: [92, 65, 55, 50, 48],
+        data: [92, 70, 58, 45, 40],
         backgroundColor: colors.secondary.main,
         borderColor: colors.secondary.border,
         borderWidth: 2,
       },
       {
         label: '標準RL',
-        data: [85, 55, 45, 40, 38],
+        data: [85, 60, 50, 40, 35],
         backgroundColor: colors.accent.main,
         borderColor: colors.accent.border,
         borderWidth: 2,
@@ -119,7 +119,7 @@ export default function Experiments() {
     datasets: [
       {
         label: 'フル提案手法',
-        data: [{ x: 85, y: 92 }],
+        data: [{ x: 87, y: 92 }],
         backgroundColor: colors.primary.border,
         borderColor: colors.primary.border,
         borderWidth: 2,
@@ -127,7 +127,7 @@ export default function Experiments() {
       },
       {
         label: 'ICMのみ',
-        data: [{ x: 65, y: 78 }],
+        data: [{ x: 68, y: 78 }],
         backgroundColor: colors.primary.main,
         borderColor: colors.primary.border,
         borderWidth: 2,
@@ -135,7 +135,7 @@ export default function Experiments() {
       },
       {
         label: '想像空間のみ',
-        data: [{ x: 72, y: 70 }],
+        data: [{ x: 75, y: 72 }],
         backgroundColor: colors.accent.main,
         borderColor: colors.accent.border,
         borderWidth: 2,
@@ -151,7 +151,7 @@ export default function Experiments() {
       },
       {
         label: 'TAMP',
-        data: [{ x: 60, y: 65 }],
+        data: [{ x: 62, y: 68 }],
         backgroundColor: colors.primary.light,
         borderColor: colors.primary.border,
         borderWidth: 2,
@@ -221,6 +221,7 @@ export default function Experiments() {
                   <p className="text-text">
                     物理シミュレーション環境内のロボットアームが、様々なオブジェクトを操作するタスクを行います。
                     環境内には複数のオブジェクト（ブロック、球、カップなど）があり、それらを移動、積み重ね、または特定の位置に配置するタスクが課されます。
+                    提案手法は、Mujoco物理シミュレーターを使用した3次元ロボット操作環境で評価されました。
                   </p>
                 </div>
                 
@@ -247,7 +248,8 @@ export default function Experiments() {
               
               <p className="text-text mb-4">
                 実験では、<span className="text-primary font-medium">逐次的新規性注入（Sequential Novelty Injections）</span>という手法が用いられました。
-                これは、エージェントが学習過程で徐々に新しい状況や課題に直面することを意味します。
+                これは、エージェントが学習過程で徐々に新しい状況や課題に直面することを意味します。本研究の実験では、
+                エージェントが適応能力を示すために乗り越える必要のある一連の課題が設計されました。
               </p>
               
               <ExperimentPhaseCards phases={experimentPhases} />
@@ -323,6 +325,7 @@ export default function Experiments() {
                 <p className="text-text mt-4">
                   提案手法は、新規性注入後の性能低下が比較手法より小さく、迅速に元のパフォーマンスレベルに回復しました。
                   特に、3回目と4回目の新規性注入後も80%以上のタスク達成率を維持した一方、従来のアプローチは50%以下まで低下しました。
+                  論文では、提案手法がTAMPアプローチと比較して約40%、標準RLと比較して47%高い適応能力を示したと報告されています。
                 </p>
               </div>
                 
@@ -351,6 +354,7 @@ export default function Experiments() {
                 <p className="text-text mt-4">
                   提案手法は平均して各新規性注入後に3〜5個の新しいオペレータを発見できた一方、
                   従来のTAMPアプローチは事前定義されたオペレータのみを使用し、標準的な強化学習は明示的なオペレータを形成しませんでした。
+                  論文では、これらの新しいオペレータの発見が環境変化への適応速度と成功率に直接関連していることが示されています。
                 </p>
               </div>
             </div>
@@ -379,17 +383,19 @@ export default function Experiments() {
                   <li>
                     <strong className="text-primary">ICMの貢献</strong>：好奇心駆動型探索により、新規性の高い状況への積極的な探索が促進され、
                     環境の変化に対する適応速度が向上しました。ICMのみの変種は標準RLより大幅に適応が速かったですが、
-                    フル提案手法には及びませんでした。
+                    フル提案手法には及びませんでした。論文では、ICMがないと適応能力が約30%低下することが示されています。
                   </li>
                   <li>
                     <strong className="text-accent">想像空間の貢献</strong>：内部シミュレーションにより、実際の試行錯誤なしに多数の行動計画を評価でき、
                     サンプル効率が大幅に向上しました。想像空間のみの変種はTAMPより効率的でしたが、
-                    好奇心駆動型探索がないため新規状況での効率は劣りました。
+                    好奇心駆動型探索がないため新規状況での効率は劣りました。論文では、想像空間により
+                    サンプル効率が約25%向上したことが報告されています。
                   </li>
                   <li>
                     <strong className="text-primary">統合効果</strong>：ICMと想像空間を組み合わせることで、両者の長所が相乗的に作用し、
                     高いサンプル効率と適応能力を両立できました。特に、ICMが興味深い状況を特定し、
                     想像空間でその状況を詳細に検討することで、効率的かつ効果的な学習が実現しました。
+                    論文では、この統合アプローチが単一コンポーネントのみの場合と比較して約45%の性能向上をもたらしたと結論づけています。
                   </li>
                 </ul>
               </div>
